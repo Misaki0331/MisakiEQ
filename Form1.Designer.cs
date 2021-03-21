@@ -68,8 +68,8 @@
             this.EQ_Index = new System.Windows.Forms.Label();
             this.EQInitOKLabel = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.Tsunami_Index = new System.Windows.Forms.Label();
             this.TsunamiInitOKLabel = new System.Windows.Forms.Label();
+            this.Tsunami_Index = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -473,15 +473,6 @@
             this.tabPage3.Text = "津波情報";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // Tsunami_Index
-            // 
-            this.Tsunami_Index.AutoSize = true;
-            this.Tsunami_Index.Location = new System.Drawing.Point(3, 3);
-            this.Tsunami_Index.Name = "Tsunami_Index";
-            this.Tsunami_Index.Size = new System.Drawing.Size(35, 12);
-            this.Tsunami_Index.TabIndex = 0;
-            this.Tsunami_Index.Text = "label5";
-            // 
             // TsunamiInitOKLabel
             // 
             this.TsunamiInitOKLabel.AutoSize = true;
@@ -490,6 +481,15 @@
             this.TsunamiInitOKLabel.Size = new System.Drawing.Size(35, 12);
             this.TsunamiInitOKLabel.TabIndex = 1;
             this.TsunamiInitOKLabel.Text = "label9";
+            // 
+            // Tsunami_Index
+            // 
+            this.Tsunami_Index.AutoSize = true;
+            this.Tsunami_Index.Location = new System.Drawing.Point(3, 3);
+            this.Tsunami_Index.Name = "Tsunami_Index";
+            this.Tsunami_Index.Size = new System.Drawing.Size(35, 12);
+            this.Tsunami_Index.TabIndex = 0;
+            this.Tsunami_Index.Text = "label5";
             // 
             // Form1
             // 

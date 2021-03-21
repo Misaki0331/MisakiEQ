@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -14,7 +15,7 @@ using System.Threading;
 namespace MisakiEQ
 {
     
-    public partial class Form1 : Form
+    public partial class Form1 : Form //このフォームは設定画面です。
     {
         public static int P2P_MaxRequest = 20;
         private static int IntervalEQ = 5;
@@ -59,6 +60,23 @@ namespace MisakiEQ
         private long EQProtoGetTweetID = 0;
         private long ReplySetTweetID = 0;
         private bool IsTweetedEEW = false;
+        private Form2 EEWNotificationWindow;
+        private EEW_Infomation EEWInfomationWindow;
+        private bool IsEEWSoundFinished = true;
+
+
+        private bool WillDisplayEEWNotification;
+        private bool WillDisplayEEWInfomation;
+        private string EEWText_Description;
+        private string EEWText_Index;
+        private string EEWText_Graph;
+        private int EEWDisplayTimer = 0;
+
+        private bool IsFirstEEW = false;
+        private int EEWAreaCount = 0;
+       
+
+
         //private Twitter TwiCliant;
 
         private static void GetLastID(ref long ID)
@@ -84,6 +102,14 @@ namespace MisakiEQ
             Timer_Tsunami.Start();
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
+            EEWNotificationWindow = new Form2();
+            EEWNotificationWindow.Show();
+            EEWInfomationWindow = new EEW_Infomation();
+            EEWInfomationWindow.Show();
+            EEWNotificationWindow.SetVisible(false);
+            EEWInfomationWindow.SetVisible(false);
+
+            
         }
         private void P2P_Request_Changed()
         {
@@ -664,7 +690,7 @@ namespace MisakiEQ
                     TweetData[page] += "\n"+vs[i];
                     len += num;
                 }
-                TweetData[0] += "#MisakiEQ #地震 #津波 ";
+                TweetData[0] += "\n#MisakiEQ #地震 #津波 ";
                 isTweet = true;
 
                 NotificationName = "津波情報(" + time.ToString("yyyy/MM/dd H:mm現在") + ")";
@@ -839,6 +865,43 @@ namespace MisakiEQ
                     if (eew.Warn)
                     {
                         EEW_IndexText = "🔴🔴⚠緊急地震速報(警報)⚠🔴🔴";
+                        if (!IsFirstEEW||EEWAreaCount<eew.WarnForecast.LocalAreas.Count)
+                        {
+                            EEWAreaCount = eew.WarnForecast.LocalAreas.Count;
+                            EEW_SEND();
+                            
+                            IsFirstEEW = true;
+                        }
+                        EEWDisplayTimer = 600;
+
+                        EEWText_Index = "";
+                        Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+                        
+                        int len = 0;
+                        for (int i = 0; i < eew.WarnForecast.District.Count; i++)
+                        {
+                            int num = sjisEnc.GetByteCount(eew.WarnForecast.District[i]) + 1;
+                            if (len + num > 24)
+                            {
+                                EEWText_Index += "\n";
+                            }
+                            else
+                            {
+                                EEWText_Index += eew.WarnForecast.District[i]+" ";
+                            }
+                            len += num+1;
+                            
+                        }
+                        EEWText_Description = eew.Hypocenter.Name + "で地震 強い揺れに警戒";
+                        EEWText_Graph ="規模 : M"+ eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
+                            "深さ : " + converter.DeepString(eew.Hypocenter.Location.Depth.Int)+ "\n" +
+                            "最大震度:" + eew.MaxIntensity.String + "\n\n"+
+                            converter.GetTime(eew.OriginTime.String).ToString("YYYY/MM/dd\nH:mm:ss発生") + "\n\n"+
+                            "第"+ eew.Serial.ToString() + "報";
+                        if (eew.Type.Code == 9) EEWText_Graph += "(最終)";
+                        EEWText_Graph += "\n\n"+ converter.GetTime(eew.AnnouncedTime.String).ToString("H:mm:ss発表");
+
+
                     }
                     else
                     {
@@ -1121,6 +1184,37 @@ namespace MisakiEQ
                     isFailEEWInit = true;
                 }
             }
+            
+            if (WillDisplayEEWInfomation != EEWInfomationWindow.GetVisible())
+            {
+                EEWInfomationWindow.SetVisible(WillDisplayEEWInfomation);
+            }
+            if (WillDisplayEEWNotification != EEWNotificationWindow.GetVisible())
+            {
+                EEWNotificationWindow.SetVisible(WillDisplayEEWNotification);
+            }
+            if (EEWText_Index != EEWInfomationWindow.GetIndex())
+            {
+                EEWInfomationWindow.SetIndex(EEWText_Index);
+            }
+            if(EEWText_Description != EEWInfomationWindow.GetDescription())
+            {
+                EEWInfomationWindow.SetDescription(EEWText_Description);
+            }
+            if (EEWText_Graph != EEWInfomationWindow.GetGraphText())
+            {
+                EEWInfomationWindow.SetGraphText(EEWText_Graph);
+            }
+            if (EEWDisplayTimer > 0)
+            {
+                EEWDisplayTimer--;
+            }
+            else
+            {
+                WillDisplayEEWInfomation = false;
+                IsFirstEEW = false;
+                EEWAreaCount = 0;
+            }
         }
 
         private void Timer_EarthQuake_Tick(object sender, EventArgs e)
@@ -1160,6 +1254,65 @@ namespace MisakiEQ
                     Thread t = new Thread(new ThreadStart(GetEEWJson));
                     t.Start();
                 }
+            }
+        }
+
+        private void EEW_SEND()
+        {
+            if (IsEEWSoundFinished)
+            {
+                if (EEWInfomationWindow.GetVisible())
+                {
+
+                    IsEEWSoundFinished = false;
+                    Task t = Task.Run(() => EEW_Display(true));
+                }
+                else
+                {
+
+
+                    IsEEWSoundFinished = false;
+                    Task t = Task.Run(() => EEW_Display(false));
+                }
+            }
+        }
+        private void EEW_Display(bool sndonly)
+        {
+            try
+            {
+                /*private bool WillDisplayEEWNotification;
+                private bool WillDisplayEEWInfomation;
+                private string EEWText_Description;
+                private string EEWText_Index;
+                */
+                
+                System.Media.SoundPlayer EEW_Warning = null;
+                
+                EEW_Warning = new System.Media.SoundPlayer();
+                EEW_Warning.SoundLocation = Directory.GetCurrentDirectory() + "\\data\\SE\\Warn.wav";
+                if (!sndonly)
+                {
+                    System.Media.SoundPlayer EEW_First = null;
+                    EEW_First = new System.Media.SoundPlayer();
+                    EEW_First.SoundLocation = Directory.GetCurrentDirectory() + "\\data\\SE\\First.wav";
+                    WillDisplayEEWNotification = true;
+                    EEW_First.PlaySync();
+                    Thread.Sleep(1500);
+                    WillDisplayEEWNotification = false;
+                    Thread.Sleep(1000);
+                }
+                EEWDisplayTimer = 600;
+                WillDisplayEEWInfomation = true;
+                EEW_Warning.PlaySync();
+                EEW_Warning.PlaySync();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                IsEEWSoundFinished = true;
             }
         }
     }
