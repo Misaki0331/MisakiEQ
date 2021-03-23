@@ -65,9 +65,9 @@
             this.Index.ForeColor = System.Drawing.Color.White;
             this.Index.Location = new System.Drawing.Point(342, 162);
             this.Index.Name = "Index";
-            this.Index.Size = new System.Drawing.Size(731, 64);
+            this.Index.Size = new System.Drawing.Size(171, 64);
             this.Index.TabIndex = 3;
-            this.Index.Text = "神奈川 福島 北海道 東京";
+            this.Index.Text = "Index";
             // 
             // GraphText
             // 
@@ -77,10 +77,8 @@
             this.GraphText.ForeColor = System.Drawing.Color.White;
             this.GraphText.Location = new System.Drawing.Point(12, 20);
             this.GraphText.Name = "GraphText";
-            this.GraphText.Size = new System.Drawing.Size(281, 380);
+            this.GraphText.Size = new System.Drawing.Size(0, 38);
             this.GraphText.TabIndex = 4;
-            this.GraphText.Text = "規模 : M7.2\r\n深さ : 50 km\r\n最大震度 : ６強\r\n\r\n2021/03/21 \r\n23:59:59発生\r\n\r\n第369報(最終)\r\n\r\n0:01:" +
-    "24発表";
             // 
             // EEW_Infomation
             // 
