@@ -13,3 +13,5 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.csproj.CoreComp
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.csproj.CopyComplete
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.exe
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.pdb
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.EEW_Infomation.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.Form2.resources
