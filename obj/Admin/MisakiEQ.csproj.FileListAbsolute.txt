@@ -1,0 +1,17 @@
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\MisakiEQ.exe.config
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\MisakiEQ.exe
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\MisakiEQ.pdb
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\CoreTweet.dll
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\Newtonsoft.Json.dll
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\CoreTweet.xml
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\Newtonsoft.Json.xml
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.csprojAssemblyReference.cache
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.EEW_Infomation.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.Form2.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.Properties.Resources.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.Form1.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.csproj.GenerateResource.cache
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.csproj.CoreCompileInputs.cache
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.csproj.CopyComplete
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.exe
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Admin\MisakiEQ.pdb

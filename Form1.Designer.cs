@@ -47,7 +47,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.RequestedCount = new System.Windows.Forms.Label();
             this.notification = new System.Windows.Forms.NotifyIcon(this.components);
-#if DEBUG || ADMIN
+#if ADMIN || DEBUG
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -290,7 +290,7 @@
             // 
             // textBox1
             // 
-#if DEBUG || ADMIN
+#if ADMIN || DEBUG
             this.textBox1.Location = new System.Drawing.Point(405, 47);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(245, 19);
@@ -502,7 +502,7 @@
             this.ClientSize = new System.Drawing.Size(800, 453);
             this.Controls.Add(this.Test_Label);
             this.Controls.Add(this.EarthquakeTab);
-#if DEBUG || ADMIN
+#if ADMIN || DEBUG
             this.Controls.Add(this.Twitter_isReply);
             this.Controls.Add(this.Twitter_Update);
             this.Controls.Add(this.Tweet_Index);
@@ -520,6 +520,7 @@
             this.Text = "設定 - MisakiEQ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

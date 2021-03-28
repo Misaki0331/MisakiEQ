@@ -99,6 +99,9 @@ namespace MisakiEQ
             Tweet_LastID = TwiList[0].Id;
             Point a = new Point(816,492);
             Size = (System.Drawing.Size)a;
+#else
+            Point b = new Point(404, 492);
+            Size = (System.Drawing.Size)b;
 #endif
             GetEQHashs(true);
             Timer_EarthQuake.Start();
@@ -113,7 +116,9 @@ namespace MisakiEQ
             EEWNotificationWindow.SetVisible(false);
             EEWInfomationWindow.SetVisible(false);
 
+            this.MaximizeBox = false;
             
+
         }
         private void P2P_Request_Changed()
         {
@@ -192,7 +197,7 @@ namespace MisakiEQ
 
         private void button1_Click(object sender, EventArgs e)
         {
-            #if DEBUG || ADMIN
+#if DEBUG || ADMIN
             Twitter TwiCliant = new Twitter();
             if (this.Twitter_isReply.Checked)
             {
@@ -218,7 +223,7 @@ namespace MisakiEQ
         private void Twitter_Update_Click(object sender, EventArgs e)
 
         {
-            #if DEBUG || ADMIN
+#if DEBUG || ADMIN
             Twitter TwiCliant = new Twitter();
             List<CoreTweet.Status> TwiList=TwiCliant.GetTweetUser("0x7FF", 1);
             this.UserName.Text = TwiList[0].User.ScreenName;
@@ -1142,6 +1147,7 @@ namespace MisakiEQ
                 this.notification.ShowBalloonTip(DisplayingNotificationTime); 
 
             }
+#if DEBUG || ADMIN
             if (isTweet)
             {
                 isTweet = false;
@@ -1149,6 +1155,7 @@ namespace MisakiEQ
                 Thread t = new Thread(new ThreadStart(TweetThread));
                 t.Start();
             }
+#endif
             if (isFailEEWInit)
             {
                 
@@ -1323,6 +1330,15 @@ namespace MisakiEQ
             finally
             {
                 IsEEWSoundFinished = true;
+            }
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if(this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
             }
         }
     }
