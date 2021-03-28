@@ -86,8 +86,9 @@ namespace MisakiEQ
         public Form1()
         {
             InitializeComponent();
+#if ADMIN || DEBUG
             Twitter TwiCliant = new Twitter();
-            this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
+            //this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
             this.P2P_Interval_EarthQuake.Value = IntervalEQ;
             this.P2P_Interval_Tsunami.Value = IntervalTsunami;
             P2P_Request_Changed();
@@ -96,6 +97,9 @@ namespace MisakiEQ
             this.UserName.Text = TwiList[0].User.ScreenName;
             this.Tweet_Index.Text = TwiList[0].Text;
             Tweet_LastID = TwiList[0].Id;
+            Point a = new Point(816,492);
+            Size = (System.Drawing.Size)a;
+#endif
             GetEQHashs(true);
             Timer_EarthQuake.Start();
             Timer_EEW.Start();
@@ -181,12 +185,14 @@ namespace MisakiEQ
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+#if DEBUG || ADMIN
             TweetText = this.textBox1.Text;
+#endif
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            #if DEBUG || ADMIN
             Twitter TwiCliant = new Twitter();
             if (this.Twitter_isReply.Checked)
             {
@@ -201,6 +207,7 @@ namespace MisakiEQ
             this.Tweet_Index.Text = TwiList[0].Text;
             Tweet_LastID = TwiList[0].Id;
             //Tweet_LastID = 
+#endif
         }
 
         private void Twitter_Author_Click(object sender, EventArgs e)
@@ -209,12 +216,15 @@ namespace MisakiEQ
         }
 
         private void Twitter_Update_Click(object sender, EventArgs e)
+
         {
+            #if DEBUG || ADMIN
             Twitter TwiCliant = new Twitter();
             List<CoreTweet.Status> TwiList=TwiCliant.GetTweetUser("0x7FF", 1);
             this.UserName.Text = TwiList[0].User.ScreenName;
             this.Tweet_Index.Text = TwiList[0].Text;
             Tweet_LastID = TwiList[0].Id;
+#endif
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -936,7 +946,7 @@ namespace MisakiEQ
                     if (!cancel)
                     {
                         
-                        if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 5.5) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
+                        if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6 && eew.Hypocenter.Location.Depth.Int<80) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
                         EEW_IndexText += eew.Hypocenter.Name + " 深さ:" + converter.DeepString(eew.Hypocenter.Location.Depth.Int) +
                             " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n"+
                             "最大震度:"+eew.MaxIntensity.String+"\n"
@@ -962,7 +972,7 @@ namespace MisakiEQ
                     {
 
                         IsTweetedEEW = true;
-                        string tweetText = EEW_IndexText += "\n#MisakiEQ #地震 #緊急地震速報";
+                        string tweetText = EEW_IndexText + "\n#MisakiEQ #地震 #緊急地震速報";
                         Twitter TwiCliant = new Twitter();
                         if (!EEW_TweetMode)
                         {

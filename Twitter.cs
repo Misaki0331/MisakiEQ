@@ -11,12 +11,15 @@ namespace MisakiEQ
 {
     class Twitter
     {
+#if ADMIN || DEBUG
         private static string consumer_key    = "5x4mO0EEaBwNPZGcSiBzqUpD6";
         private static string consumer_sec    = "SfhJmQSLCcIhRhjZZjBcPkDEhLsXSYd2ZBhULYbDVeIrtFkDf1";
         private static string accesstoken     = "1129403055374340101-rvnDpPVbnXS40X9nCoe5U2s8aq21ng";
         private static string accesstoken_sec = "qMHYChSHGYWjx17GmQNJcRPhRs1x8bl0zvHs0GdfP2wDv";
         private static Tokens tokens;
+
         public Twitter()
+
         {
             tokens = CoreTweet.Tokens.Create(consumer_key
                 , consumer_sec
@@ -31,10 +34,6 @@ namespace MisakiEQ
         public void Reply(long TweetID,string TweetText)
         {
             tokens.Statuses.Update(status : TweetText, in_reply_to_status_id:TweetID);
-        }
-        public void GetLastTweet()
-        {
-          // tokens.Users.
         }
         public string GetScreenName()
         {
@@ -52,5 +51,13 @@ namespace MisakiEQ
 
             return TwiList[0].Id;
         }
+#else
+        public void Tweet(string TweetText) { }
+        public void Reply(long TweetID, string TweetText) { }
+        public string GetScreenName() { return null; }
+        public List<Status> GetTweetUser(string UserID, int count) { return null; }
+        public long GetLatestTweetID() { return -1; }
+
+#endif
     }
 }

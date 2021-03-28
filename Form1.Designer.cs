@@ -47,6 +47,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.RequestedCount = new System.Windows.Forms.Label();
             this.notification = new System.Windows.Forms.NotifyIcon(this.components);
+#if DEBUG || ADMIN
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,6 +56,7 @@
             this.Tweet_Index = new System.Windows.Forms.Label();
             this.Twitter_Update = new System.Windows.Forms.Button();
             this.Twitter_isReply = new System.Windows.Forms.CheckBox();
+#endif
             this.Timer_EarthQuake = new System.Windows.Forms.Timer(this.components);
             this.Timer_Tsunami = new System.Windows.Forms.Timer(this.components);
             this.Update = new System.Windows.Forms.Timer(this.components);
@@ -288,6 +290,7 @@
             // 
             // textBox1
             // 
+#if DEBUG || ADMIN
             this.textBox1.Location = new System.Drawing.Point(405, 47);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(245, 19);
@@ -361,6 +364,7 @@
             this.Twitter_isReply.Text = "前ツイートにリプライ";
             this.Twitter_isReply.UseVisualStyleBackColor = true;
             this.Twitter_isReply.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+#endif
             // 
             // Timer_EarthQuake
             // 
@@ -498,6 +502,7 @@
             this.ClientSize = new System.Drawing.Size(800, 453);
             this.Controls.Add(this.Test_Label);
             this.Controls.Add(this.EarthquakeTab);
+#if DEBUG || ADMIN
             this.Controls.Add(this.Twitter_isReply);
             this.Controls.Add(this.Twitter_Update);
             this.Controls.Add(this.Tweet_Index);
@@ -506,6 +511,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
+#endif
             this.Controls.Add(this.RequestedCount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
@@ -530,7 +536,7 @@
 
         }
 
-        #endregion
+#endregion
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown P2P_Interval_EarthQuake;
@@ -549,6 +555,7 @@
         private System.Windows.Forms.Label P2P_Request_Usage;
         private System.Windows.Forms.ProgressBar P2P_Progress_Usage;
         private System.Windows.Forms.NotifyIcon notification;
+#if ADMIN || DEBUG
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
@@ -557,6 +564,7 @@
         private System.Windows.Forms.Label Tweet_Index;
         private System.Windows.Forms.Button Twitter_Update;
         private System.Windows.Forms.CheckBox Twitter_isReply;
+#endif
         private System.Windows.Forms.Timer Timer_EarthQuake;
         private System.Windows.Forms.Timer Timer_Tsunami;
         private System.Windows.Forms.Timer Update;
