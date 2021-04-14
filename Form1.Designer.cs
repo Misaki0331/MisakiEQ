@@ -47,7 +47,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.RequestedCount = new System.Windows.Forms.Label();
             this.notification = new System.Windows.Forms.NotifyIcon(this.components);
-#if ADMIN || DEBUG
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,7 +55,6 @@
             this.Tweet_Index = new System.Windows.Forms.Label();
             this.Twitter_Update = new System.Windows.Forms.Button();
             this.Twitter_isReply = new System.Windows.Forms.CheckBox();
-#endif
             this.Timer_EarthQuake = new System.Windows.Forms.Timer(this.components);
             this.Timer_Tsunami = new System.Windows.Forms.Timer(this.components);
             this.Update = new System.Windows.Forms.Timer(this.components);
@@ -72,6 +70,21 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.TsunamiInitOKLabel = new System.Windows.Forms.Label();
             this.Tsunami_Index = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.MisakiEQ_Infomation = new System.Windows.Forms.TabPage();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.MisakiEQ_LatestData = new System.Windows.Forms.TabPage();
+            this.MisakiEQ_Status = new System.Windows.Forms.TabPage();
+            this.MisakiEQ_Settings = new System.Windows.Forms.TabPage();
+            this.SettingTab = new System.Windows.Forms.TabControl();
+            this.DataUpdateSettings = new System.Windows.Forms.TabPage();
+            this.TwitterSettings = new System.Windows.Forms.TabPage();
+            this.SettingsAbout = new System.Windows.Forms.TabPage();
+            this.TwitterLink = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -79,6 +92,17 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.MisakiEQ_Infomation.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.MisakiEQ_LatestData.SuspendLayout();
+            this.MisakiEQ_Status.SuspendLayout();
+            this.MisakiEQ_Settings.SuspendLayout();
+            this.SettingTab.SuspendLayout();
+            this.DataUpdateSettings.SuspendLayout();
+            this.TwitterSettings.SuspendLayout();
+            this.SettingsAbout.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -128,7 +152,7 @@
             this.groupBox1.Controls.Add(this.P2P_ErrorMassage);
             this.groupBox1.Controls.Add(this.P2P_Interval_EarthQuake);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(34, 27);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(317, 174);
             this.groupBox1.TabIndex = 2;
@@ -262,7 +286,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 216);
+            this.label4.Location = new System.Drawing.Point(3, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 12);
             this.label4.TabIndex = 3;
@@ -272,7 +296,7 @@
             // RequestedCount
             // 
             this.RequestedCount.AutoSize = true;
-            this.RequestedCount.Location = new System.Drawing.Point(32, 204);
+            this.RequestedCount.Location = new System.Drawing.Point(3, 4);
             this.RequestedCount.Name = "RequestedCount";
             this.RequestedCount.Size = new System.Drawing.Size(82, 12);
             this.RequestedCount.TabIndex = 4;
@@ -290,8 +314,7 @@
             // 
             // textBox1
             // 
-#if ADMIN || DEBUG
-            this.textBox1.Location = new System.Drawing.Point(405, 47);
+            this.textBox1.Location = new System.Drawing.Point(8, 22);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(245, 19);
             this.textBox1.TabIndex = 5;
@@ -299,7 +322,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(656, 46);
+            this.button1.Location = new System.Drawing.Point(259, 21);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(73, 20);
             this.button1.TabIndex = 6;
@@ -310,7 +333,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(403, 32);
+            this.label2.Location = new System.Drawing.Point(6, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 12);
             this.label2.TabIndex = 7;
@@ -319,7 +342,7 @@
             // Twitter_Author
             // 
             this.Twitter_Author.AutoSize = true;
-            this.Twitter_Author.Location = new System.Drawing.Point(506, 32);
+            this.Twitter_Author.Location = new System.Drawing.Point(109, 7);
             this.Twitter_Author.Name = "Twitter_Author";
             this.Twitter_Author.Size = new System.Drawing.Size(59, 12);
             this.Twitter_Author.TabIndex = 8;
@@ -329,7 +352,7 @@
             // UserName
             // 
             this.UserName.AutoSize = true;
-            this.UserName.Location = new System.Drawing.Point(403, 89);
+            this.UserName.Location = new System.Drawing.Point(6, 64);
             this.UserName.Name = "UserName";
             this.UserName.Size = new System.Drawing.Size(58, 12);
             this.UserName.TabIndex = 9;
@@ -338,7 +361,7 @@
             // Tweet_Index
             // 
             this.Tweet_Index.AutoSize = true;
-            this.Tweet_Index.Location = new System.Drawing.Point(403, 101);
+            this.Tweet_Index.Location = new System.Drawing.Point(6, 76);
             this.Tweet_Index.Name = "Tweet_Index";
             this.Tweet_Index.Size = new System.Drawing.Size(63, 12);
             this.Tweet_Index.TabIndex = 10;
@@ -346,7 +369,7 @@
             // 
             // Twitter_Update
             // 
-            this.Twitter_Update.Location = new System.Drawing.Point(405, 67);
+            this.Twitter_Update.Location = new System.Drawing.Point(8, 42);
             this.Twitter_Update.Name = "Twitter_Update";
             this.Twitter_Update.Size = new System.Drawing.Size(57, 23);
             this.Twitter_Update.TabIndex = 11;
@@ -357,14 +380,13 @@
             // Twitter_isReply
             // 
             this.Twitter_isReply.AutoSize = true;
-            this.Twitter_isReply.Location = new System.Drawing.Point(656, 24);
+            this.Twitter_isReply.Location = new System.Drawing.Point(259, 3);
             this.Twitter_isReply.Name = "Twitter_isReply";
             this.Twitter_isReply.Size = new System.Drawing.Size(114, 16);
             this.Twitter_isReply.TabIndex = 12;
             this.Twitter_isReply.Text = "前ツイートにリプライ";
             this.Twitter_isReply.UseVisualStyleBackColor = true;
             this.Twitter_isReply.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-#endif
             // 
             // Timer_EarthQuake
             // 
@@ -378,7 +400,6 @@
             // 
             // Update
             // 
-            this.Update.Enabled = true;
             this.Update.Tick += new System.EventHandler(this.Update_Tick);
             // 
             // Timer_EEW
@@ -399,7 +420,7 @@
             this.EarthquakeTab.Controls.Add(this.tabPage1);
             this.EarthquakeTab.Controls.Add(this.tabPage2);
             this.EarthquakeTab.Controls.Add(this.tabPage3);
-            this.EarthquakeTab.Location = new System.Drawing.Point(28, 231);
+            this.EarthquakeTab.Location = new System.Drawing.Point(3, 6);
             this.EarthquakeTab.Name = "EarthquakeTab";
             this.EarthquakeTab.SelectedIndex = 0;
             this.EarthquakeTab.Size = new System.Drawing.Size(334, 220);
@@ -495,26 +516,168 @@
             this.Tsunami_Index.TabIndex = 0;
             this.Tsunami_Index.Text = "label5";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.MisakiEQ_Infomation);
+            this.tabControl1.Controls.Add(this.MisakiEQ_Status);
+            this.tabControl1.Controls.Add(this.MisakiEQ_Settings);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(800, 456);
+            this.tabControl1.TabIndex = 15;
+            // 
+            // MisakiEQ_Infomation
+            // 
+            this.MisakiEQ_Infomation.Controls.Add(this.tabControl3);
+            this.MisakiEQ_Infomation.Location = new System.Drawing.Point(4, 22);
+            this.MisakiEQ_Infomation.Name = "MisakiEQ_Infomation";
+            this.MisakiEQ_Infomation.Padding = new System.Windows.Forms.Padding(3);
+            this.MisakiEQ_Infomation.Size = new System.Drawing.Size(792, 430);
+            this.MisakiEQ_Infomation.TabIndex = 0;
+            this.MisakiEQ_Infomation.Text = "地震データ";
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.MisakiEQ_LatestData);
+            this.tabControl3.Location = new System.Drawing.Point(-4, 0);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(800, 434);
+            this.tabControl3.TabIndex = 0;
+            // 
+            // MisakiEQ_LatestData
+            // 
+            this.MisakiEQ_LatestData.Controls.Add(this.EarthquakeTab);
+            this.MisakiEQ_LatestData.Location = new System.Drawing.Point(4, 22);
+            this.MisakiEQ_LatestData.Name = "MisakiEQ_LatestData";
+            this.MisakiEQ_LatestData.Padding = new System.Windows.Forms.Padding(3);
+            this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 408);
+            this.MisakiEQ_LatestData.TabIndex = 0;
+            this.MisakiEQ_LatestData.Text = "受信データ";
+            // 
+            // MisakiEQ_Status
+            // 
+            this.MisakiEQ_Status.Controls.Add(this.RequestedCount);
+            this.MisakiEQ_Status.Controls.Add(this.label4);
+            this.MisakiEQ_Status.Location = new System.Drawing.Point(4, 22);
+            this.MisakiEQ_Status.Name = "MisakiEQ_Status";
+            this.MisakiEQ_Status.Padding = new System.Windows.Forms.Padding(3);
+            this.MisakiEQ_Status.Size = new System.Drawing.Size(792, 430);
+            this.MisakiEQ_Status.TabIndex = 1;
+            this.MisakiEQ_Status.Text = "ステータス";
+            // 
+            // MisakiEQ_Settings
+            // 
+            this.MisakiEQ_Settings.Controls.Add(this.SettingTab);
+            this.MisakiEQ_Settings.Location = new System.Drawing.Point(4, 22);
+            this.MisakiEQ_Settings.Name = "MisakiEQ_Settings";
+            this.MisakiEQ_Settings.Size = new System.Drawing.Size(792, 430);
+            this.MisakiEQ_Settings.TabIndex = 2;
+            this.MisakiEQ_Settings.Text = "設定";
+            // 
+            // SettingTab
+            // 
+            this.SettingTab.Controls.Add(this.DataUpdateSettings);
+            this.SettingTab.Controls.Add(this.TwitterSettings);
+            this.SettingTab.Controls.Add(this.SettingsAbout);
+            this.SettingTab.Location = new System.Drawing.Point(0, 0);
+            this.SettingTab.Name = "SettingTab";
+            this.SettingTab.SelectedIndex = 0;
+            this.SettingTab.Size = new System.Drawing.Size(796, 434);
+            this.SettingTab.TabIndex = 0;
+            // 
+            // DataUpdateSettings
+            // 
+            this.DataUpdateSettings.Controls.Add(this.groupBox1);
+            this.DataUpdateSettings.Location = new System.Drawing.Point(4, 22);
+            this.DataUpdateSettings.Name = "DataUpdateSettings";
+            this.DataUpdateSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.DataUpdateSettings.Size = new System.Drawing.Size(788, 408);
+            this.DataUpdateSettings.TabIndex = 0;
+            this.DataUpdateSettings.Text = "データ更新頻度";
+            // 
+            // TwitterSettings
+            // 
+            this.TwitterSettings.AutoScroll = true;
+            this.TwitterSettings.Controls.Add(this.label2);
+            this.TwitterSettings.Controls.Add(this.textBox1);
+            this.TwitterSettings.Controls.Add(this.Tweet_Index);
+            this.TwitterSettings.Controls.Add(this.Twitter_Update);
+            this.TwitterSettings.Controls.Add(this.button1);
+            this.TwitterSettings.Controls.Add(this.UserName);
+            this.TwitterSettings.Controls.Add(this.Twitter_isReply);
+            this.TwitterSettings.Controls.Add(this.Twitter_Author);
+            this.TwitterSettings.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TwitterSettings.Location = new System.Drawing.Point(4, 22);
+            this.TwitterSettings.Name = "TwitterSettings";
+            this.TwitterSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.TwitterSettings.Size = new System.Drawing.Size(788, 408);
+            this.TwitterSettings.TabIndex = 1;
+            this.TwitterSettings.Text = "Twitter";
+            // 
+            // SettingsAbout
+            // 
+            this.SettingsAbout.Controls.Add(this.TwitterLink);
+            this.SettingsAbout.Controls.Add(this.label5);
+            this.SettingsAbout.Location = new System.Drawing.Point(4, 22);
+            this.SettingsAbout.Name = "SettingsAbout";
+            this.SettingsAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.SettingsAbout.Size = new System.Drawing.Size(788, 408);
+            this.SettingsAbout.TabIndex = 2;
+            this.SettingsAbout.Text = "バージョン";
+            // 
+            // TwitterLink
+            // 
+            this.TwitterLink.AutoSize = true;
+            this.TwitterLink.Location = new System.Drawing.Point(161, 110);
+            this.TwitterLink.Name = "TwitterLink";
+            this.TwitterLink.Size = new System.Drawing.Size(45, 12);
+            this.TwitterLink.TabIndex = 1;
+            this.TwitterLink.TabStop = true;
+            this.TwitterLink.Text = "@0x7FF";
+            this.TwitterLink.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.TwitterLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.TwitterLink_LinkClicked);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 12);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "MisakiEQ Version 0.1.0";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 459);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 24);
+            this.statusStrip1.TabIndex = 16;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 18);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(69, 19);
+            this.toolStripStatusLabel1.Text = "準備完了";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 453);
+            this.ClientSize = new System.Drawing.Size(800, 483);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Test_Label);
-            this.Controls.Add(this.EarthquakeTab);
-#if ADMIN || DEBUG
-            this.Controls.Add(this.Twitter_isReply);
-            this.Controls.Add(this.Twitter_Update);
-            this.Controls.Add(this.Tweet_Index);
-            this.Controls.Add(this.UserName);
-            this.Controls.Add(this.Twitter_Author);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-#endif
-            this.Controls.Add(this.RequestedCount);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "設定 - MisakiEQ";
@@ -532,6 +695,21 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.MisakiEQ_Infomation.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
+            this.MisakiEQ_LatestData.ResumeLayout(false);
+            this.MisakiEQ_Status.ResumeLayout(false);
+            this.MisakiEQ_Status.PerformLayout();
+            this.MisakiEQ_Settings.ResumeLayout(false);
+            this.SettingTab.ResumeLayout(false);
+            this.DataUpdateSettings.ResumeLayout(false);
+            this.TwitterSettings.ResumeLayout(false);
+            this.TwitterSettings.PerformLayout();
+            this.SettingsAbout.ResumeLayout(false);
+            this.SettingsAbout.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -556,7 +734,7 @@
         private System.Windows.Forms.Label P2P_Request_Usage;
         private System.Windows.Forms.ProgressBar P2P_Progress_Usage;
         private System.Windows.Forms.NotifyIcon notification;
-#if ADMIN || DEBUG
+
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
@@ -565,7 +743,7 @@
         private System.Windows.Forms.Label Tweet_Index;
         private System.Windows.Forms.Button Twitter_Update;
         private System.Windows.Forms.CheckBox Twitter_isReply;
-#endif
+
         private System.Windows.Forms.Timer Timer_EarthQuake;
         private System.Windows.Forms.Timer Timer_Tsunami;
         private System.Windows.Forms.Timer Update;
@@ -581,6 +759,21 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label TsunamiInitOKLabel;
         private System.Windows.Forms.Label Tsunami_Index;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage MisakiEQ_Infomation;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage MisakiEQ_LatestData;
+        private System.Windows.Forms.TabPage MisakiEQ_Status;
+        private System.Windows.Forms.TabPage MisakiEQ_Settings;
+        private System.Windows.Forms.TabControl SettingTab;
+        private System.Windows.Forms.TabPage DataUpdateSettings;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TabPage TwitterSettings;
+        private System.Windows.Forms.TabPage SettingsAbout;
+        private System.Windows.Forms.LinkLabel TwitterLink;
+        private System.Windows.Forms.Label label5;
     }
 }
 

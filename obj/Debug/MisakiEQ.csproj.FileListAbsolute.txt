@@ -15,3 +15,4 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\CoreTweet.dll
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\CoreTweet.xml
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.EEW_Infomation.resources
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.Form2.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.Init.resources

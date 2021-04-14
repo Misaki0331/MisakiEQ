@@ -15,3 +15,4 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Release\MisakiEQ.exe
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Release\MisakiEQ.pdb
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Release\MisakiEQ.Form2.resources
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Release\MisakiEQ.EEW_Infomation.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Release\MisakiEQ.Init.resources

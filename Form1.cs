@@ -74,7 +74,7 @@ namespace MisakiEQ
 
         private bool IsFirstEEW = false;
         private int EEWAreaCount = 0;
-       
+        Init InitWindow;
 
 
         //private Twitter TwiCliant;
@@ -85,8 +85,13 @@ namespace MisakiEQ
         }
         public Form1()
         {
+            InitWindow = new Init();
+            InitWindow.Location = new Point(0, 0);
+            InitWindow.Show();
+            InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             InitializeComponent();
 #if ADMIN || DEBUG
+            InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
             Twitter TwiCliant = new Twitter();
             //this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
             this.P2P_Interval_EarthQuake.Value = IntervalEQ;
@@ -100,15 +105,26 @@ namespace MisakiEQ
             Point a = new Point(816,492);
             Size = (System.Drawing.Size)a;
 #else
-            Point b = new Point(404, 492);
-            Size = (System.Drawing.Size)b;
+            InitWindow.SetInfo(30, "ビルド設定による機能の制限化を実行中...");
+            //Point b = new Point(404, 492);
+            //Size = (System.Drawing.Size)b;
+            textBox1.Visible=false;
+            button1.Visible=false;
+            label2.Visible=false;
+            Twitter_Author.Visible=false;
+            UserName.Visible=false;
+            Tweet_Index.Visible=false;
+            Twitter_Update.Visible=false;
+            Twitter_isReply.Visible=false;
+            SettingTab.TabPages.Remove(TwitterSettings);
+            P2P_Request_Changed();
 #endif
+            InitWindow.SetInfo(60, "インターネットから現在の地震情報を取得中です...");
             GetEQHashs(true);
-            Timer_EarthQuake.Start();
-            Timer_EEW.Start();
-            Timer_Tsunami.Start();
+            
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
+            InitWindow.SetInfo(80, "緊急地震速報のウィンドウを作成中です...");
             EEWNotificationWindow = new Form2();
             EEWNotificationWindow.Show();
             EEWInfomationWindow = new EEW_Infomation();
@@ -117,8 +133,14 @@ namespace MisakiEQ
             EEWInfomationWindow.SetVisible(false);
 
             this.MaximizeBox = false;
+            InitWindow.SetInfo(90, "自動更新の設定中です...");
+            Timer_EarthQuake.Start();
+            Timer_EEW.Start();
+            Timer_Tsunami.Start();
             
-
+            InitWindow.SetInfo(100, "完了");
+            InitWindow.Close();
+            Update.Start();
         }
         private void P2P_Request_Changed()
         {
@@ -261,7 +283,9 @@ namespace MisakiEQ
             {
                 if (getFromWeb || EQJsonFile == "")
                 {
+                    InitWindow.SetInfo(65, "地震情報を取得中...");
                     EQJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
+                    InitWindow.SetInfo(67, "地震情報を解析中...");
                 }
                 List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
 
@@ -284,7 +308,9 @@ namespace MisakiEQ
             {
                 if (getFromWeb || EEWJsonFile == "")
                 {
+                    InitWindow.SetInfo(70, "津波情報を取得中...");
                     EEWJsonFile = NetFile.GetJson("https://api.iedred7584.com/eew/json/");
+                    InitWindow.SetInfo(72, "津波情報を解析中...");
                 }
                 EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
                 EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
@@ -302,7 +328,9 @@ namespace MisakiEQ
             {
                 if(getFromWeb || TsunamiJsonFile == "")
                 {
+                    InitWindow.SetInfo(75, "緊急地震速報の情報を取得中...");
                     TsunamiJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/tsunami?limit=10&order=-1");
+                    InitWindow.SetInfo(77, "緊急地震速報の情報を解析中...");
                 }
                 List<TsunamiRoot> tsunami = JsonConvert.DeserializeObject<List<TsunamiRoot>>(TsunamiJsonFile);
                 DateTime created_at;
@@ -386,7 +414,7 @@ namespace MisakiEQ
                     {
                         ShindoText += AreaData[i] + "\n";
                     }
-                    if (AreaData[0] == null) ;
+                    //if (AreaData[0] == null) ;
                     time = converter.GetTime(data.earthquake.time);
                     if (converter.GetTimeError()) return;
                     EQ_IndexText = "震度速報\n"+time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + converter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
@@ -491,7 +519,7 @@ namespace MisakiEQ
                     {
                         ShindoText += AreaData[i]+"\n";
                     }
-                    if (AreaData[0] == null) ;
+                    //if (AreaData[0] == null) ;
                     time = converter.GetTime(data.earthquake.time);
                     if (converter.GetTimeError()) return;
                     EQ_IndexText = time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n\n" + data.earthquake.hypocenter.name + "で地震が発生しました。\n" +
@@ -970,8 +998,23 @@ namespace MisakiEQ
 
                         }
                         EEW_IndexText += "\n";
-                        EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表")+"\n";
+                        EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
 
+                    }
+                    if(cancel&& EEW_TweetMode)
+                    {
+                        IsTweetedEEW = true;
+                        
+                        Twitter TwiCliant = new Twitter();
+                        EEW_IndexText += "\n";
+                        EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
+                        string tweetText = EEW_IndexText + "\n#MisakiEQ #地震 #緊急地震速報";
+
+                        TwiCliant.Reply(EEW_LastTweetID, tweetText);
+                        EEW_LastTweetID = TwiCliant.GetLatestTweetID();
+                        EEW_TweetMode = false;
+
+                        EEW_TweetMode = true;
                     }
                     if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
                     {
@@ -1201,7 +1244,18 @@ namespace MisakiEQ
                     isFailEEWInit = true;
                 }
             }
-            
+            if (EEWInfomationWindow == null)
+            {
+                EEWInfomationWindow = new EEW_Infomation();
+                EEWInfomationWindow.Show();
+                EEWInfomationWindow.SetVisible(false);
+            }
+            if (EEWNotificationWindow == null)
+            {
+                EEWNotificationWindow = new Form2();
+                EEWNotificationWindow.Show();
+                EEWNotificationWindow.SetVisible(false);
+            }
             if (WillDisplayEEWInfomation != EEWInfomationWindow.GetVisible())
             {
                 EEWInfomationWindow.SetVisible(WillDisplayEEWInfomation);
@@ -1340,6 +1394,13 @@ namespace MisakiEQ
                 this.WindowState = FormWindowState.Minimized;
                 this.ShowInTaskbar = false;
             }
+        }
+
+        private void TwitterLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            TwitterLink.LinkVisited = true;
+            //ブラウザで開く
+            System.Diagnostics.Process.Start("https://twitter.com/0x7FF/");
         }
     }
 }
