@@ -12,9 +12,13 @@ namespace MisakiEQ
 {
     public partial class Init : Form
     {
+        bool still = true;
         public Init()
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            ControlBox = false;
         }
         public void SetInfo(int percent,string text)
         {
@@ -28,7 +32,18 @@ namespace MisakiEQ
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+            Close();
+        }
+
+        private void Init_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = still;
+        }
+        public void Done()
+        {
+            still = false;
+            this.Text = "Done.";
+            timer1.Start();
         }
     }
 }

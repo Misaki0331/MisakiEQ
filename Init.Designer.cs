@@ -63,7 +63,7 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
+            this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Init
@@ -79,6 +79,7 @@
             this.MinimizeBox = false;
             this.Name = "Init";
             this.Text = "Please wait...";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Init_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 using CoreTweet;
 using static CoreTweet.OAuth;
 
@@ -42,8 +43,13 @@ namespace MisakiEQ
         }
         public List<Status> GetTweetUser(string UserID, int count)
         {
-            
-            return tokens.Statuses.UserTimeline(count: count, screen_name: UserID).ToList();
+            try {
+                return tokens.Statuses.UserTimeline(count: count, screen_name: UserID).ToList();
+            }
+            catch
+            {
+                return null;
+            }
         }
         public long GetLatestTweetID()
         {

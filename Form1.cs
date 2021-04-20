@@ -11,12 +11,12 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Threading;
-
 namespace MisakiEQ
 {
     
     public partial class Form1 : Form //このフォームは設定画面です。
     {
+        
         public static int P2P_MaxRequest = 20;
         private static int IntervalEQ = 5;
         private static int IntervalTsunami = 10;
@@ -51,7 +51,7 @@ namespace MisakiEQ
         private int EEW_SerialCountTemp = -1;
         private bool IsEQStatusOK = false;
         private bool IsEEWStatusOK = false;
-
+        bool IsApplicationShutDown = false;
         private bool IsFailTsunamiInit = true;
         private bool IsTsunamiStatusOK = true;
         private string TsunamiJsonFile = "";
@@ -75,6 +75,7 @@ namespace MisakiEQ
         private bool IsFirstEEW = false;
         private int EEWAreaCount = 0;
         Init InitWindow;
+        private index TextBoxWindow=null;
 
 
         //private Twitter TwiCliant;
@@ -90,6 +91,7 @@ namespace MisakiEQ
             InitWindow.Show();
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             InitializeComponent();
+            VersionName.Text = "MisakiEQ For Windows Version 0.2.0\n非公開ベータ版\n\n";
 #if ADMIN || DEBUG
             InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
             Twitter TwiCliant = new Twitter();
@@ -104,6 +106,13 @@ namespace MisakiEQ
             Tweet_LastID = TwiList[0].Id;
             Point a = new Point(816,492);
             Size = (System.Drawing.Size)a;
+            InitWindow.SetInfo(20, "緊急地震速報のウィンドウを作成中です...");
+            EEWNotificationWindow = new Form2();
+            EEWNotificationWindow.Show();
+            EEWInfomationWindow = new EEW_Infomation();
+            EEWInfomationWindow.Show();
+            EEWNotificationWindow.SetVisible(false);
+            EEWInfomationWindow.SetVisible(false);
 #else
             InitWindow.SetInfo(30, "ビルド設定による機能の制限化を実行中...");
             //Point b = new Point(404, 492);
@@ -124,23 +133,28 @@ namespace MisakiEQ
             
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
-            InitWindow.SetInfo(80, "緊急地震速報のウィンドウを作成中です...");
-            EEWNotificationWindow = new Form2();
-            EEWNotificationWindow.Show();
-            EEWInfomationWindow = new EEW_Infomation();
-            EEWInfomationWindow.Show();
-            EEWNotificationWindow.SetVisible(false);
-            EEWInfomationWindow.SetVisible(false);
+            
 
             this.MaximizeBox = false;
             InitWindow.SetInfo(90, "自動更新の設定中です...");
             Timer_EarthQuake.Start();
             Timer_EEW.Start();
             Timer_Tsunami.Start();
-            
-            InitWindow.SetInfo(100, "完了");
-            InitWindow.Close();
-            Update.Start();
+#if DEBUG
+            this.Text = "設定 - MisakiEQ (Debug)";
+
+#endif
+
+            if (Environment.UserName == "Misaki")
+            {
+                InitWindow.SetInfo(100, "おかえりなさい " + Environment.UserName + " 様");
+            }
+            else
+            {
+                InitWindow.SetInfo(100, "ようこそ " + Environment.UserName + " 様");
+            }
+            InitWindow.Done();
+            UIUpdate.Start();
         }
         private void P2P_Request_Changed()
         {
@@ -265,9 +279,12 @@ namespace MisakiEQ
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            this.WindowState = FormWindowState.Minimized;
-            this.ShowInTaskbar = false;
+            if (!IsApplicationShutDown)
+            {
+                e.Cancel = true;
+                this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
+            }
         }
         private void P2P_Conform_Click(object sender, EventArgs e)
         {
@@ -1286,6 +1303,11 @@ namespace MisakiEQ
                 IsFirstEEW = false;
                 EEWAreaCount = 0;
             }
+            if (TextBoxWindow!=null&&!TextBoxWindow.Visible)
+            {
+                TextBoxWindow.Close();
+                TextBoxWindow = null;
+            }
         }
 
         private void Timer_EarthQuake_Tick(object sender, EventArgs e)
@@ -1356,7 +1378,7 @@ namespace MisakiEQ
                 private string EEWText_Description;
                 private string EEWText_Index;
                 */
-                
+#if  ADMIN || DEBUG
                 System.Media.SoundPlayer EEW_Warning = null;
                 
                 EEW_Warning = new System.Media.SoundPlayer();
@@ -1376,6 +1398,7 @@ namespace MisakiEQ
                 WillDisplayEEWInfomation = true;
                 EEW_Warning.PlaySync();
                 EEW_Warning.PlaySync();
+#endif
             }
             catch
             {
@@ -1396,11 +1419,67 @@ namespace MisakiEQ
             }
         }
 
-        private void TwitterLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
+
+        private void button2_Click(object sender, EventArgs e)
         {
-            TwitterLink.LinkVisited = true;
-            //ブラウザで開く
             System.Diagnostics.Process.Start("https://twitter.com/0x7FF/");
+        }
+
+        private void LinkLicense_Click(object sender, EventArgs e)
+        {
+            if (TextBoxWindow == null)
+            {
+                TextBoxWindow = new index("ライセンス - License", "### CoreTweet ###\n\nThe MIT License (MIT)\n\nCoreTweet - A .NET Twitter Library supporting Twitter API 1.1\nCopyright (c) 2013-2018 CoreTweet Development Team\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n### Newtonsoft.json ###\n\nThe MIT License (MIT)\n\nCopyright (c) 2007 James Newton-King\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n");
+                TextBoxWindow.Show();
+            }
+        }
+
+        private void LinkAbout_Click(object sender, EventArgs e)
+        {
+            if (TextBoxWindow == null)
+            {
+                TextBoxWindow = new index("MisakiEQについて - About MisakiEQ", "このアプリケーションをご利用いただきありがとうございます。\n\nMisakiEQは以下の情報から地震データを受信します。あらかじめフィルタを外した上でご利用ください。\n・p2pquake.netからの震度速報、詳細な地震情報及び津波情報\n・iedred7584.comからの緊急地震速報\n\n緊急地震速報APIを提供してくださった iedred7584 様に感謝を申し上げます。\nGitHub : https://github.com/iedred7584\nTwitter : https://twitter.com/iedred7584\n");
+                TextBoxWindow.Show();
+            }
+        }
+
+        private void LinkDonate_Click(object sender, EventArgs e)
+        {
+            if (TextBoxWindow == null)
+            {
+                TextBoxWindow = new index("寄付 - Donate", "このアプリはすべての機能が無料でご利用いただけますが、開発者に寄付を送ることも可能です。\n\nPayPalリンク\nhttps://paypal.me/Blueplanet256\n\nビットコイン(Bitcoin)\n1HLG5Ac1FZvxZm8zZn2X2eYexnz3hnE7sT\n");
+                TextBoxWindow.Show();
+            }
+        }
+
+        private void CloseApplication_Click(object sender, EventArgs e)
+        {
+            IsApplicationShutDown = true;
+            this.Close();
+            Application.Exit();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (GetDataPauseButton.Text == "データ取得の一時停止")
+            {
+                GetDataPauseButton.Text = "データ取得の再開";
+                Timer_EarthQuake.Stop();
+                Timer_Tsunami.Stop();
+                Timer_EEW.Stop();
+                TaskStatus.Text = "停止中";
+                TaskStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                GetDataPauseButton.Text = "データ取得の一時停止";
+                Timer_EarthQuake.Start();
+                Timer_Tsunami.Start();
+                Timer_EEW.Start();
+                TaskStatus.Text = "準備OK";
+                TaskStatus.ForeColor = Color.Black;
+            }
         }
     }
 }

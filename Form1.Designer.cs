@@ -57,7 +57,7 @@
             this.Twitter_isReply = new System.Windows.Forms.CheckBox();
             this.Timer_EarthQuake = new System.Windows.Forms.Timer(this.components);
             this.Timer_Tsunami = new System.Windows.Forms.Timer(this.components);
-            this.Update = new System.Windows.Forms.Timer(this.components);
+            this.UIUpdate = new System.Windows.Forms.Timer(this.components);
             this.Timer_EEW = new System.Windows.Forms.Timer(this.components);
             this.Test_Label = new System.Windows.Forms.Label();
             this.EarthquakeTab = new System.Windows.Forms.TabControl();
@@ -80,11 +80,19 @@
             this.DataUpdateSettings = new System.Windows.Forms.TabPage();
             this.TwitterSettings = new System.Windows.Forms.TabPage();
             this.SettingsAbout = new System.Windows.Forms.TabPage();
-            this.TwitterLink = new System.Windows.Forms.LinkLabel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LinkDonate = new System.Windows.Forms.Button();
+            this.LinkAbout = new System.Windows.Forms.Button();
+            this.LinkLicense = new System.Windows.Forms.Button();
+            this.LinkTwitter = new System.Windows.Forms.Button();
+            this.VersionName = new System.Windows.Forms.Label();
+            this.SettingClose = new System.Windows.Forms.TabPage();
+            this.GetDataPauseButton = new System.Windows.Forms.Button();
+            this.CloseApplication = new System.Windows.Forms.Button();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.TaskStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TaskProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -102,7 +110,8 @@
             this.DataUpdateSettings.SuspendLayout();
             this.TwitterSettings.SuspendLayout();
             this.SettingsAbout.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.SettingClose.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -131,7 +140,7 @@
             this.P2P_Interval_EarthQuake.Size = new System.Drawing.Size(35, 19);
             this.P2P_Interval_EarthQuake.TabIndex = 1;
             this.P2P_Interval_EarthQuake.Value = new decimal(new int[] {
-            3,
+            5,
             0,
             0,
             0});
@@ -247,7 +256,7 @@
             this.P2P_Interval_Tsunami.Size = new System.Drawing.Size(35, 19);
             this.P2P_Interval_Tsunami.TabIndex = 5;
             this.P2P_Interval_Tsunami.Value = new decimal(new int[] {
-            3,
+            10,
             0,
             0,
             0});
@@ -398,9 +407,9 @@
             this.Timer_Tsunami.Interval = 10000;
             this.Timer_Tsunami.Tick += new System.EventHandler(this.Timer_Tsunami_Tick);
             // 
-            // Update
+            // UIUpdate
             // 
-            this.Update.Tick += new System.EventHandler(this.Update_Tick);
+            this.UIUpdate.Tick += new System.EventHandler(this.Update_Tick);
             // 
             // Timer_EEW
             // 
@@ -581,6 +590,7 @@
             this.SettingTab.Controls.Add(this.DataUpdateSettings);
             this.SettingTab.Controls.Add(this.TwitterSettings);
             this.SettingTab.Controls.Add(this.SettingsAbout);
+            this.SettingTab.Controls.Add(this.SettingClose);
             this.SettingTab.Location = new System.Drawing.Point(0, 0);
             this.SettingTab.Name = "SettingTab";
             this.SettingTab.SelectedIndex = 0;
@@ -618,8 +628,11 @@
             // 
             // SettingsAbout
             // 
-            this.SettingsAbout.Controls.Add(this.TwitterLink);
-            this.SettingsAbout.Controls.Add(this.label5);
+            this.SettingsAbout.Controls.Add(this.LinkDonate);
+            this.SettingsAbout.Controls.Add(this.LinkAbout);
+            this.SettingsAbout.Controls.Add(this.LinkLicense);
+            this.SettingsAbout.Controls.Add(this.LinkTwitter);
+            this.SettingsAbout.Controls.Add(this.VersionName);
             this.SettingsAbout.Location = new System.Drawing.Point(4, 22);
             this.SettingsAbout.Name = "SettingsAbout";
             this.SettingsAbout.Padding = new System.Windows.Forms.Padding(3);
@@ -627,55 +640,133 @@
             this.SettingsAbout.TabIndex = 2;
             this.SettingsAbout.Text = "バージョン";
             // 
-            // TwitterLink
+            // LinkDonate
             // 
-            this.TwitterLink.AutoSize = true;
-            this.TwitterLink.Location = new System.Drawing.Point(161, 110);
-            this.TwitterLink.Name = "TwitterLink";
-            this.TwitterLink.Size = new System.Drawing.Size(45, 12);
-            this.TwitterLink.TabIndex = 1;
-            this.TwitterLink.TabStop = true;
-            this.TwitterLink.Text = "@0x7FF";
-            this.TwitterLink.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.TwitterLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.TwitterLink_LinkClicked);
+            this.LinkDonate.Location = new System.Drawing.Point(298, 103);
+            this.LinkDonate.Name = "LinkDonate";
+            this.LinkDonate.Size = new System.Drawing.Size(109, 23);
+            this.LinkDonate.TabIndex = 5;
+            this.LinkDonate.Text = "寄付";
+            this.LinkDonate.UseVisualStyleBackColor = true;
+            this.LinkDonate.Click += new System.EventHandler(this.LinkDonate_Click);
             // 
-            // label5
+            // LinkAbout
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(122, 12);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "MisakiEQ Version 0.1.0";
+            this.LinkAbout.Location = new System.Drawing.Point(298, 74);
+            this.LinkAbout.Name = "LinkAbout";
+            this.LinkAbout.Size = new System.Drawing.Size(109, 23);
+            this.LinkAbout.TabIndex = 4;
+            this.LinkAbout.Text = "MisakiEQについて";
+            this.LinkAbout.UseVisualStyleBackColor = true;
+            this.LinkAbout.Click += new System.EventHandler(this.LinkAbout_Click);
             // 
-            // statusStrip1
+            // LinkLicense
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1,
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 459);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 24);
-            this.statusStrip1.TabIndex = 16;
-            this.statusStrip1.Text = "statusStrip1";
+            this.LinkLicense.Location = new System.Drawing.Point(298, 45);
+            this.LinkLicense.Name = "LinkLicense";
+            this.LinkLicense.Size = new System.Drawing.Size(109, 23);
+            this.LinkLicense.TabIndex = 3;
+            this.LinkLicense.Text = "ライセンス";
+            this.LinkLicense.UseVisualStyleBackColor = true;
+            this.LinkLicense.Click += new System.EventHandler(this.LinkLicense_Click);
             // 
-            // toolStripProgressBar1
+            // LinkTwitter
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 18);
+            this.LinkTwitter.Location = new System.Drawing.Point(298, 16);
+            this.LinkTwitter.Name = "LinkTwitter";
+            this.LinkTwitter.Size = new System.Drawing.Size(109, 23);
+            this.LinkTwitter.TabIndex = 2;
+            this.LinkTwitter.Text = "開発者Twitter";
+            this.LinkTwitter.UseVisualStyleBackColor = true;
+            this.LinkTwitter.Click += new System.EventHandler(this.button2_Click);
             // 
-            // toolStripStatusLabel1
+            // VersionName
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(69, 19);
-            this.toolStripStatusLabel1.Text = "準備完了";
+            this.VersionName.AutoSize = true;
+            this.VersionName.Location = new System.Drawing.Point(6, 16);
+            this.VersionName.Name = "VersionName";
+            this.VersionName.Size = new System.Drawing.Size(122, 12);
+            this.VersionName.TabIndex = 0;
+            this.VersionName.Text = "MisakiEQ Version 0.1.0";
+            // 
+            // SettingClose
+            // 
+            this.SettingClose.AccessibleName = "SettingClose";
+            this.SettingClose.Controls.Add(this.GetDataPauseButton);
+            this.SettingClose.Controls.Add(this.CloseApplication);
+            this.SettingClose.Location = new System.Drawing.Point(4, 22);
+            this.SettingClose.Name = "SettingClose";
+            this.SettingClose.Padding = new System.Windows.Forms.Padding(3);
+            this.SettingClose.Size = new System.Drawing.Size(788, 408);
+            this.SettingClose.TabIndex = 3;
+            this.SettingClose.Text = "終了";
+            // 
+            // GetDataPauseButton
+            // 
+            this.GetDataPauseButton.Location = new System.Drawing.Point(649, 325);
+            this.GetDataPauseButton.Name = "GetDataPauseButton";
+            this.GetDataPauseButton.Size = new System.Drawing.Size(131, 22);
+            this.GetDataPauseButton.TabIndex = 1;
+            this.GetDataPauseButton.Text = "データ取得の一時停止";
+            this.GetDataPauseButton.UseVisualStyleBackColor = true;
+            this.GetDataPauseButton.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // CloseApplication
+            // 
+            this.CloseApplication.Location = new System.Drawing.Point(649, 353);
+            this.CloseApplication.Name = "CloseApplication";
+            this.CloseApplication.Size = new System.Drawing.Size(131, 22);
+            this.CloseApplication.TabIndex = 0;
+            this.CloseApplication.Text = "アプリケーションの終了";
+            this.CloseApplication.UseVisualStyleBackColor = true;
+            this.CloseApplication.Click += new System.EventHandler(this.CloseApplication_Click);
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TaskStatus,
+            this.TaskProgressBar,
+            this.TaskProgressText,
+            this.toolStripStatusLabel3});
+            this.statusStrip.Location = new System.Drawing.Point(0, 459);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(800, 24);
+            this.statusStrip.TabIndex = 16;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // TaskStatus
+            // 
+            this.TaskStatus.AutoSize = false;
+            this.TaskStatus.Name = "TaskStatus";
+            this.TaskStatus.Size = new System.Drawing.Size(100, 19);
+            this.TaskStatus.Text = "準備OK";
+            this.TaskStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TaskProgressBar
+            // 
+            this.TaskProgressBar.Name = "TaskProgressBar";
+            this.TaskProgressBar.Size = new System.Drawing.Size(300, 18);
+            // 
+            // TaskProgressText
+            // 
+            this.TaskProgressText.AutoSize = false;
+            this.TaskProgressText.Name = "TaskProgressText";
+            this.TaskProgressText.Size = new System.Drawing.Size(78, 19);
+            this.TaskProgressText.Text = "---.--%";
+            this.TaskProgressText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(245, 19);
+            this.toolStripStatusLabel3.Text = "現在実行中のタスクはありません。";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 483);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Test_Label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -708,8 +799,9 @@
             this.TwitterSettings.PerformLayout();
             this.SettingsAbout.ResumeLayout(false);
             this.SettingsAbout.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.SettingClose.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -746,7 +838,7 @@
 
         private System.Windows.Forms.Timer Timer_EarthQuake;
         private System.Windows.Forms.Timer Timer_Tsunami;
-        private System.Windows.Forms.Timer Update;
+        private System.Windows.Forms.Timer UIUpdate;
         private System.Windows.Forms.Timer Timer_EEW;
         private System.Windows.Forms.Label Test_Label;
         private System.Windows.Forms.TabControl EarthquakeTab;
@@ -767,13 +859,21 @@
         private System.Windows.Forms.TabPage MisakiEQ_Settings;
         private System.Windows.Forms.TabControl SettingTab;
         private System.Windows.Forms.TabPage DataUpdateSettings;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripProgressBar TaskProgressBar;
+        private System.Windows.Forms.ToolStripStatusLabel TaskStatus;
         private System.Windows.Forms.TabPage TwitterSettings;
         private System.Windows.Forms.TabPage SettingsAbout;
-        private System.Windows.Forms.LinkLabel TwitterLink;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label VersionName;
+        private System.Windows.Forms.ToolStripStatusLabel TaskProgressText;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.Button LinkTwitter;
+        private System.Windows.Forms.Button LinkLicense;
+        private System.Windows.Forms.Button LinkAbout;
+        private System.Windows.Forms.Button LinkDonate;
+        private System.Windows.Forms.TabPage SettingClose;
+        private System.Windows.Forms.Button GetDataPauseButton;
+        private System.Windows.Forms.Button CloseApplication;
     }
 }
 

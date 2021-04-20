@@ -63,6 +63,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,6 +82,12 @@
     </Compile>
     <Compile Include="EEW_Infomation.Designer.cs">
       <DependentUpon>EEW_Infomation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionMassage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExceptionMassage.Designer.cs">
+      <DependentUpon>ExceptionMassage.cs</DependentUpon>
     </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
@@ -104,9 +112,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="textboxWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="textboxWindow.Designer.cs">
+      <DependentUpon>textboxWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Twitter.cs" />
     <EmbeddedResource Include="EEW_Infomation.resx">
       <DependentUpon>EEW_Infomation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionMassage.resx">
+      <DependentUpon>ExceptionMassage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
@@ -126,6 +143,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="textboxWindow.resx">
+      <DependentUpon>textboxWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
