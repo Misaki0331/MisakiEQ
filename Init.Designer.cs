@@ -79,6 +79,7 @@
             this.MinimizeBox = false;
             this.Name = "Init";
             this.Text = "Please wait...";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Init_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

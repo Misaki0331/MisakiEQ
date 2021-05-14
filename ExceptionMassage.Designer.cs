@@ -36,17 +36,22 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.RestartButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("ＭＳ ゴシック", 20F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(43, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(621, 54);
+            this.label1.Size = new System.Drawing.Size(422, 54);
             this.label1.TabIndex = 0;
-            this.label1.Text = "MisakiEQはクラッシュしました。\r\nアプリケーションは終了する必要があります。";
+            this.label1.Text = "MisakiEQは問題が発生したため\r\n終了する必要があります。";
             // 
             // label2
             // 
@@ -98,7 +103,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(544, 429);
+            this.button1.Location = new System.Drawing.Point(81, 429);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(152, 22);
             this.button1.TabIndex = 6;
@@ -115,11 +120,42 @@
             this.label5.TabIndex = 7;
             this.label5.Text = "エラー詳細情報";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(9, 11);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // RestartButton
+            // 
+            this.RestartButton.Location = new System.Drawing.Point(534, 428);
+            this.RestartButton.Name = "RestartButton";
+            this.RestartButton.Size = new System.Drawing.Size(78, 23);
+            this.RestartButton.TabIndex = 9;
+            this.RestartButton.Text = "再起動";
+            this.RestartButton.UseVisualStyleBackColor = true;
+            this.RestartButton.Click += new System.EventHandler(this.RestartButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(618, 428);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(78, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "終了";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // ExceptionMassage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 450);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.RestartButton);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
@@ -133,6 +169,8 @@
             this.MinimizeBox = false;
             this.Name = "ExceptionMassage";
             this.Text = "エラー - MisakiEQ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExceptionMassage_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +186,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label5;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button RestartButton;
+        private System.Windows.Forms.Button button2;
     }
 }

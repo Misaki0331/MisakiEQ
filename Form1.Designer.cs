@@ -92,7 +92,8 @@
             this.TaskStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TaskProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ReAuth = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -610,6 +611,7 @@
             // TwitterSettings
             // 
             this.TwitterSettings.AutoScroll = true;
+            this.TwitterSettings.Controls.Add(this.ReAuth);
             this.TwitterSettings.Controls.Add(this.label2);
             this.TwitterSettings.Controls.Add(this.textBox1);
             this.TwitterSettings.Controls.Add(this.Tweet_Index);
@@ -727,7 +729,7 @@
             this.TaskStatus,
             this.TaskProgressBar,
             this.TaskProgressText,
-            this.toolStripStatusLabel3});
+            this.StatusMassage});
             this.statusStrip.Location = new System.Drawing.Point(0, 459);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(800, 24);
@@ -755,11 +757,21 @@
             this.TaskProgressText.Text = "---.--%";
             this.TaskProgressText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // toolStripStatusLabel3
+            // StatusMassage
             // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(245, 19);
-            this.toolStripStatusLabel3.Text = "現在実行中のタスクはありません。";
+            this.StatusMassage.Name = "StatusMassage";
+            this.StatusMassage.Size = new System.Drawing.Size(245, 19);
+            this.StatusMassage.Text = "現在実行中のタスクはありません。";
+            // 
+            // ReAuth
+            // 
+            this.ReAuth.Location = new System.Drawing.Point(0, 352);
+            this.ReAuth.Name = "ReAuth";
+            this.ReAuth.Size = new System.Drawing.Size(61, 21);
+            this.ReAuth.TabIndex = 13;
+            this.ReAuth.Text = "再認証";
+            this.ReAuth.UseVisualStyleBackColor = true;
+            this.ReAuth.Click += new System.EventHandler(this.ReAuth_Click);
             // 
             // Form1
             // 
@@ -866,7 +878,7 @@
         private System.Windows.Forms.TabPage SettingsAbout;
         private System.Windows.Forms.Label VersionName;
         private System.Windows.Forms.ToolStripStatusLabel TaskProgressText;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel StatusMassage;
         private System.Windows.Forms.Button LinkTwitter;
         private System.Windows.Forms.Button LinkLicense;
         private System.Windows.Forms.Button LinkAbout;
@@ -874,6 +886,7 @@
         private System.Windows.Forms.TabPage SettingClose;
         private System.Windows.Forms.Button GetDataPauseButton;
         private System.Windows.Forms.Button CloseApplication;
+        private System.Windows.Forms.Button ReAuth;
     }
 }
 

@@ -46,8 +46,12 @@ namespace MisakiEQ
         public static void ShowErrorMessage(Exception ex, string extraMessage)
         {
             Application.Run(new ExceptionMassage(extraMessage + " \n" +
-              "【エラー内容】\n" + ex.Message + "\n\n" +
-              "【スタックトレース】\n" + ex.StackTrace));
+              
+              "【例外が発生したメゾット】\n" + ex.TargetSite + "\n\n" +
+              "【例外が発生したソース】\n" + ex.Source + "\n\n"+
+              "【エラー内容】\n" + ex.Message +"\n"+ ex.HelpLink+ "\n\n" +
+              "【スタックトレース】\n" + ex.StackTrace)
+              ) ; 
             
         }
     }

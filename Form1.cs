@@ -63,7 +63,8 @@ namespace MisakiEQ
         private Form2 EEWNotificationWindow;
         private EEW_Infomation EEWInfomationWindow;
         private bool IsEEWSoundFinished = true;
-
+        Twitter TwiCliant;// = new Twitter();
+        private string UserNameID;
 
         private bool WillDisplayEEWNotification;
         private bool WillDisplayEEWInfomation;
@@ -77,8 +78,8 @@ namespace MisakiEQ
         Init InitWindow;
         private index TextBoxWindow=null;
 
-
-        //private Twitter TwiCliant;
+        TwitterAuthWindow AuthWindow=null;
+        
 
         private static void GetLastID(ref long ID)
         {
@@ -100,10 +101,12 @@ namespace MisakiEQ
             this.P2P_Interval_Tsunami.Value = IntervalTsunami;
             P2P_Request_Changed();
 
-            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser("0x7FF", 1);
-            this.UserName.Text = TwiList[0].User.ScreenName;
-            this.Tweet_Index.Text = TwiList[0].Text;
-            Tweet_LastID = TwiList[0].Id;
+            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+            this.UserName.Text = TwiCliant.GetScreenName();
+            Twitter_Author.Text = "投稿 : "+TwiCliant.GetStringName();
+            if (TwiList.Count>0) this.Tweet_Index.Text = TwiList[0].Text;
+            if (TwiList.Count > 0) Tweet_LastID = TwiList[0].Id;
+            UserNameID=TwiCliant.GetScreenName();
             Point a = new Point(816,492);
             Size = (System.Drawing.Size)a;
             InitWindow.SetInfo(20, "緊急地震速報のウィンドウを作成中です...");
@@ -243,9 +246,10 @@ namespace MisakiEQ
             {
                 TwiCliant.Tweet(TweetText);
             }
-            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser("0x7FF", 1);
-            this.UserName.Text = TwiList[0].User.ScreenName;
-            this.Tweet_Index.Text = TwiList[0].Text;
+            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+            Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+            this.UserName.Text = TwiCliant.GetScreenName();
+            if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
             Tweet_LastID = TwiList[0].Id;
             //Tweet_LastID = 
 #endif
@@ -261,10 +265,14 @@ namespace MisakiEQ
         {
 #if DEBUG || ADMIN
             Twitter TwiCliant = new Twitter();
-            List<CoreTweet.Status> TwiList=TwiCliant.GetTweetUser("0x7FF", 1);
-            this.UserName.Text = TwiList[0].User.ScreenName;
-            this.Tweet_Index.Text = TwiList[0].Text;
-            Tweet_LastID = TwiList[0].Id;
+            List<CoreTweet.Status> TwiList=TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+            if (TwiList.Count > 0)
+            {
+                this.UserName.Text = TwiCliant.GetScreenName();
+                this.Tweet_Index.Text = TwiList[0].Text;
+                Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+                Tweet_LastID = TwiList[0].Id;
+            }
 #endif
         }
 
@@ -544,8 +552,10 @@ namespace MisakiEQ
                         "震源の深さ：" + converter.DeepString(data.earthquake.hypocenter.depth) + "\n" +
                         "最大震度：" + converter.ScaleString(data.earthquake.maxScale) + "\n" +
                         "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami))+"\n\n"+ShindoText;
-                    if ((data.earthquake.hypocenter.magnitude >= 4||converter.ScaleToValue(data.earthquake.maxScale)>=3)||IsTweetedEEW)
+                    //if ((data.earthquake.hypocenter.magnitude >= 0.0||converter.ScaleToValue(data.earthquake.maxScale)>=1)||IsTweetedEEW)
+                    if (true)
                     {
+                        
                         if (tweet)
                         {
 
@@ -794,8 +804,8 @@ namespace MisakiEQ
                     pc++;
                 }*/
                 long TweetID = 0;
-                Twitter TwiCliant = new Twitter();
-                
+
+                TwiCliant = new Twitter();
                 for (int i = 0; TweetData[i] != "" && i < 10; i++)
                 {
                     if (i == 0&&ReplySetTweetID==0)
@@ -823,7 +833,7 @@ namespace MisakiEQ
                             TwiCliant.Reply(TweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
                         }
                     }
-                    TweetID = TwiCliant.GetLatestTweetID();
+                    TweetID = TwiCliant.GetLatestTweetID(UserNameID);
                     if (IsEQProtoGetTweetID)
                     {
                         EQProtoGetTweetID = TweetID;
@@ -1028,12 +1038,13 @@ namespace MisakiEQ
                         string tweetText = EEW_IndexText + "\n#MisakiEQ #地震 #緊急地震速報";
 
                         TwiCliant.Reply(EEW_LastTweetID, tweetText);
-                        EEW_LastTweetID = TwiCliant.GetLatestTweetID();
+                        EEW_LastTweetID = TwiCliant.GetLatestTweetID(UserNameID);
                         EEW_TweetMode = false;
 
                         EEW_TweetMode = true;
                     }
-                    if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
+                    //if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
+                    if(true)
                     {
 
                         IsTweetedEEW = true;
@@ -1047,7 +1058,7 @@ namespace MisakiEQ
                         {
                             TwiCliant.Reply(EEW_LastTweetID, tweetText);
                         }
-                        EEW_LastTweetID = TwiCliant.GetLatestTweetID();
+                        EEW_LastTweetID = TwiCliant.GetLatestTweetID(UserNameID);
 
                         EEW_TweetMode = true;
                         
@@ -1215,6 +1226,28 @@ namespace MisakiEQ
                 Thread t = new Thread(new ThreadStart(TweetThread));
                 t.Start();
             }
+            if (AuthWindow != null)
+            {
+                if (AuthWindow.isLastUpdated)
+                {
+                    AuthWindow.isLastUpdated = false;
+                    StatusMassage.Text = AuthWindow.LastError;
+                }
+                if (AuthWindow.isTwitterUpdate)
+                {
+                    AuthWindow.isTwitterUpdate = false;
+                    Twitter TwiCliant = new Twitter();
+                    List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+                    if (TwiList.Count > 0)
+                    {
+                        this.UserName.Text = TwiCliant.GetScreenName();
+                        this.Tweet_Index.Text = TwiList[0].Text;
+                        Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+                        Tweet_LastID = TwiList[0].Id;
+                    }
+
+                }
+            }
 #endif
             if (isFailEEWInit)
             {
@@ -1308,6 +1341,7 @@ namespace MisakiEQ
                 TextBoxWindow.Close();
                 TextBoxWindow = null;
             }
+            
         }
 
         private void Timer_EarthQuake_Tick(object sender, EventArgs e)
@@ -1479,6 +1513,15 @@ namespace MisakiEQ
                 Timer_EEW.Start();
                 TaskStatus.Text = "準備OK";
                 TaskStatus.ForeColor = Color.Black;
+            }
+        }
+
+        private void ReAuth_Click(object sender, EventArgs e)
+        {
+            if (AuthWindow!=null&&AuthWindow.Visible == false) AuthWindow = null;
+            if (AuthWindow == null)
+            {
+                AuthWindow = new TwitterAuthWindow();
             }
         }
     }
