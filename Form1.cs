@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Threading;
+using Microsoft.WindowsAPICodePack.Taskbar;
 namespace MisakiEQ
 {
     
@@ -60,7 +61,10 @@ namespace MisakiEQ
         private long EQProtoGetTweetID = 0;
         private long ReplySetTweetID = 0;
         private bool IsTweetedEEW = false;
+        private bool IsKyoshinInited = false;
+        private DateTime KyoshinLatest;
         private Form2 EEWNotificationWindow;
+
         private EEW_Infomation EEWInfomationWindow;
         private bool IsEEWSoundFinished = true;
         Twitter TwiCliant;// = new Twitter();
@@ -72,14 +76,15 @@ namespace MisakiEQ
         private string EEWText_Index;
         private string EEWText_Graph;
         private int EEWDisplayTimer = 0;
-
+        Image KyoshinEx_Image=null;
         private bool IsFirstEEW = false;
         private int EEWAreaCount = 0;
         Init InitWindow;
         private index TextBoxWindow=null;
-
+        KyoshinEx KyoshinMonitor = new KyoshinEx();
+        private bool IsKyoshinUpdated;
         TwitterAuthWindow AuthWindow=null;
-        
+        private TabbedThumbnail customThumbnail;
 
         private static void GetLastID(ref long ID)
         {
@@ -107,7 +112,7 @@ namespace MisakiEQ
             if (TwiList.Count>0) this.Tweet_Index.Text = TwiList[0].Text;
             if (TwiList.Count > 0) Tweet_LastID = TwiList[0].Id;
             UserNameID=TwiCliant.GetScreenName();
-            Point a = new Point(816,492);
+            Point a = new Point(816,540);
             Size = (System.Drawing.Size)a;
             InitWindow.SetInfo(20, "緊急地震速報のウィンドウを作成中です...");
             EEWNotificationWindow = new Form2();
@@ -116,6 +121,21 @@ namespace MisakiEQ
             EEWInfomationWindow.Show();
             EEWNotificationWindow.SetVisible(false);
             EEWInfomationWindow.SetVisible(false);
+
+            InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
+            KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
+            Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+            {
+                IsKyoshinInited = true;
+                Timer_KyoshinEx.Start();
+                Console.WriteLine("強震モニタ起動成功！");
+            }
+            else
+            {
+                Console.WriteLine("強震モニタ起動失敗...");
+            }
+            
 #else
             InitWindow.SetInfo(30, "ビルド設定による機能の制限化を実行中...");
             //Point b = new Point(404, 492);
@@ -133,10 +153,10 @@ namespace MisakiEQ
 #endif
             InitWindow.SetInfo(60, "インターネットから現在の地震情報を取得中です...");
             GetEQHashs(true);
-            
+
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
-            
+            Hide();
 
             this.MaximizeBox = false;
             InitWindow.SetInfo(90, "自動更新の設定中です...");
@@ -156,6 +176,9 @@ namespace MisakiEQ
             {
                 InitWindow.SetInfo(100, "ようこそ " + Environment.UserName + " 様");
             }
+            KyoshinImage.Image = KyoshinEx_Image;
+            //customThumbnail = new TabbedThumbnail(this.Handle, this.Handle);
+            
             InitWindow.Done();
             UIUpdate.Start();
         }
@@ -282,9 +305,10 @@ namespace MisakiEQ
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            Show();
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
-            Show();
+            
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -375,6 +399,7 @@ namespace MisakiEQ
             {
                 IsFailTsunamiInit = true;
             }
+            
         }
         
         
@@ -1145,6 +1170,29 @@ namespace MisakiEQ
         }
         private void Update_Tick(object sender, EventArgs e)
         {
+
+            if (KyoshinEx_Image != null)
+            {
+
+                KyoshinDateTime.Value = KyoshinLatest;
+                KyoshinImage.Image = KyoshinEx_Image;
+                //if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(customThumbnail))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(customThumbnail);
+                //customThumbnail.SetImage((Bitmap)KyoshinEx_Image);
+                //TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(customThumbnail);
+                
+                
+                /*TabbedThumbnail preview = new TabbedThumbnail(Handle, Handle);
+                if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(preview))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(preview);
+                TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(preview);
+
+                preview.ClippingRectangle = new Rectangle(new Point(0, 0), new Size(200, 108));
+                preview.SetImage((Bitmap)KyoshinEx_Image);
+                */
+
+                KyoshinEx_Image = null;
+
+            }
+            
             //Test_Label.Text = TestString;
             EQ_Index.Text = EQ_IndexText;
             EEW_Index.Text = EEW_IndexText;
@@ -1192,6 +1240,15 @@ namespace MisakiEQ
                 else
                 {
                     TsunamiInitOKLabel.Text = "取得 : 失敗";
+                }
+            }
+            if (!IsKyoshinInited)
+            {
+                KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
+                if (KyoshinLatest!=new DateTime(2000,1,1,0,0,0))
+                {
+                    IsKyoshinInited = true;
+                    Timer_KyoshinEx.Start();
                 }
             }
             RequestedCount.Text = "累計リクエスト数 : " + Count_Request.ToString();
@@ -1452,6 +1509,7 @@ namespace MisakiEQ
             {
                 this.WindowState = FormWindowState.Minimized;
                 this.ShowInTaskbar = false;
+                Hide();
             }
         }
 
@@ -1525,6 +1583,42 @@ namespace MisakiEQ
             {
                 AuthWindow = new TwitterAuthWindow();
             }
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            DateTime temp= KyoshinMonitor.GetLatestUpdateTime();
+            
+            Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+            {
+                Console.WriteLine("強震モニタ更新成功！");
+                StatusMassage.Text = "強震モニタ時刻調整成功！";
+                KyoshinLatest = temp;
+            }
+            else
+            {
+                Console.WriteLine("強震モニタ更新失敗...");
+                StatusMassage.Text = "強震モニタ時刻調整失敗...";
+            }
+        }
+        void KyoshinUpdate()
+        {
+            KyoshinEx_Image= KyoshinMonitor.GetFastImage(KyoshinLatest, MisakiEQ.KyoshinEx.KyoshinType.RealTime_Shindo, false, true, true, false);
+            IsKyoshinUpdated = KyoshinEx_Image!=null;
+            if(KyoshinEx_Image==null) Console.WriteLine("Error!画像を入手できませんでした 理由:"+KyoshinMonitor.GetLastError());
+        }
+        private void Timer_KyoshinEx_Tick(object sender, EventArgs e)
+        {
+            
+            KyoshinLatest=KyoshinLatest.AddSeconds(1);
+            
+            if (KyoshinEx_Image==null)
+            {
+                Thread t = new Thread(new ThreadStart(KyoshinUpdate));
+                t.Start();
+            }
+            
         }
     }
 }

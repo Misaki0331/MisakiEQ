@@ -9,7 +9,7 @@ using System.IO;
 using System.Globalization;
 namespace MisakiEQ
 {
-    class KyoushinEx
+    class KyoshinEx
     {
 
         private string LastErrorStatus;
@@ -25,6 +25,7 @@ namespace MisakiEQ
             Response_1000,              //1Hz応答
             Response_2000,              //2Hz応答
             Response_4000,              //4Hz応答
+            none
         };
         public Image byteArrayToImage(byte[] bytesArr)//インターネットからダウンロードするときに必要
         {
@@ -97,7 +98,7 @@ namespace MisakiEQ
             }
             return TypeName;
         }//これは表示種類と地中か地表かをURLにすぐに出してくれる関数
-        Image GetFastImage(DateTime time, KyoshinType type, bool IsBour,bool IsESTShindo,bool IsPSV,bool NoneBG=false)//直接データが欲しい場合 (時間,表示タイプ,地中フラグ,予測震度表示,予測円表示)
+        public Image GetFastImage(DateTime time, KyoshinType type, bool IsBour,bool IsESTShindo,bool IsPSV,bool NoneBG=false)//直接データが欲しい場合 (時間,表示タイプ,地中フラグ,予測震度表示,予測円表示)
         {
             try
             {
@@ -106,40 +107,49 @@ namespace MisakiEQ
 
                 //ImageオブジェクトのGraphicsオブジェクトを作成する
 
-                Image BG;
+                Image BG = new Bitmap(352, 400);
                 Graphics graphics;
+                graphics = Graphics.FromImage(BG);
+            
                 if (!NoneBG)
                 {
-                    BG = Properties.Resources.Kyoshin_Basemap;
-                    graphics = Graphics.FromImage(BG);
+                    graphics.DrawImage(Properties.Resources.Kyoshin_Basemap,new Point(0,0));
+                    
                 }
                 else
                 {
-                    BG = new Bitmap(352, 400);
-                    graphics = Graphics.FromImage(BG);
                     graphics.Clear(Color.FromArgb(0, 0, 0, 0));
                 }
                 Image KImage = null;
                 if (IsESTShindo)
                 {
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/EstShindoImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
-                    if (KImage != null) graphics.DrawImage(KImage, new Point(0, 0));
-                    KImage.Dispose();
+                    if (KImage != null)
+                    {
+                        graphics.DrawImage(KImage, new Point(0, 0));
+                        KImage.Dispose();
+                    }
                 }
                 KImage = null;
                 if (TypeName != "")
                 {
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/RealTimeImg/" + TypeName + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + "." + TypeName + ".gif"));
-                    if (KImage != null) graphics.DrawImage(KImage, new Point(0, 0));
-                    KImage.Dispose();
+                    if (KImage != null)
+                    {
+                        graphics.DrawImage(KImage, new Point(0, 0));
+                        KImage.Dispose();
+                    }
                 }
                 KImage = null;
                 if (IsPSV)
                 {
 
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/PSWaveImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
-                    if (KImage != null) graphics.DrawImage(KImage, new Point(0, 0));
-                    KImage.Dispose();
+                    if (KImage != null)
+                    {
+                        graphics.DrawImage(KImage, new Point(0, 0));
+                        KImage.Dispose();
+                    }
                 }
                 KImage = null;
                 graphics.Dispose();
@@ -163,14 +173,14 @@ namespace MisakiEQ
             if (IsLastError) return LastErrorStatus;
             return "正常に処理が終了しました。";
         }
-        DateTime GetLatestUpdateTime()//強震モニタの最新更新時間を取得
+        public DateTime GetLatestUpdateTime()//強震モニタの最新更新時間を取得
         {
             try {
                 GetJsonFile NetworkFile = new GetJsonFile();
                 LatestKyoshinRoot latest = JsonConvert.DeserializeObject<LatestKyoshinRoot>(NetworkFile.GetJson("http://www.kmoni.bosai.go.jp/webservice/server/pros/latest.json"));
                 DateTime ret = new DateTime(2000, 1, 1, 0, 0, 0);
                 IsLastError = true;
-                if (DateTime.TryParseExact(latest.latest_time, "yyyy/MM/dd HH:mm/ss", null, DateTimeStyles.AssumeLocal, out ret)) return ret;
+                if (DateTime.TryParseExact(latest.latest_time, "yyyy/MM/dd HH:mm:ss", null, DateTimeStyles.AssumeLocal, out ret)) return ret;
                 IsLastError = false;
                 LastErrorStatus = "正常に取得できませんでした。(GetLatestUpdateTime関数内)";
                 return new DateTime(2000, 1, 1, 0, 0, 0);

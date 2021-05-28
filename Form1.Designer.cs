@@ -74,11 +74,16 @@
             this.MisakiEQ_Infomation = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.MisakiEQ_LatestData = new System.Windows.Forms.TabPage();
+            this.KyoshinEx = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.KyoshinDateTime = new System.Windows.Forms.DateTimePicker();
+            this.KyoshinImage = new System.Windows.Forms.PictureBox();
             this.MisakiEQ_Status = new System.Windows.Forms.TabPage();
             this.MisakiEQ_Settings = new System.Windows.Forms.TabPage();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.DataUpdateSettings = new System.Windows.Forms.TabPage();
             this.TwitterSettings = new System.Windows.Forms.TabPage();
+            this.ReAuth = new System.Windows.Forms.Button();
             this.SettingsAbout = new System.Windows.Forms.TabPage();
             this.LinkDonate = new System.Windows.Forms.Button();
             this.LinkAbout = new System.Windows.Forms.Button();
@@ -93,7 +98,7 @@
             this.TaskProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ReAuth = new System.Windows.Forms.Button();
+            this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -105,6 +110,8 @@
             this.MisakiEQ_Infomation.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.MisakiEQ_LatestData.SuspendLayout();
+            this.KyoshinEx.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.KyoshinImage)).BeginInit();
             this.MisakiEQ_Status.SuspendLayout();
             this.MisakiEQ_Settings.SuspendLayout();
             this.SettingTab.SuspendLayout();
@@ -550,6 +557,7 @@
             // tabControl3
             // 
             this.tabControl3.Controls.Add(this.MisakiEQ_LatestData);
+            this.tabControl3.Controls.Add(this.KyoshinEx);
             this.tabControl3.Location = new System.Drawing.Point(-4, 0);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
@@ -562,9 +570,50 @@
             this.MisakiEQ_LatestData.Location = new System.Drawing.Point(4, 22);
             this.MisakiEQ_LatestData.Name = "MisakiEQ_LatestData";
             this.MisakiEQ_LatestData.Padding = new System.Windows.Forms.Padding(3);
-            this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 408);
+            this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 448);
             this.MisakiEQ_LatestData.TabIndex = 0;
             this.MisakiEQ_LatestData.Text = "受信データ";
+            // 
+            // KyoshinEx
+            // 
+            this.KyoshinEx.BackColor = System.Drawing.SystemColors.Control;
+            this.KyoshinEx.Controls.Add(this.button2);
+            this.KyoshinEx.Controls.Add(this.KyoshinDateTime);
+            this.KyoshinEx.Controls.Add(this.KyoshinImage);
+            this.KyoshinEx.Location = new System.Drawing.Point(4, 22);
+            this.KyoshinEx.Name = "KyoshinEx";
+            this.KyoshinEx.Padding = new System.Windows.Forms.Padding(3);
+            this.KyoshinEx.Size = new System.Drawing.Size(792, 408);
+            this.KyoshinEx.TabIndex = 1;
+            this.KyoshinEx.Text = "強震モニタ(まだ実験段階)";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(369, 31);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(65, 19);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "時刻調整";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            // 
+            // KyoshinDateTime
+            // 
+            this.KyoshinDateTime.CustomFormat = "yyyy/MM/dd HH:mm:ss";
+            this.KyoshinDateTime.Enabled = false;
+            this.KyoshinDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.KyoshinDateTime.Location = new System.Drawing.Point(277, 6);
+            this.KyoshinDateTime.Name = "KyoshinDateTime";
+            this.KyoshinDateTime.Size = new System.Drawing.Size(157, 19);
+            this.KyoshinDateTime.TabIndex = 1;
+            // 
+            // KyoshinImage
+            // 
+            this.KyoshinImage.Location = new System.Drawing.Point(440, 3);
+            this.KyoshinImage.Name = "KyoshinImage";
+            this.KyoshinImage.Size = new System.Drawing.Size(352, 400);
+            this.KyoshinImage.TabIndex = 0;
+            this.KyoshinImage.TabStop = false;
             // 
             // MisakiEQ_Status
             // 
@@ -627,6 +676,16 @@
             this.TwitterSettings.Size = new System.Drawing.Size(788, 408);
             this.TwitterSettings.TabIndex = 1;
             this.TwitterSettings.Text = "Twitter";
+            // 
+            // ReAuth
+            // 
+            this.ReAuth.Location = new System.Drawing.Point(0, 352);
+            this.ReAuth.Name = "ReAuth";
+            this.ReAuth.Size = new System.Drawing.Size(61, 21);
+            this.ReAuth.TabIndex = 13;
+            this.ReAuth.Text = "再認証";
+            this.ReAuth.UseVisualStyleBackColor = true;
+            this.ReAuth.Click += new System.EventHandler(this.ReAuth_Click);
             // 
             // SettingsAbout
             // 
@@ -730,7 +789,7 @@
             this.TaskProgressBar,
             this.TaskProgressText,
             this.StatusMassage});
-            this.statusStrip.Location = new System.Drawing.Point(0, 459);
+            this.statusStrip.Location = new System.Drawing.Point(0, 477);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(800, 24);
             this.statusStrip.TabIndex = 16;
@@ -763,21 +822,16 @@
             this.StatusMassage.Size = new System.Drawing.Size(245, 19);
             this.StatusMassage.Text = "現在実行中のタスクはありません。";
             // 
-            // ReAuth
+            // Timer_KyoshinEx
             // 
-            this.ReAuth.Location = new System.Drawing.Point(0, 352);
-            this.ReAuth.Name = "ReAuth";
-            this.ReAuth.Size = new System.Drawing.Size(61, 21);
-            this.ReAuth.TabIndex = 13;
-            this.ReAuth.Text = "再認証";
-            this.ReAuth.UseVisualStyleBackColor = true;
-            this.ReAuth.Click += new System.EventHandler(this.ReAuth_Click);
+            this.Timer_KyoshinEx.Interval = 1000;
+            this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 483);
+            this.ClientSize = new System.Drawing.Size(800, 501);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Test_Label);
@@ -802,6 +856,8 @@
             this.MisakiEQ_Infomation.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.MisakiEQ_LatestData.ResumeLayout(false);
+            this.KyoshinEx.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.KyoshinImage)).EndInit();
             this.MisakiEQ_Status.ResumeLayout(false);
             this.MisakiEQ_Status.PerformLayout();
             this.MisakiEQ_Settings.ResumeLayout(false);
@@ -887,6 +943,11 @@
         private System.Windows.Forms.Button GetDataPauseButton;
         private System.Windows.Forms.Button CloseApplication;
         private System.Windows.Forms.Button ReAuth;
+        private System.Windows.Forms.TabPage KyoshinEx;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DateTimePicker KyoshinDateTime;
+        private System.Windows.Forms.PictureBox KyoshinImage;
+        private System.Windows.Forms.Timer Timer_KyoshinEx;
     }
 }
 

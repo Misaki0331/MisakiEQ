@@ -15,12 +15,14 @@ namespace MisakiEQ
         [STAThread]
         static void Main()
         {
+#if Admin
             Application.ThreadException += new
          ThreadExceptionEventHandler(Application_ThreadException);
 
             // UnhandledExceptionイベント・ハンドラを登録する
             Thread.GetDomain().UnhandledException += new
             UnhandledExceptionEventHandler(Application_UnhandledException);
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
@@ -36,7 +38,7 @@ namespace MisakiEQ
         public static void Application_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-            if (ex != null)
+            if (ex == null)
             {
                 ShowErrorMessage(ex, "ハンドルされていない例外エラー");
             }

@@ -20,3 +20,12 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.pdb
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.ExceptionMassage.resources
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.TwitterAuthWindow.resources
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.EarthQuakeInfoForm.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.pdb
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.xml
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.Shell.pdb
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.pdb
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.xml
