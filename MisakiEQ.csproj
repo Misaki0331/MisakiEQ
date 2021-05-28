@@ -79,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataConverter.cs" />
+    <Compile Include="EarthQuakeInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EarthQuakeInfoForm.Designer.cs">
+      <DependentUpon>EarthQuakeInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EEW_Infomation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,7 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="kyoushin.cs" />
     <Compile Include="TwitterAuth.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +134,9 @@
       <DependentUpon>textboxWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Twitter.cs" />
+    <EmbeddedResource Include="EarthQuakeInfoForm.resx">
+      <DependentUpon>EarthQuakeInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EEW_Infomation.resx">
       <DependentUpon>EEW_Infomation.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +184,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\img\EEW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\basemap_new_black.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,9 +47,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 321);
             this.Controls.Add(this.Box);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "index";
             this.Text = "textbox";
+            this.SizeChanged += new System.EventHandler(this.index_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

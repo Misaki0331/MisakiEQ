@@ -259,6 +259,25 @@ namespace MisakiEQ
     }
 
 
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+    public class LatestKyoshinSecurity
+    {
+        public string realm { get; set; }
+        public string hash { get; set; }
+    }
 
+    public class LatestKyoshinResult
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+
+    public class LatestKyoshinRoot
+    {
+        public LatestKyoshinSecurity security { get; set; }
+        public string latest_time { get; set; }
+        public string request_time { get; set; }
+        public LatestKyoshinResult result { get; set; }
+    }
 
 }

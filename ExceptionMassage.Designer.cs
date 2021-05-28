@@ -33,34 +33,36 @@
             this.ErrorIndex = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.UserReport = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.RestartButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.Misaki_Image = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Misaki_Image)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("ＭＳ ゴシック", 20F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(43, 0);
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(98, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(422, 54);
+            this.label1.Size = new System.Drawing.Size(436, 54);
             this.label1.TabIndex = 0;
-            this.label1.Text = "MisakiEQは問題が発生したため\r\n終了する必要があります。";
+            this.label1.Text = "予期しないエラーが発生したため\r\nアプリケーションは動作を停止しました。";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 54);
+            this.label2.Location = new System.Drawing.Point(101, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(332, 24);
+            this.label2.Size = new System.Drawing.Size(249, 12);
             this.label2.TabIndex = 1;
-            this.label2.Text = "エラーが発生した手順を踏まえて、バグを報告して頂けると嬉しいです。\r\n「なんか知らないけどバグった」という理由はNGです。\r\n";
+            this.label2.Text = "どうやら水咲ちゃんはパニックになってしまったようです。";
             // 
             // ErrorIndex
             // 
@@ -76,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 429);
+            this.label3.Location = new System.Drawing.Point(3, 434);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 12);
             this.label3.TabIndex = 3;
@@ -91,15 +93,6 @@
             this.UserReport.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.UserReport.Size = new System.Drawing.Size(696, 126);
             this.UserReport.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 12);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "レポート";
             // 
             // button1
             // 
@@ -122,11 +115,12 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(9, 11);
+            this.pictureBox1.Location = new System.Drawing.Point(664, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // RestartButton
             // 
@@ -148,22 +142,42 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // Misaki_Image
+            // 
+            this.Misaki_Image.Image = global::MisakiEQ.Properties.Resources.help;
+            this.Misaki_Image.Location = new System.Drawing.Point(0, -3);
+            this.Misaki_Image.Name = "Misaki_Image";
+            this.Misaki_Image.Size = new System.Drawing.Size(146, 110);
+            this.Misaki_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Misaki_Image.TabIndex = 11;
+            this.Misaki_Image.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(111, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(289, 12);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "下のテキストボックスにフィードバックして開発者に貢献しよう！";
+            // 
             // ExceptionMassage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 450);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.UserReport);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Misaki_Image);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.RestartButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.UserReport);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ErrorIndex);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -171,6 +185,7 @@
             this.Text = "エラー - MisakiEQ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExceptionMassage_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Misaki_Image)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,12 +198,13 @@
         private System.Windows.Forms.TextBox ErrorIndex;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox UserReport;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label5;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button RestartButton;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox Misaki_Image;
+        private System.Windows.Forms.Label label4;
     }
 }

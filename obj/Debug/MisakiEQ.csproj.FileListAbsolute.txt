@@ -19,3 +19,4 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.exe
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.pdb
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.ExceptionMassage.resources
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.TwitterAuthWindow.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.EarthQuakeInfoForm.resources

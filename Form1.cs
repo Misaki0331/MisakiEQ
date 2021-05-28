@@ -284,6 +284,7 @@ namespace MisakiEQ
         {
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
+            Show();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -292,6 +293,7 @@ namespace MisakiEQ
                 e.Cancel = true;
                 this.WindowState = FormWindowState.Minimized;
                 this.ShowInTaskbar = false;
+                Hide();
             }
         }
         private void P2P_Conform_Click(object sender, EventArgs e)
@@ -965,8 +967,8 @@ namespace MisakiEQ
                         EEWText_Description = eew.Hypocenter.Name + "で地震 強い揺れに警戒";
                         EEWText_Graph ="規模 : M"+ eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
                             "深さ : " + converter.DeepString(eew.Hypocenter.Location.Depth.Int)+ "\n" +
-                            "最大震度:" + eew.MaxIntensity.String + "\n\n"+
-                            converter.GetTime(eew.OriginTime.String).ToString("YYYY/MM/dd\nH:mm:ss発生") + "\n\n"+
+                            "最大震度:" + eew.MaxIntensity.String + "\n"+
+                            converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd\nH:mm:ss発生") + "\n\n"+
                             "第"+ eew.Serial.ToString() + "報";
                         if (eew.Type.Code == 9) EEWText_Graph += "(最終)";
                         EEWText_Graph += "\n\n"+ converter.GetTime(eew.AnnouncedTime.String).ToString("H:mm:ss発表");

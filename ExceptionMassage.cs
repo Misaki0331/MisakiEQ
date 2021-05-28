@@ -22,6 +22,7 @@ namespace MisakiEQ
         public ExceptionMassage(string str)
         {
             InitializeComponent();
+            //Misaki_Image.Controls.Add(label4);
             string[] result = str.Split(new char[] { '\n' });
             this.ErrorIndex.Lines = result;
             index = str;

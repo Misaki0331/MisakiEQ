@@ -16,6 +16,7 @@ namespace MisakiEQ
         private string EEW_Index;
         private string EEW_Description;
         private string EEW_GraphText;
+        private Image EEW_Map;
         public EEW_Infomation()
         {
             InitializeComponent();
@@ -32,9 +33,15 @@ namespace MisakiEQ
                 if (EEW_Description == null) Description.Text = "データを取得できませんでした。";
                 Index.Text = EEW_Index;
                 if(EEW_Index==null)Index.Text= "データを取得できませんでした。";
+                
                 GraphText.Text = EEW_GraphText;
-                IsDisplaying = true;
+                
                 this.Visible = true;
+                if (!IsDisplaying)
+                {
+                    EEW_MapImage.Image = EEW_Map;
+                }
+                IsDisplaying = true;
             }
             else
             {
@@ -45,6 +52,19 @@ namespace MisakiEQ
         public bool GetVisible()
         {
             return IsDisplaying;
+        }
+        public void SetPicture(Image EEWImage)
+        {
+            
+            if (Visible)
+            {
+                EEW_MapImage.Image = EEW_Map;
+            }
+            else
+            {
+                EEW_Map = EEWImage;
+            }
+            
         }
         public void SetIndex(string str)
         {
@@ -81,5 +101,9 @@ namespace MisakiEQ
             e.Cancel = true;
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

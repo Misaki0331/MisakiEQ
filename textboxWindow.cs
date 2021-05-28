@@ -20,5 +20,11 @@ namespace MisakiEQ
             
             this.Box.Lines = result;
         }
+
+        private void index_SizeChanged(object sender, EventArgs e)
+        {
+            Size a = new Size(Size.Width - 16, Size.Height - 39);
+            Box.Size = a;
+        }
     }
 }

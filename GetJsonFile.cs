@@ -34,6 +34,27 @@ namespace MisakiEQ
             }
 
         }
+        public byte[] GetData(string URL)
+        {
+            try
+            {
+                if (URL == "")
+                {
+                    Error = "URLが指定されていません。";
+                    return null;
+                }
+                using (WebClient webClient = new WebClient())
+                {
+                    
+                    return webClient.DownloadData(URL);
+                }
+            }
+            catch(WebException e)
+            {
+                Error = e.Message;
+                return null;
+            }
+        }
         public string GetLastErrorStatus()
         {
             return Error;

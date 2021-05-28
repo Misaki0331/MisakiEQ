@@ -32,7 +32,9 @@
             this.Description = new System.Windows.Forms.Label();
             this.Index = new System.Windows.Forms.Label();
             this.GraphText = new System.Windows.Forms.Label();
+            this.EEW_MapImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.EEW_Image)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EEW_MapImage)).BeginInit();
             this.SuspendLayout();
             // 
             // EEW_Image
@@ -75,10 +77,21 @@
             this.GraphText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(91)))), ((int)(((byte)(145)))));
             this.GraphText.Font = new System.Drawing.Font("HGS創英角ｺﾞｼｯｸUB", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GraphText.ForeColor = System.Drawing.Color.White;
-            this.GraphText.Location = new System.Drawing.Point(12, 20);
+            this.GraphText.Location = new System.Drawing.Point(12, 9);
             this.GraphText.Name = "GraphText";
-            this.GraphText.Size = new System.Drawing.Size(0, 38);
+            this.GraphText.Size = new System.Drawing.Size(115, 38);
             this.GraphText.TabIndex = 4;
+            this.GraphText.Text = "Graph";
+            // 
+            // EEW_MapImage
+            // 
+            this.EEW_MapImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(91)))), ((int)(((byte)(145)))));
+            this.EEW_MapImage.Location = new System.Drawing.Point(9, 9);
+            this.EEW_MapImage.Name = "EEW_MapImage";
+            this.EEW_MapImage.Size = new System.Drawing.Size(317, 410);
+            this.EEW_MapImage.TabIndex = 5;
+            this.EEW_MapImage.TabStop = false;
+            this.EEW_MapImage.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // EEW_Infomation
             // 
@@ -86,6 +99,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1202, 427);
             this.Controls.Add(this.GraphText);
+            this.Controls.Add(this.EEW_MapImage);
             this.Controls.Add(this.Index);
             this.Controls.Add(this.Description);
             this.Controls.Add(this.EEW_Image);
@@ -99,6 +113,7 @@
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EEW_Infomation_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.EEW_Image)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EEW_MapImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,5 +124,6 @@
         private System.Windows.Forms.Label Description;
         private System.Windows.Forms.Label Index;
         private System.Windows.Forms.Label GraphText;
+        private System.Windows.Forms.PictureBox EEW_MapImage;
     }
 }
