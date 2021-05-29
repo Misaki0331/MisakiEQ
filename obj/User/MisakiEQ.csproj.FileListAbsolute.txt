@@ -15,3 +15,8 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.exe
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.pdb
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.EEW_Infomation.resources
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.Form2.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.EarthQuakeInfoForm.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.ExceptionMassage.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.TwitterAuthWindow.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.Init.resources
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\User\MisakiEQ.index.resources
