@@ -90,14 +90,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MisakiEQ.exe" size="2739112">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MisakiEQ.exe" size="2752936">
       <assemblyIdentity name="MisakiEQ" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qDVibabDN7WEACcygcUCf5Ppdq/w0A6odB2sW9fRdcI=</dsig:DigestValue>
+        <dsig:DigestValue>h/MMmbIcEQIezY/qseadQXo/N3bLT789z0Bx1I4gRCs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
