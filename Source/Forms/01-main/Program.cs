@@ -15,14 +15,13 @@ namespace MisakiEQ
         [STAThread]
         static void Main()
         {
-#if Admin
             Application.ThreadException += new
          ThreadExceptionEventHandler(Application_ThreadException);
 
             // UnhandledExceptionイベント・ハンドラを登録する
             Thread.GetDomain().UnhandledException += new
             UnhandledExceptionEventHandler(Application_UnhandledException);
-#endif
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

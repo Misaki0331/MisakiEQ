@@ -92,6 +92,7 @@ namespace MisakiEQ
         }
         public Form1()
         {
+            //throw null;
             InitWindow = new Init();
             InitWindow.Location = new Point(0, 0);
             InitWindow.Show();
