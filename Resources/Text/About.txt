@@ -1,0 +1,16 @@
+このアプリケーションをご利用いただきありがとうございます。
+
+MisakiEQは以下の情報から地震データを受信します。あらかじめフィルタを外した上でご利用ください。
+・p2pquake.netからの震度速報、詳細な地震情報及び津波情報
+・iedred7584.comからの緊急地震速報
+・kmoni.bosai.go.jpからの強震モニタ
+
+緊急地震速報APIを提供してくださった iedred7584 様に感謝を申し上げます。
+GitHub : https://github.com/iedred7584
+Twitter : https://twitter.com/iedred7584
+
+強震モニタは独立行政法人防災科学技術研究所(NIED)が提供するサービスであり、当ソフトMisakiEQとは一切関係はありません。
+入手する強震モニタのデータは防災科学技術研究所が提供する画像データを使用させていただいております。
+このような貴重な情報を提供してくださる独立行政法人防災科学技術研究所に感謝を申し上げます。
+公式サイト : https://www.bosai.go.jp/
+強震モニタ : https://www.kyoshin.bosai.go.jp/kyoshin/

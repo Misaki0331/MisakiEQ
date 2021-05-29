@@ -61,6 +61,46 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   このアプリケーションをご利用いただきありがとうございます。
+        ///
+        ///MisakiEQは以下の情報から地震データを受信します。あらかじめフィルタを外した上でご利用ください。
+        ///・p2pquake.netからの震度速報、詳細な地震情報及び津波情報
+        ///・iedred7584.comからの緊急地震速報
+        ///・kmoni.bosai.go.jpからの強震モニタ
+        ///
+        ///緊急地震速報APIを提供してくださった iedred7584 様に感謝を申し上げます。
+        ///GitHub : https://github.com/iedred7584
+        ///Twitter : https://twitter.com/iedred7584
+        ///
+        ///強震モニタは独立行政法人防災科学技術研究所(NIED)が提供するサービスであり、当ソフトMisakiEQとは一切関係はありません。
+        ///入手する強震モニタのデータは防災科学技術研究所が提供する画像データを使用させていただいております。
+        ///このような貴重な情報を提供してくださる独立行政法人防災科学技術研究所に感謝を申し上げます。
+        ///公式サイト : https://www.bosai.go.jp/
+        ///強震モニタ  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   このアプリはすべての機能が無料でご利用いただけますが、開発者に寄付を送ることも可能です。
+        ///
+        ///PayPalリンク
+        ///https://paypal.me/Blueplanet256
+        ///
+        ///ビットコイン(Bitcoin)
+        ///1HLG5Ac1FZvxZm8zZn2X2eYexnz3hnE7sT
+        /// に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Donate {
+            get {
+                return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap EEW {
@@ -76,6 +116,16 @@ namespace MisakiEQ.Properties {
         internal static System.IO.UnmanagedMemoryStream First {
             get {
                 return ResourceManager.GetStream("First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] Font_7barSPBd {
+            get {
+                object obj = ResourceManager.GetObject("Font_7barSPBd", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -96,6 +146,73 @@ namespace MisakiEQ.Properties {
             get {
                 object obj = ResourceManager.GetObject("Kyoshin_Basemap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   ### CoreTweet ###
+        ///
+        ///The MIT License (MIT)
+        ///
+        ///CoreTweet - A .NET Twitter Library supporting Twitter API 1.1
+        ///Copyright (c) 2013-2018 CoreTweet Development Team
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit perso [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string License {
+            get {
+                return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   https://twitter.com/0x7FF に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string TwitterLink {
+            get {
+                return ResourceManager.GetString("TwitterLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   2021/05/28 - 0.2.1 Updated
+        ///全てのリソースをEXEファイル内に押し込みました。
+        ///これで間違って削除されることなかれ。
+        ///ただしDLLは除く。
+        ///
+        ///2021/05/27 - 0.2.0 Updated
+        ///強震モニタを追加しました。
+        ///今のところリアルタイム震度と緊急地震速報の予測震度と予測円しか表示されないけどまあ許容範囲
+        ///
+        ///2021/05/14 - 0.1.2 Updated
+        ///開発者専用ビルドにてTwitter連携をボタン一つで自分のアカウントと連携できるようになった。
+        ///
+        ///2021/04/20 - 0.1.1 Updated
+        ///予測不可能なエラー発生時にUIが表示されるようになった。
+        ///ついでにTwitterに直接DMで送れるようになった。
+        ///
+        ///2021/04/14 - 0.1.0 Updated
+        ///UIの大幅な変更。1画面ではなくタブを採用
+        ///
+        ///2021/03/23 - 0.0.1 Updated
+        ///緊急地震速報(警報)時にN〇K風のUIを表示するようにした。(開発者限定)
+        ///
+        ///2021/03/21 - 0.0.0 Published
+        ///Bot監視用としてプラ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Update_History {
+            get {
+                return ResourceManager.GetString("Update_History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MisakiEQ For Windows Version 0.2.0
+        ///このバージョンは非公開です。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

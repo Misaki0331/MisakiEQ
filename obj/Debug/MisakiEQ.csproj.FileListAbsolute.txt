@@ -29,3 +29,7 @@ C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICod
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.pdb
 C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.xml
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\MisakiEQ.exe.manifest
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Debug\MisakiEQ.application
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.exe.manifest
+C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\obj\Debug\MisakiEQ.application

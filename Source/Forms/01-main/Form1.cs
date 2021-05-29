@@ -178,7 +178,7 @@ namespace MisakiEQ
             }
             KyoshinImage.Image = KyoshinEx_Image;
             //customThumbnail = new TabbedThumbnail(this.Handle, this.Handle);
-            
+            VersionName.Text = Properties.Resources.Version;
             InitWindow.Done();
             UIUpdate.Start();
         }
@@ -1518,14 +1518,14 @@ namespace MisakiEQ
 
         private void button2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://twitter.com/0x7FF/");
+            System.Diagnostics.Process.Start(Properties.Resources.TwitterLink);
         }
 
         private void LinkLicense_Click(object sender, EventArgs e)
         {
             if (TextBoxWindow == null)
             {
-                TextBoxWindow = new index("ライセンス - License", "### CoreTweet ###\n\nThe MIT License (MIT)\n\nCoreTweet - A .NET Twitter Library supporting Twitter API 1.1\nCopyright (c) 2013-2018 CoreTweet Development Team\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n### Newtonsoft.json ###\n\nThe MIT License (MIT)\n\nCopyright (c) 2007 James Newton-King\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n");
+                TextBoxWindow = new index("ライセンス - License", Properties.Resources.License);
                 TextBoxWindow.Show();
             }
         }
@@ -1534,7 +1534,7 @@ namespace MisakiEQ
         {
             if (TextBoxWindow == null)
             {
-                TextBoxWindow = new index("MisakiEQについて - About MisakiEQ", "このアプリケーションをご利用いただきありがとうございます。\n\nMisakiEQは以下の情報から地震データを受信します。あらかじめフィルタを外した上でご利用ください。\n・p2pquake.netからの震度速報、詳細な地震情報及び津波情報\n・iedred7584.comからの緊急地震速報\n\n緊急地震速報APIを提供してくださった iedred7584 様に感謝を申し上げます。\nGitHub : https://github.com/iedred7584\nTwitter : https://twitter.com/iedred7584\n");
+                TextBoxWindow = new index("MisakiEQについて - About MisakiEQ", Properties.Resources.About);
                 TextBoxWindow.Show();
             }
         }
@@ -1543,7 +1543,7 @@ namespace MisakiEQ
         {
             if (TextBoxWindow == null)
             {
-                TextBoxWindow = new index("寄付 - Donate", "このアプリはすべての機能が無料でご利用いただけますが、開発者に寄付を送ることも可能です。\n\nPayPalリンク\nhttps://paypal.me/Blueplanet256\n\nビットコイン(Bitcoin)\n1HLG5Ac1FZvxZm8zZn2X2eYexnz3hnE7sT\n");
+                TextBoxWindow = new index("寄付 - Donate", Properties.Resources.Donate);
                 TextBoxWindow.Show();
             }
         }
@@ -1620,6 +1620,15 @@ namespace MisakiEQ
                 t.Start();
             }
             
+        }
+
+        private void Link_VersionHistory_Click(object sender, EventArgs e)
+        {
+            if (TextBoxWindow == null)
+            {
+                TextBoxWindow = new index("更新履歴 - Update History", Properties.Resources.Update_History);
+                TextBoxWindow.Show();
+            }
         }
     }
 }

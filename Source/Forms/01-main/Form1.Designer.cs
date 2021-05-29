@@ -99,6 +99,7 @@
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
+            this.Link_VersionHistory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -570,7 +571,7 @@
             this.MisakiEQ_LatestData.Location = new System.Drawing.Point(4, 22);
             this.MisakiEQ_LatestData.Name = "MisakiEQ_LatestData";
             this.MisakiEQ_LatestData.Padding = new System.Windows.Forms.Padding(3);
-            this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 448);
+            this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 408);
             this.MisakiEQ_LatestData.TabIndex = 0;
             this.MisakiEQ_LatestData.Text = "受信データ";
             // 
@@ -689,6 +690,7 @@
             // 
             // SettingsAbout
             // 
+            this.SettingsAbout.Controls.Add(this.Link_VersionHistory);
             this.SettingsAbout.Controls.Add(this.LinkDonate);
             this.SettingsAbout.Controls.Add(this.LinkAbout);
             this.SettingsAbout.Controls.Add(this.LinkLicense);
@@ -703,7 +705,7 @@
             // 
             // LinkDonate
             // 
-            this.LinkDonate.Location = new System.Drawing.Point(298, 103);
+            this.LinkDonate.Location = new System.Drawing.Point(671, 350);
             this.LinkDonate.Name = "LinkDonate";
             this.LinkDonate.Size = new System.Drawing.Size(109, 23);
             this.LinkDonate.TabIndex = 5;
@@ -713,7 +715,7 @@
             // 
             // LinkAbout
             // 
-            this.LinkAbout.Location = new System.Drawing.Point(298, 74);
+            this.LinkAbout.Location = new System.Drawing.Point(671, 321);
             this.LinkAbout.Name = "LinkAbout";
             this.LinkAbout.Size = new System.Drawing.Size(109, 23);
             this.LinkAbout.TabIndex = 4;
@@ -723,7 +725,7 @@
             // 
             // LinkLicense
             // 
-            this.LinkLicense.Location = new System.Drawing.Point(298, 45);
+            this.LinkLicense.Location = new System.Drawing.Point(671, 292);
             this.LinkLicense.Name = "LinkLicense";
             this.LinkLicense.Size = new System.Drawing.Size(109, 23);
             this.LinkLicense.TabIndex = 3;
@@ -733,7 +735,7 @@
             // 
             // LinkTwitter
             // 
-            this.LinkTwitter.Location = new System.Drawing.Point(298, 16);
+            this.LinkTwitter.Location = new System.Drawing.Point(671, 263);
             this.LinkTwitter.Name = "LinkTwitter";
             this.LinkTwitter.Size = new System.Drawing.Size(109, 23);
             this.LinkTwitter.TabIndex = 2;
@@ -826,6 +828,16 @@
             // 
             this.Timer_KyoshinEx.Interval = 1000;
             this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
+            // 
+            // Link_VersionHistory
+            // 
+            this.Link_VersionHistory.Location = new System.Drawing.Point(671, 379);
+            this.Link_VersionHistory.Name = "Link_VersionHistory";
+            this.Link_VersionHistory.Size = new System.Drawing.Size(109, 23);
+            this.Link_VersionHistory.TabIndex = 6;
+            this.Link_VersionHistory.Text = "更新履歴";
+            this.Link_VersionHistory.UseVisualStyleBackColor = true;
+            this.Link_VersionHistory.Click += new System.EventHandler(this.Link_VersionHistory_Click);
             // 
             // Form1
             // 
@@ -948,6 +960,7 @@
         private System.Windows.Forms.DateTimePicker KyoshinDateTime;
         private System.Windows.Forms.PictureBox KyoshinImage;
         private System.Windows.Forms.Timer Timer_KyoshinEx;
+        private System.Windows.Forms.Button Link_VersionHistory;
     }
 }
 
