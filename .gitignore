@@ -3,3 +3,4 @@ Resources/Private/
 #実行ファイルは非公開
 bin/
 obj/
+bin/Admin/MisakiEQ.exe
