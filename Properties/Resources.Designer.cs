@@ -166,6 +166,24 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   6xE2EOb4ylyMBQ5T8gOeBY08l に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Twitter_ConsumerKey {
+            get {
+                return ResourceManager.GetString("Twitter_ConsumerKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   cNRiZJaFFNqh1Bx946dNvamSIJBnIbyVR5CBxERdJaHJZniwUG に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Twitter_ConsumerSecretKey {
+            get {
+                return ResourceManager.GetString("Twitter_ConsumerSecretKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   https://twitter.com/0x7FF に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string TwitterLink {

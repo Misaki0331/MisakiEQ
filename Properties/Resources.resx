@@ -151,6 +151,12 @@
     <value>https://twitter.com/0x7FF</value>
     <comment>私のツイッターリンクです。凍結もしくは消えたら変更</comment>
   </data>
+  <data name="Twitter_ConsumerKey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Private\API\Twitter\ConsumerKey.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="Twitter_ConsumerSecretKey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Private\API\Twitter\ConsumerSecretKey.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
   <data name="Update_History" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Text\Update History.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
     <comment>更新履歴</comment>

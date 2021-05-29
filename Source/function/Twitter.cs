@@ -15,13 +15,10 @@ namespace MisakiEQ
     {
 #if ADMIN || DEBUG
         OAuth.OAuthSession session;
-        private static string consumer_key    = "5x4mO0EEaBwNPZGcSiBzqUpD6";
-        private static string consumer_sec    = "SfhJmQSLCcIhRhjZZjBcPkDEhLsXSYd2ZBhULYbDVeIrtFkDf1";
-        private static string accesstoken     = "1129403055374340101-rvnDpPVbnXS40X9nCoe5U2s8aq21ng";
-        private static string accesstoken_sec = "qMHYChSHGYWjx17GmQNJcRPhRs1x8bl0zvHs0GdfP2wDv";
 
-        private static string cKey = "6xE2EOb4ylyMBQ5T8gOeBY08l";
-        private static string cSec = "cNRiZJaFFNqh1Bx946dNvamSIJBnIbyVR5CBxERdJaHJZniwUG";
+
+        private static string cKey = Properties.Resources.Twitter_ConsumerKey;//"6xE2EOb4ylyMBQ5T8gOeBY08l";
+        private static string cSec = Properties.Resources.Twitter_ConsumerSecretKey;//"cNRiZJaFFNqh1Bx946dNvamSIJBnIbyVR5CBxERdJaHJZniwUG";
         private string aToken;
         private string aSec;
         private static Tokens tokens;

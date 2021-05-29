@@ -1,0 +1,5 @@
+#APIキー非公開
+Resources/Private/
+#実行ファイルは非公開
+bin/
+obj/

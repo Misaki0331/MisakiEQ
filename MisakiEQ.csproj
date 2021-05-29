@@ -262,5 +262,11 @@
   <ItemGroup>
     <None Include="Resources\Text\License.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Private\API\Twitter\ConsumerSecretKey.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Private\API\Twitter\ConsumerKey.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
