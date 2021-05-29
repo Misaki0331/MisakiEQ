@@ -11,6 +11,7 @@ obj/
 bin/Admin/app.publish/MisakiEQ.exe
 bin/Admin/MisakiEQ.application
 bin/Admin/MisakiEQ.exe
+bin/Admin/TwiSession.dat
 bin/Admin/MisakiEQ.exe.manifest
 obj/Admin/MisakiEQ.application
 obj/Admin/MisakiEQ.exe
