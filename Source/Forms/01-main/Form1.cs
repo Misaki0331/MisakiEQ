@@ -1473,19 +1473,20 @@ namespace MisakiEQ
                 */
 #if  ADMIN || DEBUG
                 System.Media.SoundPlayer EEW_Warning = null;
-                
-                EEW_Warning = new System.Media.SoundPlayer();
-                EEW_Warning.SoundLocation = Directory.GetCurrentDirectory() + "\\data\\SE\\Warn.wav";
+                System.IO.Stream strm2 = Properties.Resources.Warn;
+                EEW_Warning = new System.Media.SoundPlayer(strm2);
+                //EEW_Warning.SoundLocation = Directory.GetCurrentDirectory() + "\\data\\SE\\Warn.wav";
                 if (!sndonly)
                 {
                     System.Media.SoundPlayer EEW_First = null;
-                    EEW_First = new System.Media.SoundPlayer();
-                    EEW_First.SoundLocation = Directory.GetCurrentDirectory() + "\\data\\SE\\First.wav";
+                    System.IO.Stream strm = Properties.Resources.First;
+                    EEW_First = new System.Media.SoundPlayer(strm);
+                    //EEW_First.SoundLocation = Directory.GetCurrentDirectory() + "\\data\\SE\\First.wav";
                     WillDisplayEEWNotification = true;
                     EEW_First.PlaySync();
-                    Thread.Sleep(1500);
+                    Thread.Sleep(100);
                     WillDisplayEEWNotification = false;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                 }
                 EEWDisplayTimer = 600;
                 WillDisplayEEWInfomation = true;

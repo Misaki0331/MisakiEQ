@@ -71,6 +71,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream First {
+            get {
+                return ResourceManager.GetStream("First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap help {
@@ -87,6 +96,15 @@ namespace MisakiEQ.Properties {
             get {
                 object obj = ResourceManager.GetObject("Kyoshin_Basemap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Warn {
+            get {
+                return ResourceManager.GetStream("Warn", resourceCulture);
             }
         }
     }
