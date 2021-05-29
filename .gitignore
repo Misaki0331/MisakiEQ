@@ -1,6 +1,10 @@
 #APIキー非公開
 Resources/Private/
 bin/
+bin/Admin
+bin/Debug
+bin/Release
+bin/Users
 obj/
 *.exe
 *.pfx
