@@ -38,7 +38,7 @@ namespace MisakiEQ
         public static void Application_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-            if (ex == null)
+            if (ex != null)
             {
                 ShowErrorMessage(ex, "ハンドルされていない例外エラー");
             }

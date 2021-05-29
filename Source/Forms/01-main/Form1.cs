@@ -105,13 +105,22 @@ namespace MisakiEQ
             this.P2P_Interval_EarthQuake.Value = IntervalEQ;
             this.P2P_Interval_Tsunami.Value = IntervalTsunami;
             P2P_Request_Changed();
+            try
+            {
+                List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+                this.UserName.Text = TwiCliant.GetScreenName();
+                Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+                if (TwiList != null)
+                {
+                    if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
+                    if (TwiList.Count > 0) Tweet_LastID = TwiList[0].Id;
+                }
+                UserNameID = TwiCliant.GetScreenName();
+            }
+            catch
+            {
 
-            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
-            this.UserName.Text = TwiCliant.GetScreenName();
-            Twitter_Author.Text = "投稿 : "+TwiCliant.GetStringName();
-            if (TwiList.Count>0) this.Tweet_Index.Text = TwiList[0].Text;
-            if (TwiList.Count > 0) Tweet_LastID = TwiList[0].Id;
-            UserNameID=TwiCliant.GetScreenName();
+            }
             Point a = new Point(816,540);
             Size = (System.Drawing.Size)a;
             InitWindow.SetInfo(20, "緊急地震速報のウィンドウを作成中です...");
