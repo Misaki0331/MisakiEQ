@@ -9,12 +9,15 @@ namespace MisakiEQ
 {
     static class Program
     {
+        private static int ErrorCount = 0;
+        static Form1 MainForm;
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            
             Application.ThreadException += new
          ThreadExceptionEventHandler(Application_ThreadException);
 
@@ -24,7 +27,17 @@ namespace MisakiEQ
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            for (int i = 0; args.Count() > i; i++)
+            {
+                if (args[i].StartsWith("ErrorFlg="))
+                {
+                    ErrorCount=int.Parse(args[i].Remove(0, 9));
+                }
+            }
+
+            MainForm = new Form1();
+            Application.Run(MainForm);
             
         }
         public static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
@@ -46,14 +59,17 @@ namespace MisakiEQ
         // ユーザー・フレンドリなダイアログを表示するメソッド
         public static void ShowErrorMessage(Exception ex, string extraMessage)
         {
-            Application.Run(new ExceptionMassage(extraMessage + " \n" +
+            MainForm.IsApplicationShutDown = true;
+            ExceptionMassage err = new ExceptionMassage(extraMessage + " \n" +
               
               "【例外が発生したメゾット】\n" + ex.TargetSite + "\n\n" +
               "【例外が発生したソース】\n" + ex.Source + "\n\n"+
               "【エラー内容】\n" + ex.Message +"\n"+ ex.HelpLink+ "\n\n" +
-              "【スタックトレース】\n" + ex.StackTrace)
-              ) ; 
-            
+              "【スタックトレース】\n" + ex.StackTrace,ErrorCount, "" + ex.TargetSite)
+               ;
+            //Application.Run(err);
+            err.Show();
+            MainForm.Hide();
         }
     }
 }

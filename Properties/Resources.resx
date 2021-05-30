@@ -153,9 +153,11 @@
   </data>
   <data name="Twitter_ConsumerKey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Private\API\Twitter\ConsumerKey.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+    <comment>TwittterAPIの情報(非公開)</comment>
   </data>
   <data name="Twitter_ConsumerSecretKey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Private\API\Twitter\ConsumerSecretKey.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+    <comment>TwittterAPIの情報(非公開)</comment>
   </data>
   <data name="Update_History" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Text\Update History.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

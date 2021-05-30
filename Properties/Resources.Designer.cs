@@ -166,7 +166,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   6xE2EOb4ylyMBQ5T8gOeBY08l に類似しているローカライズされた文字列を検索します。
+        ///   LsJ5tDiMeLhg0pczmv9SNzUcE に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Twitter_ConsumerKey {
             get {
@@ -175,7 +175,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   cNRiZJaFFNqh1Bx946dNvamSIJBnIbyVR5CBxERdJaHJZniwUG に類似しているローカライズされた文字列を検索します。
+        ///   8S6cTD3ZH6a2kCvmKMIVBdbqhihhl0oFJoF8DKcWFGQYTuxYQx に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Twitter_ConsumerSecretKey {
             get {

@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Threading;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Diagnostics;
 namespace MisakiEQ
 {
     
@@ -52,7 +53,7 @@ namespace MisakiEQ
         private int EEW_SerialCountTemp = -1;
         private bool IsEQStatusOK = false;
         private bool IsEEWStatusOK = false;
-        bool IsApplicationShutDown = false;
+        public bool IsApplicationShutDown = false;
         private bool IsFailTsunamiInit = true;
         private bool IsTsunamiStatusOK = true;
         private string TsunamiJsonFile = "";
@@ -85,7 +86,9 @@ namespace MisakiEQ
         private bool IsKyoshinUpdated;
         TwitterAuthWindow AuthWindow=null;
         private TabbedThumbnail customThumbnail;
-
+        Stopwatch KyoshinUpdateTimer;
+        int KyoshinTempTimer = 0;
+        bool IsKyoshinWorking = false;
         private static void GetLastID(ref long ID)
         {
 
@@ -135,10 +138,16 @@ namespace MisakiEQ
             InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
             KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
             Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            KyoshinUpdateTimer = new Stopwatch();
             if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
             {
+
                 IsKyoshinInited = true;
                 Timer_KyoshinEx.Start();
+                KyoshinUpdateTimer.Reset();
+                KyoshinUpdateTimer.Start();
+                
+                KyoshinTempTimer = 0;
                 Console.WriteLine("強震モニタ起動成功！");
             }
             else
@@ -1184,13 +1193,13 @@ namespace MisakiEQ
             if (KyoshinEx_Image != null)
             {
 
-                KyoshinDateTime.Value = KyoshinLatest;
+                
                 KyoshinImage.Image = KyoshinEx_Image;
                 //if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(customThumbnail))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(customThumbnail);
                 //customThumbnail.SetImage((Bitmap)KyoshinEx_Image);
                 //TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(customThumbnail);
-                
-                
+
+
                 /*TabbedThumbnail preview = new TabbedThumbnail(Handle, Handle);
                 if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(preview))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(preview);
                 TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(preview);
@@ -1198,7 +1207,7 @@ namespace MisakiEQ
                 preview.ClippingRectangle = new Rectangle(new Point(0, 0), new Size(200, 108));
                 preview.SetImage((Bitmap)KyoshinEx_Image);
                 */
-
+                //KyoshinEx_Image.Dispose();
                 KyoshinEx_Image = null;
 
             }
@@ -1605,6 +1614,11 @@ namespace MisakiEQ
             {
                 Console.WriteLine("強震モニタ更新成功！");
                 StatusMassage.Text = "強震モニタ時刻調整成功！";
+                KyoshinUpdateTimer.Reset();
+                if (!KyoshinUpdateTimer.IsRunning) KyoshinUpdateTimer.Start();
+                
+                Timer_KyoshinEx.Start();
+                KyoshinTempTimer = 0;
                 KyoshinLatest = temp;
             }
             else
@@ -1618,16 +1632,25 @@ namespace MisakiEQ
             KyoshinEx_Image= KyoshinMonitor.GetFastImage(KyoshinLatest, MisakiEQ.KyoshinEx.KyoshinType.RealTime_Shindo, false, true, true, false);
             IsKyoshinUpdated = KyoshinEx_Image!=null;
             if(KyoshinEx_Image==null) Console.WriteLine("Error!画像を入手できませんでした 理由:"+KyoshinMonitor.GetLastError());
+            IsKyoshinWorking = false;
         }
         private void Timer_KyoshinEx_Tick(object sender, EventArgs e)
         {
             
-            KyoshinLatest=KyoshinLatest.AddSeconds(1);
             
-            if (KyoshinEx_Image==null)
+            if (KyoshinUpdateTimer.ElapsedMilliseconds / 1000 - KyoshinTempTimer > 0)
             {
-                Thread t = new Thread(new ThreadStart(KyoshinUpdate));
-                t.Start();
+                
+                KyoshinTempTimer =(int)((long)KyoshinUpdateTimer.ElapsedMilliseconds / 1000);
+                KyoshinLatest = KyoshinLatest.AddSeconds(1);
+                KyoshinDateTime.Value = KyoshinLatest;
+                if (!IsKyoshinWorking)
+                {
+                    IsKyoshinWorking = true;
+                    //KyoshinEx_Image = new Bitmap(352,400);
+                    Thread t = new Thread(new ThreadStart(KyoshinUpdate));
+                    t.Start();
+                }
             }
             
         }
@@ -1638,6 +1661,22 @@ namespace MisakiEQ
             {
                 TextBoxWindow = new index("更新履歴 - Update History", Properties.Resources.Update_History);
                 TextBoxWindow.Show();
+            }
+        }
+        
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want crash application?\nWarning: This command is test only.\nIf you choose \"Yes\", MisakiEQ has will be doesn't work." + "\n\n注意:このコマンドは試験的機能であり、意図的に強制終了させます。\nこの操作をするとMisakiEQの動作が不安定になります。\n\nそれでも実行しますか?",
+            "Question - MisakiEQ",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Error,
+            MessageBoxDefaultButton.Button2);
+
+            //何が選択されたか調べる
+            if (result == DialogResult.Yes)
+            {
+                MisakiEQ.app.Abort D = new app.Abort();
+                D.Application_was_crashed_by_user();
             }
         }
     }

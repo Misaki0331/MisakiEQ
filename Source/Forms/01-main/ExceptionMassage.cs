@@ -19,7 +19,9 @@ namespace MisakiEQ
     {
         
         string index;
-        public ExceptionMassage(string str)
+        int ErrCnt;
+        int RestartTimerCount=20;
+        public ExceptionMassage(string str,int ErrorCount=0,string CrashMethod="")
         {
             InitializeComponent();
             //Misaki_Image.Controls.Add(label4);
@@ -35,6 +37,29 @@ namespace MisakiEQ
 
             //PictureBox1に表示する
             pictureBox1.Image = canvas;
+            ErrCnt = ErrorCount;
+            if (ErrCnt >= 2)
+            {
+                label1.Text = "MisakiEQは "+(ErrCnt+1).ToString()+" 回連続で\n予期しないエラーが発生しました。";
+                if(ErrCnt>4)label1.ForeColor = System.Drawing.Color.Red;
+                label2.Text = "特定の手順で発生する場合は開発者にご報告ください。";
+            }
+            if(CrashMethod== "Void Application_was_crashed_by_user()")
+            {
+                label1.Text = "MisakiEQを意図的にクラッシュさせました。";
+                label1.ForeColor = System.Drawing.Color.Black;
+                label2.Text = "水咲ちゃんはとても困っているようです。";
+                UserReport.Text = "意図的にクラッシュさせたため無効";
+                UserReport.ReadOnly = true;
+                UserReport.Enabled = false;
+                button1.Enabled = false;
+                label4.Text = "";
+            }
+            if (ErrCnt >= 9)
+            {
+                RestartTimer.Stop();
+                RestartMassage.Text = "繰り返し動作が停止しましたので自動再起動は無効になりました。";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -112,11 +137,11 @@ namespace MisakiEQ
                 SpecText += "-------------------------\n";
             }
             string UserReportStr = String.Join("\n", UserReport.Text);
-            if(UserReportStr == "")UserReportStr = "[未入力]\n";
+            if(UserReport.Text == "")UserReportStr = "[未入力]\n";
             
 
            string link = HttpUtility.UrlEncode("----------ユーザー報告----------\n"+
-                String.Join("\n", UserReport.Text) +
+                String.Join("\n", UserReportStr) +
                 "\n----------エラーの内容----------\n" + index+"\n----------ユーザー環境----------\n"+SpecText);
             //https://twitter.com/messages/compose?recipient_id=1129403055374340101&text=
             System.Diagnostics.Process.Start("https://twitter.com/messages/compose?recipient_id=1129403055374340101&text="+link);
@@ -135,8 +160,28 @@ namespace MisakiEQ
 
         private void RestartButton_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+            ErrCnt++;
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "ErrorFlg="+ErrCnt.ToString());
             Environment.Exit(-1);
+        }
+
+        private void UserReport_MouseClick(object sender, MouseEventArgs e)
+        {
+            RestartMassage.Text = "";
+            RestartTimer.Stop();
+        }
+
+        private void RestartTimer_Tick(object sender, EventArgs e)
+        {
+            RestartTimerCount--;
+
+            if (RestartTimerCount < 0)
+            {
+                ErrCnt++;
+                System.Diagnostics.Process.Start(Application.ExecutablePath, "ErrorFlg=" + ErrCnt.ToString());
+                Environment.Exit(-1);
+            }
+            RestartMassage.Text = "MisakiEQは " + RestartTimerCount.ToString() + " 秒後、自動的に再起動します。";
         }
     }
 }

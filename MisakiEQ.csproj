@@ -115,6 +115,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Forms\99-others\Crash.cs" />
     <Compile Include="Source\function\DataConverter.cs" />
     <Compile Include="Source\Forms\02-overlay\EarthQuakeInfoForm.cs">
       <SubType>Form</SubType>
@@ -267,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Private\API\Twitter\ConsumerKey.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Source\Forms\98-User Confirm\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

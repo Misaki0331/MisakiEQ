@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ErrorIndex = new System.Windows.Forms.TextBox();
@@ -41,6 +42,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.Misaki_Image = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.RestartMassage = new System.Windows.Forms.Label();
+            this.RestartTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Misaki_Image)).BeginInit();
             this.SuspendLayout();
@@ -93,6 +96,7 @@
             this.UserReport.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.UserReport.Size = new System.Drawing.Size(696, 126);
             this.UserReport.TabIndex = 4;
+            this.UserReport.MouseClick += new System.Windows.Forms.MouseEventHandler(this.UserReport_MouseClick);
             // 
             // button1
             // 
@@ -161,11 +165,29 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "下のテキストボックスにフィードバックして開発者に貢献しよう！";
             // 
+            // RestartMassage
+            // 
+            this.RestartMassage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RestartMassage.AutoSize = true;
+            this.RestartMassage.Location = new System.Drawing.Point(302, 433);
+            this.RestartMassage.Name = "RestartMassage";
+            this.RestartMassage.Size = new System.Drawing.Size(232, 12);
+            this.RestartMassage.TabIndex = 12;
+            this.RestartMassage.Text = "MisakiEQは 20 秒後、自動的に再起動します。";
+            this.RestartMassage.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RestartTimer
+            // 
+            this.RestartTimer.Enabled = true;
+            this.RestartTimer.Interval = 1000;
+            this.RestartTimer.Tick += new System.EventHandler(this.RestartTimer_Tick);
+            // 
             // ExceptionMassage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 450);
+            this.Controls.Add(this.RestartMassage);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.UserReport);
             this.Controls.Add(this.label2);
@@ -206,5 +228,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox Misaki_Image;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label RestartMassage;
+        private System.Windows.Forms.Timer RestartTimer;
     }
 }

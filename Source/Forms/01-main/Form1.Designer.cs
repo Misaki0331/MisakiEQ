@@ -85,6 +85,7 @@
             this.TwitterSettings = new System.Windows.Forms.TabPage();
             this.ReAuth = new System.Windows.Forms.Button();
             this.SettingsAbout = new System.Windows.Forms.TabPage();
+            this.Link_VersionHistory = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.Button();
             this.LinkAbout = new System.Windows.Forms.Button();
             this.LinkLicense = new System.Windows.Forms.Button();
@@ -99,7 +100,7 @@
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
-            this.Link_VersionHistory = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -703,6 +704,16 @@
             this.SettingsAbout.TabIndex = 2;
             this.SettingsAbout.Text = "バージョン";
             // 
+            // Link_VersionHistory
+            // 
+            this.Link_VersionHistory.Location = new System.Drawing.Point(671, 379);
+            this.Link_VersionHistory.Name = "Link_VersionHistory";
+            this.Link_VersionHistory.Size = new System.Drawing.Size(109, 23);
+            this.Link_VersionHistory.TabIndex = 6;
+            this.Link_VersionHistory.Text = "更新履歴";
+            this.Link_VersionHistory.UseVisualStyleBackColor = true;
+            this.Link_VersionHistory.Click += new System.EventHandler(this.Link_VersionHistory_Click);
+            // 
             // LinkDonate
             // 
             this.LinkDonate.Location = new System.Drawing.Point(671, 350);
@@ -755,6 +766,7 @@
             // SettingClose
             // 
             this.SettingClose.AccessibleName = "SettingClose";
+            this.SettingClose.Controls.Add(this.button3);
             this.SettingClose.Controls.Add(this.GetDataPauseButton);
             this.SettingClose.Controls.Add(this.CloseApplication);
             this.SettingClose.Location = new System.Drawing.Point(4, 22);
@@ -826,18 +838,20 @@
             // 
             // Timer_KyoshinEx
             // 
-            this.Timer_KyoshinEx.Interval = 1000;
+            this.Timer_KyoshinEx.Interval = 50;
             this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
             // 
-            // Link_VersionHistory
+            // button3
             // 
-            this.Link_VersionHistory.Location = new System.Drawing.Point(671, 379);
-            this.Link_VersionHistory.Name = "Link_VersionHistory";
-            this.Link_VersionHistory.Size = new System.Drawing.Size(109, 23);
-            this.Link_VersionHistory.TabIndex = 6;
-            this.Link_VersionHistory.Text = "更新履歴";
-            this.Link_VersionHistory.UseVisualStyleBackColor = true;
-            this.Link_VersionHistory.Click += new System.EventHandler(this.Link_VersionHistory_Click);
+            this.button3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button3.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.button3.Location = new System.Drawing.Point(649, 381);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(131, 21);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Crash Application";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -961,6 +975,7 @@
         private System.Windows.Forms.PictureBox KyoshinImage;
         private System.Windows.Forms.Timer Timer_KyoshinEx;
         private System.Windows.Forms.Button Link_VersionHistory;
+        private System.Windows.Forms.Button button3;
     }
 }
 
