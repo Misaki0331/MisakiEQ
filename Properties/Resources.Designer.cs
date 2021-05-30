@@ -166,6 +166,16 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   MisakiEQは水咲(みさき)によって作られました。
+        ///Copyright 2020-2021 Misaki (Otsuka Shion) All right reserved. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Misaki_License {
+            get {
+                return ResourceManager.GetString("Misaki_License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   LsJ5tDiMeLhg0pczmv9SNzUcE に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Twitter_ConsumerKey {

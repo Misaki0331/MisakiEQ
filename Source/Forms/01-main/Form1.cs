@@ -198,6 +198,7 @@ namespace MisakiEQ
             KyoshinImage.Image = KyoshinEx_Image;
             //customThumbnail = new TabbedThumbnail(this.Handle, this.Handle);
             VersionName.Text = Properties.Resources.Version;
+            Copyright_Label.Text = Properties.Resources.Misaki_License;
             InitWindow.Done();
             UIUpdate.Start();
         }

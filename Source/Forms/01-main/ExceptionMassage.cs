@@ -12,7 +12,6 @@ using System.Management;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Interop;
-using System.Management;
 namespace MisakiEQ
 {
     public partial class ExceptionMassage : Form

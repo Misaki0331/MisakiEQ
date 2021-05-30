@@ -85,6 +85,7 @@
             this.TwitterSettings = new System.Windows.Forms.TabPage();
             this.ReAuth = new System.Windows.Forms.Button();
             this.SettingsAbout = new System.Windows.Forms.TabPage();
+            this.Copyright_Label = new System.Windows.Forms.Label();
             this.Link_VersionHistory = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.Button();
             this.LinkAbout = new System.Windows.Forms.Button();
@@ -92,6 +93,7 @@
             this.LinkTwitter = new System.Windows.Forms.Button();
             this.VersionName = new System.Windows.Forms.Label();
             this.SettingClose = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.GetDataPauseButton = new System.Windows.Forms.Button();
             this.CloseApplication = new System.Windows.Forms.Button();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -100,7 +102,6 @@
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -574,7 +575,7 @@
             this.MisakiEQ_LatestData.Padding = new System.Windows.Forms.Padding(3);
             this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 408);
             this.MisakiEQ_LatestData.TabIndex = 0;
-            this.MisakiEQ_LatestData.Text = "受信データ";
+            this.MisakiEQ_LatestData.Text = "受信データ(仮)";
             // 
             // KyoshinEx
             // 
@@ -587,7 +588,7 @@
             this.KyoshinEx.Padding = new System.Windows.Forms.Padding(3);
             this.KyoshinEx.Size = new System.Drawing.Size(792, 408);
             this.KyoshinEx.TabIndex = 1;
-            this.KyoshinEx.Text = "強震モニタ(まだ実験段階)";
+            this.KyoshinEx.Text = "強震モニタ";
             // 
             // button2
             // 
@@ -691,6 +692,7 @@
             // 
             // SettingsAbout
             // 
+            this.SettingsAbout.Controls.Add(this.Copyright_Label);
             this.SettingsAbout.Controls.Add(this.Link_VersionHistory);
             this.SettingsAbout.Controls.Add(this.LinkDonate);
             this.SettingsAbout.Controls.Add(this.LinkAbout);
@@ -703,6 +705,17 @@
             this.SettingsAbout.Size = new System.Drawing.Size(788, 408);
             this.SettingsAbout.TabIndex = 2;
             this.SettingsAbout.Text = "バージョン";
+            // 
+            // Copyright_Label
+            // 
+            this.Copyright_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Copyright_Label.AutoSize = true;
+            this.Copyright_Label.Location = new System.Drawing.Point(3, 378);
+            this.Copyright_Label.Name = "Copyright_Label";
+            this.Copyright_Label.Size = new System.Drawing.Size(260, 24);
+            this.Copyright_Label.TabIndex = 7;
+            this.Copyright_Label.Text = "MisakiEQは水咲(みさき)によって作られたはずですが\r\nコピーライトファイル読み取り中にエラーが発生しました。";
+            this.Copyright_Label.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // Link_VersionHistory
             // 
@@ -759,9 +772,9 @@
             this.VersionName.AutoSize = true;
             this.VersionName.Location = new System.Drawing.Point(6, 16);
             this.VersionName.Name = "VersionName";
-            this.VersionName.Size = new System.Drawing.Size(122, 12);
+            this.VersionName.Size = new System.Drawing.Size(174, 12);
             this.VersionName.TabIndex = 0;
-            this.VersionName.Text = "MisakiEQ Version 0.1.0";
+            this.VersionName.Text = "MisakiEQの不明なバージョンです！";
             // 
             // SettingClose
             // 
@@ -775,6 +788,18 @@
             this.SettingClose.Size = new System.Drawing.Size(788, 408);
             this.SettingClose.TabIndex = 3;
             this.SettingClose.Text = "終了";
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button3.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.button3.Location = new System.Drawing.Point(649, 381);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(131, 21);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Crash Application";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // GetDataPauseButton
             // 
@@ -840,18 +865,6 @@
             // 
             this.Timer_KyoshinEx.Interval = 50;
             this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.button3.Location = new System.Drawing.Point(649, 381);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(131, 21);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Crash Application";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -976,6 +989,7 @@
         private System.Windows.Forms.Timer Timer_KyoshinEx;
         private System.Windows.Forms.Button Link_VersionHistory;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label Copyright_Label;
     }
 }
 
