@@ -274,5 +274,8 @@
   <ItemGroup>
     <None Include="Resources\Text\Misaki License.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Private\ReportUserID.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

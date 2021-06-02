@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MisakiEQ")]
-[assembly: AssemblyCopyright("Copyright © 2020-2021 Misaki All Rights Reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2020-2021 Misaki (Otsuka Shion) All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

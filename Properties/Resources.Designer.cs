@@ -176,6 +176,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   701370169650642944 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ReportUserID {
+            get {
+                return ResourceManager.GetString("ReportUserID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   LsJ5tDiMeLhg0pczmv9SNzUcE に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Twitter_ConsumerKey {

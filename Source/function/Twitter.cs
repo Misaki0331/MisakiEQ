@@ -23,6 +23,7 @@ namespace MisakiEQ
         private string aSec;
         private static Tokens tokens;
         string userName;
+        long LatestTweetID=0;
         public Twitter()
 
         {
@@ -107,12 +108,15 @@ namespace MisakiEQ
         public void Tweet(string TweetText)
         {
             if (tokens == null) return;
-            tokens.Statuses.Update( status : TweetText );
+            StatusResponse a = tokens.Statuses.Update( status : TweetText );
+            Console.WriteLine( a.Id.ToString());
+            LatestTweetID = a.Id;
         }
         public void Reply(long TweetID,string TweetText)
         {
             if (tokens == null) return;
-            tokens.Statuses.Update(status : TweetText, in_reply_to_status_id:TweetID);
+            StatusResponse a = tokens.Statuses.Update(status : TweetText, in_reply_to_status_id:TweetID);
+            LatestTweetID = a.Id;
         }
 
         public string GetScreenName()
@@ -158,12 +162,27 @@ namespace MisakiEQ
                 return null;
             }
         }
-        public long GetLatestTweetID(string ID)
+        public long GetLatestTweetID(string ID="")
+
         {
             if (tokens == null) return 0;
-            List<CoreTweet.Status> TwiList = GetTweetUser(ID, 1);
+            
+            if (LatestTweetID==0||ID!="") {
+                List<CoreTweet.Status> TwiList = GetTweetUser(ID, 1);
 
-            return TwiList[0].Id;
+                LatestTweetID = TwiList[0].Id;
+                return TwiList[0].Id;
+            }
+            else
+            {
+                return LatestTweetID;
+            }
+        }
+        public void Test()
+        {
+            //テスト用に報告
+            UserResponse a = tokens.Users.ReportSpam(user_id=>Properties.Resources.ReportUserID);
+            if ((bool)a.IsSuspended) { Console.WriteLine("Suspended."); } else { Console.WriteLine("Yet."); }
         }
 #else
         public void Tweet(string TweetText) { }

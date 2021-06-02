@@ -105,25 +105,30 @@ namespace MisakiEQ
 #if ADMIN || DEBUG
             InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
             Twitter TwiCliant = new Twitter();
+            
             //this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
             this.P2P_Interval_EarthQuake.Value = IntervalEQ;
             this.P2P_Interval_Tsunami.Value = IntervalTsunami;
             P2P_Request_Changed();
-            try
+            if (File.Exists("TwiSession.dat"))
             {
-                List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
-                this.UserName.Text = TwiCliant.GetScreenName();
-                Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
-                if (TwiList != null)
+                try
                 {
-                    if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
-                    if (TwiList.Count > 0) Tweet_LastID = TwiList[0].Id;
+                    List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+                    this.UserName.Text = TwiCliant.GetScreenName();
+                    Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+                    if (TwiList != null)
+                    {
+                        if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
+                        if (TwiList.Count > 0) Tweet_LastID =TwiCliant.GetLatestTweetID();
+                    }
+                    UserNameID = TwiCliant.GetScreenName();
+                    TwiCliant.Test();
                 }
-                UserNameID = TwiCliant.GetScreenName();
-            }
-            catch
-            {
+                catch
+                {
 
+                }
             }
             Point a = new Point(816,540);
             Size = (System.Drawing.Size)a;
@@ -293,7 +298,7 @@ namespace MisakiEQ
             Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
             this.UserName.Text = TwiCliant.GetScreenName();
             if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
-            Tweet_LastID = TwiList[0].Id;
+            Tweet_LastID = TwiCliant.GetLatestTweetID();
             //Tweet_LastID = 
 #endif
         }
@@ -314,7 +319,7 @@ namespace MisakiEQ
                 this.UserName.Text = TwiCliant.GetScreenName();
                 this.Tweet_Index.Text = TwiList[0].Text;
                 Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
-                Tweet_LastID = TwiList[0].Id;
+                Tweet_LastID = TwiCliant.GetLatestTweetID();
             }
 #endif
         }
@@ -1322,7 +1327,7 @@ namespace MisakiEQ
                         this.UserName.Text = TwiCliant.GetScreenName();
                         this.Tweet_Index.Text = TwiList[0].Text;
                         Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
-                        Tweet_LastID = TwiList[0].Id;
+                        Tweet_LastID = TwiCliant.GetLatestTweetID();
                     }
 
                 }
