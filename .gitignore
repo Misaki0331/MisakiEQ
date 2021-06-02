@@ -1,5 +1,11 @@
-#APIキー非公開
+#APIキーが入ってるから非公開
+#悪用される可能性あるので定期
+Resources/Private/
+#APIキーを使用したビルドも含まれてる可能性もあるのでこちらも非公開
 bin/
 obj/
 *.exe
-Resources/Private/
+#イラスト素材,ボイスも非公開になる予定
+#どうせリバースエンジニアリングで解析されるだろうけど
+#Resource/image/illust/
+#Resource/voice/
