@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Threading;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Diagnostics;
+using MisakiEQ.Mini_Window;
 namespace MisakiEQ
 {
     
@@ -89,6 +90,7 @@ namespace MisakiEQ
         Stopwatch KyoshinUpdateTimer;
         int KyoshinTempTimer = 0;
         bool IsKyoshinWorking = false;
+        MisakiEQ.Mini_Window.KyoshinWindow MiniKyoshinWindow;
         private static void GetLastID(ref long ID)
         {
 
@@ -139,7 +141,8 @@ namespace MisakiEQ
             EEWInfomationWindow.Show();
             EEWNotificationWindow.SetVisible(false);
             EEWInfomationWindow.SetVisible(false);
-
+            MiniKyoshinWindow = new Mini_Window.KyoshinWindow();
+            MiniKyoshinWindow.UpdateWindow(false);
             InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
             KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
             Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
@@ -360,7 +363,10 @@ namespace MisakiEQ
                 if (getFromWeb || EQJsonFile == "")
                 {
                     InitWindow.SetInfo(65, "地震情報を取得中...");
-                    EQJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
+                    NetFile.GetStartThreadJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
+                    while (NetFile.GetThreadStillRunning()) InitWindow.Update();
+                    EQJsonFile = NetFile.GetThreadJson();
+                    ///EQJsonFile = await NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
                     InitWindow.SetInfo(67, "地震情報を解析中...");
                 }
                 List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
@@ -384,9 +390,11 @@ namespace MisakiEQ
             {
                 if (getFromWeb || EEWJsonFile == "")
                 {
-                    InitWindow.SetInfo(70, "津波情報を取得中...");
-                    EEWJsonFile = NetFile.GetJson("https://api.iedred7584.com/eew/json/");
-                    InitWindow.SetInfo(72, "津波情報を解析中...");
+                    InitWindow.SetInfo(70, "緊急地震速報を取得中...");
+                    NetFile.GetStartThreadJson("https://api.iedred7584.com/eew/json/");
+                    while (NetFile.GetThreadStillRunning()) InitWindow.Update();
+                    EEWJsonFile = NetFile.GetThreadJson();
+                    InitWindow.SetInfo(72, "緊急地震速報を解析中...");
                 }
                 EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
                 EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
@@ -404,9 +412,11 @@ namespace MisakiEQ
             {
                 if(getFromWeb || TsunamiJsonFile == "")
                 {
-                    InitWindow.SetInfo(75, "緊急地震速報の情報を取得中...");
-                    TsunamiJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/tsunami?limit=10&order=-1");
-                    InitWindow.SetInfo(77, "緊急地震速報の情報を解析中...");
+                    InitWindow.SetInfo(75, "津波情報を取得中...");
+                    NetFile.GetStartThreadJson("https://api.p2pquake.net/v2/jma/tsunami?limit=10&order=-1");
+                    while (NetFile.GetThreadStillRunning()) InitWindow.Update();
+                    TsunamiJsonFile = NetFile.GetThreadJson();
+                    InitWindow.SetInfo(77, "津波情報を解析中...");
                 }
                 List<TsunamiRoot> tsunami = JsonConvert.DeserializeObject<List<TsunamiRoot>>(TsunamiJsonFile);
                 DateTime created_at;
@@ -1078,7 +1088,12 @@ namespace MisakiEQ
                         }
                         EEW_IndexText += "\n";
                         EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
-
+                        MiniKyoshinWindow.UpdateWindow(true);
+                        MiniKyoshinWindow.Location=new Point(0, 0);
+                    }
+                    if (cancel)
+                    {
+                        MiniKyoshinWindow.UpdateWindow(false);
                     }
                     if(cancel&& EEW_TweetMode)
                     {
@@ -1093,7 +1108,6 @@ namespace MisakiEQ
                         EEW_LastTweetID = TwiCliant.GetLatestTweetID(UserNameID);
                         EEW_TweetMode = false;
 
-                        EEW_TweetMode = true;
                     }
                     //if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
                     if(true)
@@ -1201,6 +1215,7 @@ namespace MisakiEQ
 
                 
                 KyoshinImage.Image = KyoshinEx_Image;
+                MiniKyoshinWindow.UpdateKyoshin(ref KyoshinEx_Image);
                 //if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(customThumbnail))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(customThumbnail);
                 //customThumbnail.SetImage((Bitmap)KyoshinEx_Image);
                 //TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(customThumbnail);
@@ -1684,6 +1699,11 @@ namespace MisakiEQ
                 MisakiEQ.app.Abort D = new app.Abort();
                 D.Application_was_crashed_by_user();
             }
+        }
+
+        private void DisplayKyoshinEx_Click(object sender, EventArgs e)
+        {
+            MiniKyoshinWindow.UpdateWindow(true);
         }
     }
 }

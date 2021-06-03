@@ -6,12 +6,44 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.IO;
-
+using System.Threading;
 namespace MisakiEQ
 {
     class GetJsonFile
     {
         private string Error="";
+        private string ThreadURL = "";
+        private string ThreadData = "";
+        private bool IsThreadRun = false;
+        private void GetPrivateJson()
+        {
+            try
+            {
+                if (ThreadURL == "")
+                {
+                    Error = "URLが指定されていません。";
+                    IsThreadRun = false;
+                    return;
+                }
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Encoding = System.Text.Encoding.UTF8;
+                    ThreadData = webClient.DownloadString(ThreadURL);
+                    IsThreadRun = false;
+                }
+            }
+            catch (WebException e)
+            {
+                Error = e.Message;
+                IsThreadRun = false;
+                throw e;
+                return;
+            }
+            finally
+            {
+                IsThreadRun = false;
+            }
+        }
         public string GetJson(string URL)
         {
             try
@@ -33,6 +65,25 @@ namespace MisakiEQ
                 return null;
             }
 
+        }
+        public void GetStartThreadJson(string URL)
+        {
+            if (IsThreadRun) throw null;
+            IsThreadRun = true;
+            ThreadURL = URL;
+            //GetPrivateJson();
+            Thread t = new Thread(new ThreadStart(GetPrivateJson));
+            t.Start();
+            return;
+        }
+        public bool GetThreadStillRunning()
+        {
+            return IsThreadRun;
+        }
+        public string GetThreadJson()
+        {
+            if (IsThreadRun) throw null;
+            return ThreadData; 
         }
         public byte[] GetData(string URL)
         {

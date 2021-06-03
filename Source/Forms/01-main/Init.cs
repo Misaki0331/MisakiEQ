@@ -7,18 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace MisakiEQ
 {
     public partial class Init : Form
     {
         bool still = true;
+        private void thread()
+        {
+            while (true)
+            {
+                Application.DoEvents();
+                
+                Thread.Sleep(1);
+                if (!still) break;
+            }
+        }
         public Init()
         {
             InitializeComponent();
-
+            
             this.StartPosition = FormStartPosition.CenterScreen;
             ControlBox = false;
+            Thread t = new Thread(new ThreadStart(thread));
+            t.Start();
         }
         public void SetInfo(int percent,string text)
         {

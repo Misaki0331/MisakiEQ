@@ -141,7 +141,7 @@ namespace MisakiEQ
 
            string link = HttpUtility.UrlEncode("----------ユーザー報告----------\n"+
                 String.Join("\n", UserReportStr) +
-                "\n----------エラーの内容----------\n" + index+"\n----------ユーザー環境----------\n"+SpecText);
+                "\n----------エラーの内容----------\n" + index+"\n----------ユーザー環境----------\n"+SpecText+"\nMisakiEQのバージョン\n"+Properties.Resources.Version);
             //https://twitter.com/messages/compose?recipient_id=1129403055374340101&text=
             System.Diagnostics.Process.Start("https://twitter.com/messages/compose?recipient_id=1129403055374340101&text="+link);
 

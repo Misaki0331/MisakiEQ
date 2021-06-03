@@ -102,6 +102,7 @@
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
+            this.DisplayKyoshinEx = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -580,6 +581,7 @@
             // KyoshinEx
             // 
             this.KyoshinEx.BackColor = System.Drawing.SystemColors.Control;
+            this.KyoshinEx.Controls.Add(this.DisplayKyoshinEx);
             this.KyoshinEx.Controls.Add(this.button2);
             this.KyoshinEx.Controls.Add(this.KyoshinDateTime);
             this.KyoshinEx.Controls.Add(this.KyoshinImage);
@@ -828,9 +830,9 @@
             this.TaskProgressBar,
             this.TaskProgressText,
             this.StatusMassage});
-            this.statusStrip.Location = new System.Drawing.Point(0, 477);
+            this.statusStrip.Location = new System.Drawing.Point(0, 476);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(800, 24);
+            this.statusStrip.Size = new System.Drawing.Size(800, 25);
             this.statusStrip.TabIndex = 16;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -838,33 +840,43 @@
             // 
             this.TaskStatus.AutoSize = false;
             this.TaskStatus.Name = "TaskStatus";
-            this.TaskStatus.Size = new System.Drawing.Size(100, 19);
+            this.TaskStatus.Size = new System.Drawing.Size(100, 20);
             this.TaskStatus.Text = "準備OK";
             this.TaskStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TaskProgressBar
             // 
             this.TaskProgressBar.Name = "TaskProgressBar";
-            this.TaskProgressBar.Size = new System.Drawing.Size(300, 18);
+            this.TaskProgressBar.Size = new System.Drawing.Size(300, 19);
             // 
             // TaskProgressText
             // 
             this.TaskProgressText.AutoSize = false;
             this.TaskProgressText.Name = "TaskProgressText";
-            this.TaskProgressText.Size = new System.Drawing.Size(78, 19);
+            this.TaskProgressText.Size = new System.Drawing.Size(78, 20);
             this.TaskProgressText.Text = "---.--%";
             this.TaskProgressText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StatusMassage
             // 
             this.StatusMassage.Name = "StatusMassage";
-            this.StatusMassage.Size = new System.Drawing.Size(245, 19);
+            this.StatusMassage.Size = new System.Drawing.Size(261, 20);
             this.StatusMassage.Text = "現在実行中のタスクはありません。";
             // 
             // Timer_KyoshinEx
             // 
             this.Timer_KyoshinEx.Interval = 50;
             this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
+            // 
+            // DisplayKyoshinEx
+            // 
+            this.DisplayKyoshinEx.Location = new System.Drawing.Point(277, 31);
+            this.DisplayKyoshinEx.Name = "DisplayKyoshinEx";
+            this.DisplayKyoshinEx.Size = new System.Drawing.Size(91, 19);
+            this.DisplayKyoshinEx.TabIndex = 3;
+            this.DisplayKyoshinEx.Text = "強震モニタ表示";
+            this.DisplayKyoshinEx.UseVisualStyleBackColor = true;
+            this.DisplayKyoshinEx.Click += new System.EventHandler(this.DisplayKyoshinEx_Click);
             // 
             // Form1
             // 
@@ -990,6 +1002,7 @@
         private System.Windows.Forms.Button Link_VersionHistory;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label Copyright_Label;
+        private System.Windows.Forms.Button DisplayKyoshinEx;
     }
 }
 
