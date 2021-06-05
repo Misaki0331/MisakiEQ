@@ -15,6 +15,7 @@ namespace MisakiEQ
         public index(string title,string index)
         {
             InitializeComponent();
+            Icon= Properties.Resources.mainico;
             this.Text = title;
             string[] result = index.Split(new char[] { '\n' });
             

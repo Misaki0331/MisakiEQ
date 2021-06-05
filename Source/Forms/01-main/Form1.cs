@@ -24,7 +24,7 @@ namespace MisakiEQ
         private static int IntervalEQ = 5;
         private static int IntervalTsunami = 10;
         private static long Tweet_LastID=0;
-        private static bool IsGettingID = false;
+        //private static bool IsGettingID = false;
         string TweetText = "";
         string EQJsonFile = "";
         string TestString = "Test Label";

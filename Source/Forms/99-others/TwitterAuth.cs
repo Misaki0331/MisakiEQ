@@ -20,6 +20,7 @@ namespace MisakiEQ
         public TwitterAuthWindow()
         {
             InitializeComponent();
+            Icon= Properties.Resources.mainico; 
             twi.OpenAuthURL();
             Show();
         }
