@@ -121,7 +121,6 @@
     <Compile Include="Source\Forms\Mini Window\Kyoshin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Forms\Mini Window\Kyoshin.Designer.cs" />
     <Compile Include="Source\function\Crash.cs" />
     <Compile Include="Source\function\DataConverter.cs" />
     <Compile Include="Source\Forms\02-overlay\EarthQuakeInfoForm.cs">
@@ -190,6 +189,9 @@
     </Compile>
     <EmbeddedResource Include="Source\Forms\01-main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\Mini Window\Kyoshin.resx">
+      <DependentUpon>Kyoshin.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="MisakiEQ_TemporaryKey.pfx" />
     <None Include="packages.config" />

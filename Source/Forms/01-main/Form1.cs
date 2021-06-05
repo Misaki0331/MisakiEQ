@@ -1704,6 +1704,8 @@ namespace MisakiEQ
         private void DisplayKyoshinEx_Click(object sender, EventArgs e)
         {
             MiniKyoshinWindow.UpdateWindow(true);
+            MiniKyoshinWindow.Location = new Point(0, 0);
+            MiniKyoshinWindow.Activate();
         }
 
         private void notification_MouseClick_1(object sender, MouseEventArgs e)
