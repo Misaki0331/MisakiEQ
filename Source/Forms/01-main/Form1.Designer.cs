@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.P2P_Interval_EarthQuake = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -75,6 +74,7 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.MisakiEQ_LatestData = new System.Windows.Forms.TabPage();
             this.KyoshinEx = new System.Windows.Forms.TabPage();
+            this.DisplayKyoshinEx = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.KyoshinDateTime = new System.Windows.Forms.DateTimePicker();
             this.KyoshinImage = new System.Windows.Forms.PictureBox();
@@ -102,7 +102,7 @@
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
-            this.DisplayKyoshinEx = new System.Windows.Forms.Button();
+            this.MisakiEQIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -124,6 +124,7 @@
             this.SettingsAbout.SuspendLayout();
             this.SettingClose.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -328,9 +329,9 @@
             this.notification.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notification.BalloonTipText = "1";
             this.notification.BalloonTipTitle = "2";
-            this.notification.Icon = ((System.Drawing.Icon)(resources.GetObject("notification.Icon")));
             this.notification.Text = "MisakiEQ";
             this.notification.Visible = true;
+            this.notification.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notification_MouseClick_1);
             this.notification.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // textBox1
@@ -592,6 +593,16 @@
             this.KyoshinEx.TabIndex = 1;
             this.KyoshinEx.Text = "強震モニタ";
             // 
+            // DisplayKyoshinEx
+            // 
+            this.DisplayKyoshinEx.Location = new System.Drawing.Point(277, 31);
+            this.DisplayKyoshinEx.Name = "DisplayKyoshinEx";
+            this.DisplayKyoshinEx.Size = new System.Drawing.Size(91, 19);
+            this.DisplayKyoshinEx.TabIndex = 3;
+            this.DisplayKyoshinEx.Text = "強震モニタ表示";
+            this.DisplayKyoshinEx.UseVisualStyleBackColor = true;
+            this.DisplayKyoshinEx.Click += new System.EventHandler(this.DisplayKyoshinEx_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(369, 31);
@@ -694,6 +705,7 @@
             // 
             // SettingsAbout
             // 
+            this.SettingsAbout.Controls.Add(this.MisakiEQIcon);
             this.SettingsAbout.Controls.Add(this.Copyright_Label);
             this.SettingsAbout.Controls.Add(this.Link_VersionHistory);
             this.SettingsAbout.Controls.Add(this.LinkDonate);
@@ -772,9 +784,10 @@
             // VersionName
             // 
             this.VersionName.AutoSize = true;
-            this.VersionName.Location = new System.Drawing.Point(6, 16);
+            this.VersionName.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.VersionName.Location = new System.Drawing.Point(262, 3);
             this.VersionName.Name = "VersionName";
-            this.VersionName.Size = new System.Drawing.Size(174, 12);
+            this.VersionName.Size = new System.Drawing.Size(275, 19);
             this.VersionName.TabIndex = 0;
             this.VersionName.Text = "MisakiEQの不明なバージョンです！";
             // 
@@ -868,15 +881,16 @@
             this.Timer_KyoshinEx.Interval = 50;
             this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
             // 
-            // DisplayKyoshinEx
+            // MisakiEQIcon
             // 
-            this.DisplayKyoshinEx.Location = new System.Drawing.Point(277, 31);
-            this.DisplayKyoshinEx.Name = "DisplayKyoshinEx";
-            this.DisplayKyoshinEx.Size = new System.Drawing.Size(91, 19);
-            this.DisplayKyoshinEx.TabIndex = 3;
-            this.DisplayKyoshinEx.Text = "強震モニタ表示";
-            this.DisplayKyoshinEx.UseVisualStyleBackColor = true;
-            this.DisplayKyoshinEx.Click += new System.EventHandler(this.DisplayKyoshinEx_Click);
+            this.MisakiEQIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MisakiEQIcon.Image = global::MisakiEQ.Properties.Resources.main_big;
+            this.MisakiEQIcon.Location = new System.Drawing.Point(0, 0);
+            this.MisakiEQIcon.Name = "MisakiEQIcon";
+            this.MisakiEQIcon.Size = new System.Drawing.Size(256, 256);
+            this.MisakiEQIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.MisakiEQIcon.TabIndex = 8;
+            this.MisakiEQIcon.TabStop = false;
             // 
             // Form1
             // 
@@ -921,6 +935,7 @@
             this.SettingClose.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1003,6 +1018,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label Copyright_Label;
         private System.Windows.Forms.Button DisplayKyoshinEx;
+        private System.Windows.Forms.PictureBox MisakiEQIcon;
     }
 }
 

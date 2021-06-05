@@ -166,6 +166,26 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap main_big {
+            get {
+                object obj = ResourceManager.GetObject("main_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Icon mainico {
+            get {
+                object obj = ResourceManager.GetObject("mainico", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   MisakiEQは水咲(みさき)によって作られました。
         ///Copyright 2020-2021 Misaki (Otsuka Shion) All right reserved. に類似しているローカライズされた文字列を検索します。
         /// </summary>
@@ -212,7 +232,12 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/05/28 - 0.2.1 Updated
+        ///   2021/06/03 - 0.2.2 Updated
+        ///強震モニタを別ウィンドウに表示
+        ///緊急地震速報受信時に自動ポップアップするようになりました。
+        ///詳しい設定はあとで付け加える予定。
+        ///
+        ///2021/05/28 - 0.2.1 Updated
         ///全てのリソースをEXEファイル内に押し込みました。
         ///これで間違って削除されることなかれ。
         ///ただしDLLは除く。
@@ -231,11 +256,7 @@ namespace MisakiEQ.Properties {
         ///2021/04/14 - 0.1.0 Updated
         ///UIの大幅な変更。1画面ではなくタブを採用
         ///
-        ///2021/03/23 - 0.0.1 Updated
-        ///緊急地震速報(警報)時にN〇K風のUIを表示するようにした。(開発者限定)
-        ///
-        ///2021/03/21 - 0.0.0 Published
-        ///Bot監視用としてプラ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///2021/03/23 -  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -244,7 +265,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.2.0
+        ///   MisakiEQ For Windows Version 0.2.2
         ///このバージョンは非公開です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {

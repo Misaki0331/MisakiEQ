@@ -82,6 +82,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>main.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoreTweet, Version=1.0.0.483, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CoreTweet.1.0.0.483\lib\net45\CoreTweet.dll</HintPath>
@@ -175,24 +178,6 @@
       <DependentUpon>textboxWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\function\Twitter.cs" />
-    <EmbeddedResource Include="Source\Forms\02-overlay\EarthQuakeInfoForm.resx">
-      <DependentUpon>EarthQuakeInfoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\02-overlay\EEW_Infomation.resx">
-      <DependentUpon>EEW_Infomation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\01-main\ExceptionMassage.resx">
-      <DependentUpon>ExceptionMassage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\02-overlay\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\99-others\Form3.resx">
-      <DependentUpon>TwitterAuth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\01-main\Init.resx">
-      <DependentUpon>Init.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -206,10 +191,6 @@
     <EmbeddedResource Include="Source\Forms\01-main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\99-others\textboxWindow.resx">
-      <DependentUpon>textboxWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\Forms\Mini Window\Kyoshin.resx" />
     <None Include="MisakiEQ_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -281,6 +262,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Private\ReportUserID.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon\main.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon\main_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="main.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,7 @@ namespace MisakiEQ.Mini_Window
         Image Temp;
         public KyoshinWindow()
         {
+            Initialize();
             InitializeComponent();
         }
         public void UpdateKyoshin(ref Image Data)
@@ -42,6 +43,20 @@ namespace MisakiEQ.Mini_Window
         {
             e.Cancel = true;
             UpdateWindow(false);
+        }
+
+        private void Initialize()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KyoshinWindow));
+            this.SuspendLayout();
+            // 
+            // KyoshinWindow
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = Properties.Resources.mainico;
+            this.Name = "KyoshinWindow";
+            this.ResumeLayout(false);
+
         }
     }
 }

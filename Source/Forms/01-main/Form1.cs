@@ -103,6 +103,8 @@ namespace MisakiEQ
             InitWindow.Show();
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             InitializeComponent();
+            this.Icon = Properties.Resources.mainico;
+            notification.Icon= Properties.Resources.mainico;
             VersionName.Text = "MisakiEQ For Windows Version 0.2.0\n非公開ベータ版\n\n";
 #if ADMIN || DEBUG
             InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
@@ -333,10 +335,8 @@ namespace MisakiEQ
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Show();
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
             
+
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1705,5 +1705,16 @@ namespace MisakiEQ
         {
             MiniKyoshinWindow.UpdateWindow(true);
         }
+
+        private void notification_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            Show();
+
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+
+            Activate();
+        }
+
     }
 }
