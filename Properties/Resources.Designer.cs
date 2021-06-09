@@ -196,6 +196,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   https://twitter.com/MisakiEQ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MisakiEQTwitterLink {
+            get {
+                return ResourceManager.GetString("MisakiEQTwitterLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   701370169650642944 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ReportUserID {
@@ -232,7 +241,12 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/06/03 - 0.2.2 Updated
+        ///   2021/06/05 - 0.2.3 Updated
+        ///アイコンを変更(初期アイコンからオリジナルアイコン)
+        ///バージョン情報のUIを一部修正
+        ///素敵なキャラクター絵を描いてくださった あめ(@Flast_03)氏に感謝を申し上げます。
+        ///
+        ///2021/06/03 - 0.2.2 Updated
         ///強震モニタを別ウィンドウに表示
         ///緊急地震速報受信時に自動ポップアップするようになりました。
         ///詳しい設定はあとで付け加える予定。
@@ -250,13 +264,7 @@ namespace MisakiEQ.Properties {
         ///開発者専用ビルドにてTwitter連携をボタン一つで自分のアカウントと連携できるようになった。
         ///
         ///2021/04/20 - 0.1.1 Updated
-        ///予測不可能なエラー発生時にUIが表示されるようになった。
-        ///ついでにTwitterに直接DMで送れるようになった。
-        ///
-        ///2021/04/14 - 0.1.0 Updated
-        ///UIの大幅な変更。1画面ではなくタブを採用
-        ///
-        ///2021/03/23 -  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///予測不可能 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -265,7 +273,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.2.2
+        ///   MisakiEQ For Windows Version 0.2.3
         ///このバージョンは非公開です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {

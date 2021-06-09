@@ -73,6 +73,7 @@
             this.MisakiEQ_Infomation = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.MisakiEQ_LatestData = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.KyoshinEx = new System.Windows.Forms.TabPage();
             this.DisplayKyoshinEx = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -82,9 +83,15 @@
             this.MisakiEQ_Settings = new System.Windows.Forms.TabPage();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.DataUpdateSettings = new System.Windows.Forms.TabPage();
+            this.ComputerSettings = new System.Windows.Forms.TabPage();
+            this.CSettingEventlogEEW = new System.Windows.Forms.CheckBox();
+            this.CSettingEventlog = new System.Windows.Forms.CheckBox();
             this.TwitterSettings = new System.Windows.Forms.TabPage();
             this.ReAuth = new System.Windows.Forms.Button();
             this.SettingsAbout = new System.Windows.Forms.TabPage();
+            this.MisakiEQTwitterLink = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.MisakiEQIcon = new System.Windows.Forms.PictureBox();
             this.Copyright_Label = new System.Windows.Forms.Label();
             this.Link_VersionHistory = new System.Windows.Forms.Button();
             this.LinkDonate = new System.Windows.Forms.Button();
@@ -102,7 +109,7 @@
             this.TaskProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
-            this.MisakiEQIcon = new System.Windows.Forms.PictureBox();
+            this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -120,11 +127,12 @@
             this.MisakiEQ_Settings.SuspendLayout();
             this.SettingTab.SuspendLayout();
             this.DataUpdateSettings.SuspendLayout();
+            this.ComputerSettings.SuspendLayout();
             this.TwitterSettings.SuspendLayout();
             this.SettingsAbout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).BeginInit();
             this.SettingClose.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -562,6 +570,7 @@
             // tabControl3
             // 
             this.tabControl3.Controls.Add(this.MisakiEQ_LatestData);
+            this.tabControl3.Controls.Add(this.tabPage4);
             this.tabControl3.Controls.Add(this.KyoshinEx);
             this.tabControl3.Location = new System.Drawing.Point(-4, 0);
             this.tabControl3.Name = "tabControl3";
@@ -578,6 +587,16 @@
             this.MisakiEQ_LatestData.Size = new System.Drawing.Size(792, 408);
             this.MisakiEQ_LatestData.TabIndex = 0;
             this.MisakiEQ_LatestData.Text = "受信データ(仮)";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(792, 408);
+            this.tabPage4.TabIndex = 2;
+            this.tabPage4.Text = "地震情報";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // KyoshinEx
             // 
@@ -654,6 +673,7 @@
             // SettingTab
             // 
             this.SettingTab.Controls.Add(this.DataUpdateSettings);
+            this.SettingTab.Controls.Add(this.ComputerSettings);
             this.SettingTab.Controls.Add(this.TwitterSettings);
             this.SettingTab.Controls.Add(this.SettingsAbout);
             this.SettingTab.Controls.Add(this.SettingClose);
@@ -672,6 +692,38 @@
             this.DataUpdateSettings.Size = new System.Drawing.Size(788, 408);
             this.DataUpdateSettings.TabIndex = 0;
             this.DataUpdateSettings.Text = "データ更新頻度";
+            // 
+            // ComputerSettings
+            // 
+            this.ComputerSettings.Controls.Add(this.CSettingEventlogEEW);
+            this.ComputerSettings.Controls.Add(this.CSettingEventlog);
+            this.ComputerSettings.Location = new System.Drawing.Point(4, 22);
+            this.ComputerSettings.Name = "ComputerSettings";
+            this.ComputerSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.ComputerSettings.Size = new System.Drawing.Size(788, 408);
+            this.ComputerSettings.TabIndex = 4;
+            this.ComputerSettings.Text = "コンピューターの設定";
+            this.ComputerSettings.UseVisualStyleBackColor = true;
+            // 
+            // CSettingEventlogEEW
+            // 
+            this.CSettingEventlogEEW.AutoSize = true;
+            this.CSettingEventlogEEW.Location = new System.Drawing.Point(28, 50);
+            this.CSettingEventlogEEW.Name = "CSettingEventlogEEW";
+            this.CSettingEventlogEEW.Size = new System.Drawing.Size(190, 16);
+            this.CSettingEventlogEEW.TabIndex = 1;
+            this.CSettingEventlogEEW.Text = "緊急地震速報の取得時も含める。";
+            this.CSettingEventlogEEW.UseVisualStyleBackColor = true;
+            // 
+            // CSettingEventlog
+            // 
+            this.CSettingEventlog.AutoSize = true;
+            this.CSettingEventlog.Location = new System.Drawing.Point(6, 28);
+            this.CSettingEventlog.Name = "CSettingEventlog";
+            this.CSettingEventlog.Size = new System.Drawing.Size(302, 16);
+            this.CSettingEventlog.TabIndex = 0;
+            this.CSettingEventlog.Text = "地震情報取得時、コンピューターのイベントログに記録する。";
+            this.CSettingEventlog.UseVisualStyleBackColor = true;
             // 
             // TwitterSettings
             // 
@@ -705,6 +757,8 @@
             // 
             // SettingsAbout
             // 
+            this.SettingsAbout.Controls.Add(this.MisakiEQTwitterLink);
+            this.SettingsAbout.Controls.Add(this.label5);
             this.SettingsAbout.Controls.Add(this.MisakiEQIcon);
             this.SettingsAbout.Controls.Add(this.Copyright_Label);
             this.SettingsAbout.Controls.Add(this.Link_VersionHistory);
@@ -719,6 +773,36 @@
             this.SettingsAbout.Size = new System.Drawing.Size(788, 408);
             this.SettingsAbout.TabIndex = 2;
             this.SettingsAbout.Text = "バージョン";
+            // 
+            // MisakiEQTwitterLink
+            // 
+            this.MisakiEQTwitterLink.Location = new System.Drawing.Point(671, 233);
+            this.MisakiEQTwitterLink.Name = "MisakiEQTwitterLink";
+            this.MisakiEQTwitterLink.Size = new System.Drawing.Size(109, 23);
+            this.MisakiEQTwitterLink.TabIndex = 10;
+            this.MisakiEQTwitterLink.Text = "公式Twitter";
+            this.MisakiEQTwitterLink.UseVisualStyleBackColor = true;
+            this.MisakiEQTwitterLink.Click += new System.EventHandler(this.MisakiEQTwitterLink_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 259);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(209, 24);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "MisakiEQのイメージキャラクター：水咲ちゃん\r\nCV. 麻桧 羽結(あさひ うゆ)";
+            // 
+            // MisakiEQIcon
+            // 
+            this.MisakiEQIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MisakiEQIcon.Image = global::MisakiEQ.Properties.Resources.main_big;
+            this.MisakiEQIcon.Location = new System.Drawing.Point(0, 0);
+            this.MisakiEQIcon.Name = "MisakiEQIcon";
+            this.MisakiEQIcon.Size = new System.Drawing.Size(256, 256);
+            this.MisakiEQIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.MisakiEQIcon.TabIndex = 8;
+            this.MisakiEQIcon.TabStop = false;
             // 
             // Copyright_Label
             // 
@@ -881,16 +965,10 @@
             this.Timer_KyoshinEx.Interval = 50;
             this.Timer_KyoshinEx.Tick += new System.EventHandler(this.Timer_KyoshinEx_Tick);
             // 
-            // MisakiEQIcon
+            // Timer_AdjustKyoshinEx
             // 
-            this.MisakiEQIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MisakiEQIcon.Image = global::MisakiEQ.Properties.Resources.main_big;
-            this.MisakiEQIcon.Location = new System.Drawing.Point(0, 0);
-            this.MisakiEQIcon.Name = "MisakiEQIcon";
-            this.MisakiEQIcon.Size = new System.Drawing.Size(256, 256);
-            this.MisakiEQIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.MisakiEQIcon.TabIndex = 8;
-            this.MisakiEQIcon.TabStop = false;
+            this.Timer_AdjustKyoshinEx.Interval = 3600000;
+            this.Timer_AdjustKyoshinEx.Tick += new System.EventHandler(this.Timer_AdjustKyoshinEx_Tick);
             // 
             // Form1
             // 
@@ -928,14 +1006,16 @@
             this.MisakiEQ_Settings.ResumeLayout(false);
             this.SettingTab.ResumeLayout(false);
             this.DataUpdateSettings.ResumeLayout(false);
+            this.ComputerSettings.ResumeLayout(false);
+            this.ComputerSettings.PerformLayout();
             this.TwitterSettings.ResumeLayout(false);
             this.TwitterSettings.PerformLayout();
             this.SettingsAbout.ResumeLayout(false);
             this.SettingsAbout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).EndInit();
             this.SettingClose.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1019,6 +1099,13 @@
         private System.Windows.Forms.Label Copyright_Label;
         private System.Windows.Forms.Button DisplayKyoshinEx;
         private System.Windows.Forms.PictureBox MisakiEQIcon;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage ComputerSettings;
+        private System.Windows.Forms.CheckBox CSettingEventlogEEW;
+        private System.Windows.Forms.CheckBox CSettingEventlog;
+        private System.Windows.Forms.Button MisakiEQTwitterLink;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Timer Timer_AdjustKyoshinEx;
     }
 }
 

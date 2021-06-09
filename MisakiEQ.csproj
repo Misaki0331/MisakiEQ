@@ -89,6 +89,12 @@
     <Reference Include="CoreTweet, Version=1.0.0.483, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CoreTweet.1.0.0.483\lib\net45\CoreTweet.dll</HintPath>
     </Reference>
+    <Reference Include="CSDeskBand, Version=2.0.0.0, Culture=neutral, PublicKeyToken=66d19cfc65a1cc19, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSDeskBand.2.1.0\lib\net461\CSDeskBand.dll</HintPath>
+    </Reference>
+    <Reference Include="CSDeskBand.Win, Version=2.0.0.0, Culture=neutral, PublicKeyToken=66d19cfc65a1cc19, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSDeskBand.Win.2.1.0\lib\net461\CSDeskBand.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
@@ -118,6 +124,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Forms\03-taskbar\DeskBand.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\Mini Window\EEW.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\Mini Window\EEW.Designer.cs">
+      <DependentUpon>EEW.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Forms\Mini Window\Kyoshin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +204,12 @@
     </Compile>
     <EmbeddedResource Include="Source\Forms\01-main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\03-taskbar\DeskBand.resx">
+      <DependentUpon>DeskBand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\Mini Window\EEW.resx">
+      <DependentUpon>EEW.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\Mini Window\Kyoshin.resx">
       <DependentUpon>Kyoshin.cs</DependentUpon>

@@ -91,6 +91,7 @@ namespace MisakiEQ
         int KyoshinTempTimer = 0;
         bool IsKyoshinWorking = false;
         MisakiEQ.Mini_Window.KyoshinWindow MiniKyoshinWindow;
+        WindowsDeskBand wdb;
         private static void GetLastID(ref long ID)
         {
 
@@ -109,11 +110,14 @@ namespace MisakiEQ
 #if ADMIN || DEBUG
             InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
             Twitter TwiCliant = new Twitter();
+
             
             //this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
             this.P2P_Interval_EarthQuake.Value = IntervalEQ;
             this.P2P_Interval_Tsunami.Value = IntervalTsunami;
             P2P_Request_Changed();
+            wdb = new WindowsDeskBand();
+            wdb.Update();
             if (File.Exists("TwiSession.dat"))
             {
                 try
@@ -156,7 +160,7 @@ namespace MisakiEQ
                 Timer_KyoshinEx.Start();
                 KyoshinUpdateTimer.Reset();
                 KyoshinUpdateTimer.Start();
-                
+                Timer_AdjustKyoshinEx.Start();
                 KyoshinTempTimer = 0;
                 Console.WriteLine("強震モニタ起動成功！");
             }
@@ -1088,8 +1092,10 @@ namespace MisakiEQ
                         }
                         EEW_IndexText += "\n";
                         EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
+                        MiniKyoshinWindow.UpdateWindow(false);
                         MiniKyoshinWindow.UpdateWindow(true);
-                        MiniKyoshinWindow.Location=new Point(0, 0);
+                        MiniKyoshinWindow.Location = new Point(0, 0);
+                        MiniKyoshinWindow.Activate();
                     }
                     if (cancel)
                     {
@@ -1641,6 +1647,9 @@ namespace MisakiEQ
                 Timer_KyoshinEx.Start();
                 KyoshinTempTimer = 0;
                 KyoshinLatest = temp;
+
+                Timer_AdjustKyoshinEx.Stop();
+                Timer_AdjustKyoshinEx.Start();
             }
             else
             {
@@ -1703,6 +1712,7 @@ namespace MisakiEQ
 
         private void DisplayKyoshinEx_Click(object sender, EventArgs e)
         {
+            MiniKyoshinWindow.UpdateWindow(false);
             MiniKyoshinWindow.UpdateWindow(true);
             MiniKyoshinWindow.Location = new Point(0, 0);
             MiniKyoshinWindow.Activate();
@@ -1718,5 +1728,32 @@ namespace MisakiEQ
             Activate();
         }
 
+        private void MisakiEQTwitterLink_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Properties.Resources.MisakiEQTwitterLink);
+        }
+
+        private void Timer_AdjustKyoshinEx_Tick(object sender, EventArgs e)
+        {
+            DateTime temp = KyoshinMonitor.GetLatestUpdateTime();
+
+            Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+            {
+                Console.WriteLine("強震モニタ更新成功！");
+                StatusMassage.Text = "強震モニタ時刻調整成功！";
+                KyoshinUpdateTimer.Reset();
+                if (!KyoshinUpdateTimer.IsRunning) KyoshinUpdateTimer.Start();
+
+                Timer_KyoshinEx.Start();
+                KyoshinTempTimer = 0;
+                KyoshinLatest = temp;
+            }
+            else
+            {
+                Console.WriteLine("強震モニタ更新失敗...");
+                StatusMassage.Text = "強震モニタ時刻調整失敗...";
+            }
+        }
     }
 }

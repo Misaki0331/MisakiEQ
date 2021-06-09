@@ -14,6 +14,8 @@ namespace MisakiEQ
 
         private string LastErrorStatus;
         private bool IsLastError;
+        private Image EEWCircle;
+        private Image EEWShindo;
         public enum KyoshinType{
             RealTime_Shindo,            //リアルタイム震度
             PGA,                        //最大加速度
@@ -124,6 +126,7 @@ namespace MisakiEQ
                 if (IsESTShindo)
                 {
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/EstShindoImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
+                    EEWShindo = KImage;
                     if (KImage != null)
                     {
                         graphics.DrawImage(KImage, new Point(0, 0));
@@ -134,6 +137,7 @@ namespace MisakiEQ
                 if (TypeName != "")
                 {
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/RealTimeImg/" + TypeName + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + "." + TypeName + ".gif"));
+                    
                     if (KImage != null)
                     {
                         graphics.DrawImage(KImage, new Point(0, 0));
@@ -145,6 +149,7 @@ namespace MisakiEQ
                 {
 
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/PSWaveImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
+                    EEWCircle = KImage;
                     if (KImage != null)
                     {
                         graphics.DrawImage(KImage, new Point(0, 0));
