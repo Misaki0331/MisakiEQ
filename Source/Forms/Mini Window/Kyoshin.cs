@@ -107,7 +107,9 @@ namespace MisakiEQ.Mini_Window
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(368, 439);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(368, 439);
             this.Name = "KyoshinWindow";
             this.ShowInTaskbar = false;
             this.Text = "強震モニタ";

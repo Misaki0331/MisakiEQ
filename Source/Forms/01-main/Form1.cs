@@ -1092,14 +1092,17 @@ namespace MisakiEQ
                         }
                         EEW_IndexText += "\n";
                         EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
-                        MiniKyoshinWindow.UpdateWindow(false);
-                        MiniKyoshinWindow.UpdateWindow(true);
-                        MiniKyoshinWindow.Location = new Point(0, 0);
-                        MiniKyoshinWindow.Activate();
+                        if (SettingKyoshinExDisplayEEW.Checked)
+                        {
+                            MiniKyoshinWindow.UpdateWindow(false);
+                            MiniKyoshinWindow.UpdateWindow(true);
+                            MiniKyoshinWindow.Location = new Point(0, 0);
+                            MiniKyoshinWindow.Activate();
+                        }
                     }
                     if (cancel)
                     {
-                        MiniKyoshinWindow.UpdateWindow(false);
+                        if (SettingKyoshinExDisplayEEW.Checked)MiniKyoshinWindow.UpdateWindow(false);
                     }
                     if(cancel&& EEW_TweetMode)
                     {
@@ -1736,7 +1739,7 @@ namespace MisakiEQ
         private void Timer_AdjustKyoshinEx_Tick(object sender, EventArgs e)
         {
             DateTime temp = KyoshinMonitor.GetLatestUpdateTime();
-
+            temp = temp.AddSeconds((int)-SettingKyoshinExUpdateDelayValue.Value);
             Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
             if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
             {
@@ -1754,6 +1757,11 @@ namespace MisakiEQ
                 Console.WriteLine("強震モニタ更新失敗...");
                 StatusMassage.Text = "強震モニタ時刻調整失敗...";
             }
+        }
+
+        private void SettingKyoshinExUpdateTimerValue_ValueChanged(object sender, EventArgs e)
+        {
+            Timer_AdjustKyoshinEx.Interval = (int)SettingKyoshinExUpdateTimerValue.Value * 1000 * 60;
         }
     }
 }

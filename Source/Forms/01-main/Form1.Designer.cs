@@ -83,6 +83,14 @@
             this.MisakiEQ_Settings = new System.Windows.Forms.TabPage();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.DataUpdateSettings = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SettingKyoshinExDisplayEEW = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.SettingKyoshinExUpdateDelayValue = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.SettingKyoshinExUpdateTimerValue = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.ComputerSettings = new System.Windows.Forms.TabPage();
             this.CSettingEventlogEEW = new System.Windows.Forms.CheckBox();
             this.CSettingEventlog = new System.Windows.Forms.CheckBox();
@@ -110,6 +118,18 @@
             this.StatusMassage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -121,12 +141,16 @@
             this.MisakiEQ_Infomation.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.MisakiEQ_LatestData.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.KyoshinEx.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.KyoshinImage)).BeginInit();
             this.MisakiEQ_Status.SuspendLayout();
             this.MisakiEQ_Settings.SuspendLayout();
             this.SettingTab.SuspendLayout();
             this.DataUpdateSettings.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateDelayValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateTimerValue)).BeginInit();
             this.ComputerSettings.SuspendLayout();
             this.TwitterSettings.SuspendLayout();
             this.SettingsAbout.SuspendLayout();
@@ -160,6 +184,7 @@
             this.P2P_Interval_EarthQuake.Name = "P2P_Interval_EarthQuake";
             this.P2P_Interval_EarthQuake.Size = new System.Drawing.Size(35, 19);
             this.P2P_Interval_EarthQuake.TabIndex = 1;
+            this.P2P_Interval_EarthQuake.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.P2P_Interval_EarthQuake.Value = new decimal(new int[] {
             5,
             0,
@@ -276,6 +301,7 @@
             this.P2P_Interval_Tsunami.Name = "P2P_Interval_Tsunami";
             this.P2P_Interval_Tsunami.Size = new System.Drawing.Size(35, 19);
             this.P2P_Interval_Tsunami.TabIndex = 5;
+            this.P2P_Interval_Tsunami.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.P2P_Interval_Tsunami.Value = new decimal(new int[] {
             10,
             0,
@@ -590,13 +616,25 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.label19);
+            this.tabPage4.Controls.Add(this.textBox7);
+            this.tabPage4.Controls.Add(this.label18);
+            this.tabPage4.Controls.Add(this.textBox6);
+            this.tabPage4.Controls.Add(this.textBox5);
+            this.tabPage4.Controls.Add(this.label17);
+            this.tabPage4.Controls.Add(this.label16);
+            this.tabPage4.Controls.Add(this.textBox4);
+            this.tabPage4.Controls.Add(this.textBox3);
+            this.tabPage4.Controls.Add(this.label15);
+            this.tabPage4.Controls.Add(this.textBox2);
+            this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(792, 408);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "地震情報";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // KyoshinEx
             // 
@@ -685,6 +723,7 @@
             // 
             // DataUpdateSettings
             // 
+            this.DataUpdateSettings.Controls.Add(this.groupBox2);
             this.DataUpdateSettings.Controls.Add(this.groupBox1);
             this.DataUpdateSettings.Location = new System.Drawing.Point(4, 22);
             this.DataUpdateSettings.Name = "DataUpdateSettings";
@@ -692,6 +731,112 @@
             this.DataUpdateSettings.Size = new System.Drawing.Size(788, 408);
             this.DataUpdateSettings.TabIndex = 0;
             this.DataUpdateSettings.Text = "データ更新頻度";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.SettingKyoshinExDisplayEEW);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.SettingKyoshinExUpdateDelayValue);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.SettingKyoshinExUpdateTimerValue);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Location = new System.Drawing.Point(329, 7);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(332, 172);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "強震モニタ設定";
+            // 
+            // SettingKyoshinExDisplayEEW
+            // 
+            this.SettingKyoshinExDisplayEEW.AutoSize = true;
+            this.SettingKyoshinExDisplayEEW.Checked = true;
+            this.SettingKyoshinExDisplayEEW.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SettingKyoshinExDisplayEEW.Location = new System.Drawing.Point(6, 72);
+            this.SettingKyoshinExDisplayEEW.Name = "SettingKyoshinExDisplayEEW";
+            this.SettingKyoshinExDisplayEEW.Size = new System.Drawing.Size(211, 16);
+            this.SettingKyoshinExDisplayEEW.TabIndex = 15;
+            this.SettingKyoshinExDisplayEEW.Text = "緊急地震速報発表時にポップアップする";
+            this.SettingKyoshinExDisplayEEW.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(122, 49);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(17, 12);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "秒";
+            // 
+            // SettingKyoshinExUpdateDelayValue
+            // 
+            this.SettingKyoshinExUpdateDelayValue.Location = new System.Drawing.Point(72, 47);
+            this.SettingKyoshinExUpdateDelayValue.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.SettingKyoshinExUpdateDelayValue.Name = "SettingKyoshinExUpdateDelayValue";
+            this.SettingKyoshinExUpdateDelayValue.Size = new System.Drawing.Size(49, 19);
+            this.SettingKyoshinExUpdateDelayValue.TabIndex = 13;
+            this.SettingKyoshinExUpdateDelayValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(37, 49);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.TabIndex = 12;
+            this.label12.Text = "遅延";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(122, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 12);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "分/回";
+            // 
+            // SettingKyoshinExUpdateTimerValue
+            // 
+            this.SettingKyoshinExUpdateTimerValue.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.SettingKyoshinExUpdateTimerValue.Location = new System.Drawing.Point(72, 22);
+            this.SettingKyoshinExUpdateTimerValue.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.SettingKyoshinExUpdateTimerValue.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.SettingKyoshinExUpdateTimerValue.Name = "SettingKyoshinExUpdateTimerValue";
+            this.SettingKyoshinExUpdateTimerValue.Size = new System.Drawing.Size(49, 19);
+            this.SettingKyoshinExUpdateTimerValue.TabIndex = 10;
+            this.SettingKyoshinExUpdateTimerValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.SettingKyoshinExUpdateTimerValue.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.SettingKyoshinExUpdateTimerValue.ValueChanged += new System.EventHandler(this.SettingKyoshinExUpdateTimerValue_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "時刻補正";
             // 
             // ComputerSettings
             // 
@@ -708,6 +853,7 @@
             // CSettingEventlogEEW
             // 
             this.CSettingEventlogEEW.AutoSize = true;
+            this.CSettingEventlogEEW.Enabled = false;
             this.CSettingEventlogEEW.Location = new System.Drawing.Point(28, 50);
             this.CSettingEventlogEEW.Name = "CSettingEventlogEEW";
             this.CSettingEventlogEEW.Size = new System.Drawing.Size(190, 16);
@@ -718,6 +864,7 @@
             // CSettingEventlog
             // 
             this.CSettingEventlog.AutoSize = true;
+            this.CSettingEventlog.Enabled = false;
             this.CSettingEventlog.Location = new System.Drawing.Point(6, 28);
             this.CSettingEventlog.Name = "CSettingEventlog";
             this.CSettingEventlog.Size = new System.Drawing.Size(302, 16);
@@ -967,8 +1114,131 @@
             // 
             // Timer_AdjustKyoshinEx
             // 
-            this.Timer_AdjustKyoshinEx.Interval = 3600000;
+            this.Timer_AdjustKyoshinEx.Interval = 1800000;
             this.Timer_AdjustKyoshinEx.Tick += new System.EventHandler(this.Timer_AdjustKyoshinEx_Tick);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(71, 34);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 12);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "震源地";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox2.Location = new System.Drawing.Point(118, 26);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(231, 28);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "N/A";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(36, 61);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(76, 24);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "地震の規模\r\n(マグニチュード)";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox3.Location = new System.Drawing.Point(118, 61);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(42, 28);
+            this.textBox3.TabIndex = 3;
+            this.textBox3.Text = "N/A";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox4.Location = new System.Drawing.Point(118, 95);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(94, 28);
+            this.textBox4.TabIndex = 4;
+            this.textBox4.Text = "N/A";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(53, 102);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(59, 12);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "震源の深さ";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(233, 61);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(53, 12);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "最大震度";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Font = new System.Drawing.Font("ＭＳ ゴシック", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox5.Location = new System.Drawing.Point(292, 61);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(57, 60);
+            this.textBox5.TabIndex = 7;
+            this.textBox5.Text = "-";
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(38, 217);
+            this.textBox6.Multiline = true;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.textBox6.Size = new System.Drawing.Size(311, 161);
+            this.textBox6.TabIndex = 8;
+            this.textBox6.Text = "準備中";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(36, 139);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 12);
+            this.label18.TabIndex = 9;
+            this.label18.Text = "津波情報";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox7.Location = new System.Drawing.Point(38, 154);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(311, 28);
+            this.textBox7.TabIndex = 10;
+            this.textBox7.Text = "情報を取得できませんでした。";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(36, 202);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(53, 12);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "震度情報";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Form1
             // 
@@ -999,6 +1269,8 @@
             this.MisakiEQ_Infomation.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.MisakiEQ_LatestData.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.KyoshinEx.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.KyoshinImage)).EndInit();
             this.MisakiEQ_Status.ResumeLayout(false);
@@ -1006,6 +1278,10 @@
             this.MisakiEQ_Settings.ResumeLayout(false);
             this.SettingTab.ResumeLayout(false);
             this.DataUpdateSettings.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateDelayValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateTimerValue)).EndInit();
             this.ComputerSettings.ResumeLayout(false);
             this.ComputerSettings.PerformLayout();
             this.TwitterSettings.ResumeLayout(false);
@@ -1106,6 +1382,26 @@
         private System.Windows.Forms.Button MisakiEQTwitterLink;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer Timer_AdjustKyoshinEx;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox SettingKyoshinExDisplayEEW;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown SettingKyoshinExUpdateDelayValue;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown SettingKyoshinExUpdateTimerValue;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label14;
     }
 }
 

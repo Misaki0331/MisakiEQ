@@ -1,0 +1,1 @@
+ILMerge.exe /wildcards /out:C:\Users\Misaki\source\repos\MisakiEQ\Complete\MisakiEQ.exe C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\MisakiEQ.exe C:\Users\Misaki\source\repos\MisakiEQ\MisakiEQ\bin\Admin\*.dll

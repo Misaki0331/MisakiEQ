@@ -100,6 +100,22 @@ namespace MisakiEQ
             }
             return TypeName;
         }//これは表示種類と地中か地表かをURLにすぐに出してくれる関数
+        public Image CompImageEx(Image[] CompImages)//地図付きで強震モニタの画像を合成
+        {
+            Image BG = new Bitmap(352, 400);
+            Graphics graphics;
+            graphics = Graphics.FromImage(BG);
+            graphics.DrawImage(Properties.Resources.Kyoshin_Basemap, new Point(0, 0));
+            for (int i = 0; i < CompImages.Count(); i++)
+            {
+                graphics.DrawImage(CompImages[i], new Point(0, 0));
+                
+            }
+            graphics.Dispose();
+            for(int i = CompImages.Count(); i >= 0; i--) CompImages[i].Dispose();
+            return BG;
+            
+        }
         public Image GetFastImage(DateTime time, KyoshinType type, bool IsBour,bool IsESTShindo,bool IsPSV,bool NoneBG=false)//直接データが欲しい場合 (時間,表示タイプ,地中フラグ,予測震度表示,予測円表示)
         {
             try
