@@ -92,10 +92,30 @@ namespace MisakiEQ
         bool IsKyoshinWorking = false;
         MisakiEQ.Mini_Window.KyoshinWindow MiniKyoshinWindow;
         WindowsDeskBand wdb;
-        private static void GetLastID(ref long ID)
-        {
 
+        bool IsDisconnectedHost = true; //ホストが切断時、もしくは自分がホストの時にtrue
+        bool IsDiconnectedTmp = true;
+        string TweetWatch_Type="";
+        bool TweetWatch_CheckBox = false;
+        string TweetWatch_Address = "";
+
+        bool CheckedStillRunPC = false;
+        string CheckedPCLastError = "";
+        struct _EEWDisplayData
+        {
+            public bool Updated;
+            public string Type;
+            public string OriginTime;
+            public string HypoCenter;
+            public string AnnounceTime;
+            public int Serial;
+            public bool IsFinal;
+            public string Magnitude;
+            public string Depth;
+            public string Index;
+            public string MaxScale;
         }
+        _EEWDisplayData EEWDisplayData = new _EEWDisplayData();
         public Form1()
         {
             //throw null;
@@ -108,35 +128,42 @@ namespace MisakiEQ
             notification.Icon= Properties.Resources.mainico;
             VersionName.Text = "MisakiEQ For Windows Version 0.2.0\n非公開ベータ版\n\n";
 #if ADMIN || DEBUG
-            InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
-            Twitter TwiCliant = new Twitter();
-
-            
-            //this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
-            this.P2P_Interval_EarthQuake.Value = IntervalEQ;
-            this.P2P_Interval_Tsunami.Value = IntervalTsunami;
-            P2P_Request_Changed();
-            wdb = new WindowsDeskBand();
-            wdb.Update();
-            if (File.Exists("TwiSession.dat"))
+            try
             {
-                try
-                {
-                    List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
-                    this.UserName.Text = TwiCliant.GetScreenName();
-                    Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
-                    if (TwiList != null)
-                    {
-                        if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
-                        if (TwiList.Count > 0) Tweet_LastID =TwiCliant.GetLatestTweetID();
-                    }
-                    UserNameID = TwiCliant.GetScreenName();
-                    TwiCliant.Test();
-                }
-                catch
-                {
+                InitWindow.SetInfo(30, "Twitterの情報を取得中です...");
+                Twitter TwiCliant = new Twitter();
 
+
+                //this.Twitter_Author.Text="投稿者 : " + TwiCliant.GetScreenName();
+                this.P2P_Interval_EarthQuake.Value = IntervalEQ;
+                this.P2P_Interval_Tsunami.Value = IntervalTsunami;
+                P2P_Request_Changed();
+                wdb = new WindowsDeskBand();
+                wdb.Update();
+                if (File.Exists("TwiSession.dat"))
+                {
+                    try
+                    {
+                        List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+                        this.UserName.Text = TwiCliant.GetScreenName();
+                        Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+                        if (TwiList != null)
+                        {
+                            if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
+                            if (TwiList.Count > 0) Tweet_LastID = TwiCliant.GetLatestTweetID();
+                        }
+                        UserNameID = TwiCliant.GetScreenName();
+                        TwiCliant.Test();
+                    }
+                    catch
+                    {
+
+                    }
                 }
+            }
+            catch
+            {
+               // throw new System.Net.WebException("Twitter API認証中にエラーが発生しました。\n接続を確認してください。");
             }
             Point a = new Point(816,540);
             Size = (System.Drawing.Size)a;
@@ -196,6 +223,52 @@ namespace MisakiEQ
             Timer_EarthQuake.Start();
             Timer_EEW.Start();
             Timer_Tsunami.Start();
+            InitWindow.SetInfo(91, "他PCの監視情報を取得中です...");
+            string line;
+            int counter = 0;
+            try
+            {
+                System.IO.StreamReader file =
+                        new System.IO.StreamReader("TwiWatch.dat");
+                while ((line = file.ReadLine()) != null)
+                {
+                    System.Console.WriteLine(line);
+                    counter++;
+                    switch (counter)
+                    {
+                        case 1:
+                            TweetWatch_Type = line;
+
+                            break;
+                        case 2:
+
+                            if (line == "true")
+                            {
+                                TweetWatch_CheckBox = true;
+                            }
+                            else
+                            {
+                                TweetWatch_CheckBox = false;
+                            }
+                            break;
+                        case 3:
+                            TweetWatch_Address = line;
+                            break;
+
+                    }
+                }
+                file.Close();
+            }
+            catch
+            {
+
+            }
+            OtherPCWatchingTimer.Start();
+            Tweet_isHost.Text = TweetWatch_Type;
+            Tweet_checkBox.Checked = TweetWatch_CheckBox;
+            Tweet_textbox.Text = TweetWatch_Address;
+
+
 #if DEBUG
             this.Text = "設定 - MisakiEQ (Debug)";
 
@@ -618,6 +691,15 @@ namespace MisakiEQ
                         "震源の深さ：" + converter.DeepString(data.earthquake.hypocenter.depth) + "\n" +
                         "最大震度：" + converter.ScaleString(data.earthquake.maxScale) + "\n" +
                         "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami))+"\n\n"+ShindoText;
+                    JMAEQData_Shingen.Text = data.earthquake.hypocenter.name;
+                    JMAEQData_Time.Text = time.ToString("yyyy/MM/dd H:mm頃");
+                    JMAEQData_km.Text = converter.DeepString(data.earthquake.hypocenter.depth);
+                    JMAEQData_Tsunami.Text = converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                    JMAEQData_M.Text = data.earthquake.hypocenter.magnitude.ToString("F1");
+                    JMAEQData_Max.Text = converter.ASCIIScaleString(data.earthquake.maxScale);
+                    string[] result = ShindoText.Split(new char[] { '\n' });
+
+                    JMAEQData_ShindoInfo.Lines = result;
                     //if ((data.earthquake.hypocenter.magnitude >= 0.0||converter.ScaleToValue(data.earthquake.maxScale)>=1)||IsTweetedEEW)
                     if (true)
                     {
@@ -882,7 +964,7 @@ namespace MisakiEQ
                         }
                         else
                         {*/
-                            TwiCliant.Tweet(TweetData[0]);
+                            if(IsDisconnectedHost)TwiCliant.Tweet(TweetData[0]);
                         //}
 
                     }
@@ -891,12 +973,12 @@ namespace MisakiEQ
                         if (ReplySetTweetID != 0)
                         {
 
-                            TwiCliant.Reply(ReplySetTweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
+                            if (IsDisconnectedHost) TwiCliant.Reply(ReplySetTweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
                             ReplySetTweetID = 0;
                         }
                         else
                         {
-                            TwiCliant.Reply(TweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
+                            if (IsDisconnectedHost) TwiCliant.Reply(TweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
                         }
                     }
                     TweetID = TwiCliant.GetLatestTweetID(UserNameID);
@@ -998,8 +1080,10 @@ namespace MisakiEQ
                     }
                     bool cancel = false;
                     EEWLatestUNIXTime = UnixNowTime;
+                    EEWDisplayData.Index = "";
                     if (eew.Warn)
                     {
+                        
                         EEW_IndexText = "🔴🔴⚠緊急地震速報(警報)⚠🔴🔴";
                         if (!IsFirstEEW||EEWAreaCount<eew.WarnForecast.LocalAreas.Count)
                         {
@@ -1028,6 +1112,8 @@ namespace MisakiEQ
                             len += num+1;
                             
                         }
+                        //for(int i=0;i<eew.WarnForecast.)
+                        EEWDisplayData.Index = EEWText_Index;
                         EEWText_Description = eew.Hypocenter.Name + "で地震 強い揺れに警戒";
                         EEWText_Graph ="規模 : M"+ eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
                             "深さ : " + converter.DeepString(eew.Hypocenter.Location.Depth.Int)+ "\n" +
@@ -1037,17 +1123,19 @@ namespace MisakiEQ
                         if (eew.Type.Code == 9) EEWText_Graph += "(最終)";
                         EEWText_Graph += "\n\n"+ converter.GetTime(eew.AnnouncedTime.String).ToString("H:mm:ss発表");
 
-
+                        EEWDisplayData.Type = "警報";
                     }
                     else
                     {
                         EEW_IndexText = "緊急地震速報(予報) ";
+                        EEWDisplayData.Type = "予報";
                     }
                     EEW_IndexText += "第 " + eew.Serial.ToString() + " 報";
                     string line = eew.OriginalText;
                     string[] EEWData = line.Split(' ');
                     if (eew.Type.Code==9) EEW_IndexText += "(最終報)";
                     EEW_IndexText += "\n";
+                    
                     switch (int.Parse(eew.Status.Code))
                     {
                         case 0:
@@ -1072,6 +1160,7 @@ namespace MisakiEQ
                     if (!cancel)
                     {
                         
+
                         if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6 && eew.Hypocenter.Location.Depth.Int<80) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
                         EEW_IndexText += eew.Hypocenter.Name + " 深さ:" + converter.DeepString(eew.Hypocenter.Location.Depth.Int) +
                             " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n"+
@@ -1099,6 +1188,16 @@ namespace MisakiEQ
                             MiniKyoshinWindow.Location = new Point(0, 0);
                             MiniKyoshinWindow.Activate();
                         }
+
+                        EEWDisplayData.Serial = eew.Serial;
+                        EEWDisplayData.IsFinal = eew.Type.Code == 9;
+                        EEWDisplayData.HypoCenter = eew.Hypocenter.Name;
+                        EEWDisplayData.AnnounceTime = converter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                        EEWDisplayData.OriginTime = converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                        EEWDisplayData.MaxScale = eew.MaxIntensity.To;
+                        EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
+                        EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
+                        EEWDisplayData.Updated = true;
                     }
                     if (cancel)
                     {
@@ -1125,17 +1224,20 @@ namespace MisakiEQ
                         IsTweetedEEW = true;
                         string tweetText = EEW_IndexText + "\n#MisakiEQ #地震 #緊急地震速報";
                         Twitter TwiCliant = new Twitter();
-                        if (!EEW_TweetMode)
+                        if (IsDisconnectedHost)
                         {
-                            TwiCliant.Tweet(tweetText);
-                        }
-                        else
-                        {
-                            TwiCliant.Reply(EEW_LastTweetID, tweetText);
-                        }
-                        EEW_LastTweetID = TwiCliant.GetLatestTweetID(UserNameID);
+                            if (!EEW_TweetMode)
+                            {
+                                TwiCliant.Tweet(tweetText);
+                            }
+                            else
+                            {
+                                TwiCliant.Reply(EEW_LastTweetID, tweetText);
+                            }
+                            EEW_LastTweetID = TwiCliant.GetLatestTweetID(UserNameID);
 
-                        EEW_TweetMode = true;
+                            EEW_TweetMode = true;
+                        }
                         
                     }
                     if (eew.Warn)
@@ -1154,7 +1256,7 @@ namespace MisakiEQ
                                 " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
                                 "最大震度:" + eew.MaxIntensity.String;
                         DisplayingNotificationTime = 2147483647;
-                        if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float > 5) NotificationIndex += " 津波発生の可能性あり";
+                        if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6&& eew.Hypocenter.Location.Depth.Int < 80) NotificationIndex += " 津波発生の可能性あり";
 
                     }
                     else
@@ -1326,6 +1428,20 @@ namespace MisakiEQ
                 this.notification.ShowBalloonTip(DisplayingNotificationTime); 
 
             }
+            if (EEWDisplayData.Updated)
+            {
+                EEWDisplayData.Updated = false;
+                EEWDisplay_Type.Text = EEWDisplayData.Type;
+                EEWDisplay_OriginTime.Text = EEWDisplayData.OriginTime;
+                EEWDisplay_AnnounceTime.Text = EEWDisplayData.AnnounceTime;
+                EEWDisplay_Serial.Text = EEWDisplayData.Serial.ToString();
+                EEWDisplay_IsFinalSerial.Checked = EEWDisplayData.IsFinal;
+                EEWDisplay_Hypocenter.Text = EEWDisplayData.HypoCenter;
+                EEWDisplay_MaxScale.Text = EEWDisplayData.MaxScale;
+                EEWDisplay_Magnitude.Text = EEWDisplayData.Magnitude;
+                EEWDisplay_Depth.Text = EEWDisplayData.Depth;
+                EEWDisplay_WarnForecast.Text = EEWDisplayData.Index;
+            }
 #if DEBUG || ADMIN
             if (isTweet)
             {
@@ -1354,6 +1470,27 @@ namespace MisakiEQ
                         Tweet_LastID = TwiCliant.GetLatestTweetID();
                     }
 
+                }
+            }
+            label21.Text = CheckedPCLastError;
+            if (IsDiconnectedTmp != IsDisconnectedHost)
+            {
+                IsDiconnectedTmp = IsDisconnectedHost;
+                if (IsDisconnectedHost)
+                {
+                    NotificationName = "Host Connection Lost";
+                    NotificationIndex = "ホストから切断されました。\n権限はこのPCに移行されました。";
+                    DisplayingNotificationTime = 2147483647;
+                    NotificationIcon = 2;
+                    IsDisplayNotification = true;
+                }
+                else
+                {
+                    NotificationName = "Host Connected";
+                    NotificationIndex = "ホストに接続されました。\n権限はホストに移行されます。";
+                    DisplayingNotificationTime = 2147483647;
+                    NotificationIcon = 1;
+                    IsDisplayNotification = true;
                 }
             }
 #endif
@@ -1762,6 +1899,136 @@ namespace MisakiEQ
         private void SettingKyoshinExUpdateTimerValue_ValueChanged(object sender, EventArgs e)
         {
             Timer_AdjustKyoshinEx.Interval = (int)SettingKyoshinExUpdateTimerValue.Value * 1000 * 60;
+        }
+
+        private void Tweet_isHost_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Tweet_textbox.Enabled = true;
+            Tweet_checkBox.Enabled = true;
+            Tweet_textbox.Text = "";
+            if (Tweet_isHost.Text == "Host")
+            {
+                Tweet_checkBox.Text = "監視状態を試験停止";
+                Tweet_AddressName.Text = "このPCから発信するアドレス";
+            }
+            else if(Tweet_isHost.Text == "Client")
+            {
+                Tweet_checkBox.Text = "強制的にツイートを実行";
+                Tweet_AddressName.Text = "別のPCから取得するアドレス";
+            }
+            else
+            {
+                Tweet_textbox.Enabled = false;
+                Tweet_checkBox.Enabled = false;
+                Tweet_AddressName.Text = "";
+                Tweet_checkBox.Text = "";
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            TweetWatch_Type = Tweet_isHost.Text;
+            TweetWatch_CheckBox = Tweet_checkBox.Checked;
+            TweetWatch_Address = Tweet_textbox.Text;
+            try
+            {
+                Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+                using (StreamWriter writer = new StreamWriter("TwiWatch.dat", false, sjisEnc))
+                {
+                    // （2）ファイルにテキストを書き込む
+                    writer.WriteLine(TweetWatch_Type + "\n" + (TweetWatch_CheckBox ? "true" : "false") + "\n" + TweetWatch_Address);
+
+                }
+                StatusMassage.Text = "Bot監視の構成ファイルを保存しました。";
+
+            }
+            catch
+            {
+                StatusMassage.Text = "Bot監視の構成ファイルの保存中にエラーが発生しました。";
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            
+            Tweet_isHost.Text = TweetWatch_Type;
+            Tweet_checkBox.Checked = TweetWatch_CheckBox;
+            Tweet_textbox.Text = TweetWatch_Address;
+
+        }
+        
+        private void CheckOtherPC()
+        {
+            CheckedStillRunPC = true;
+            if (TweetWatch_Type == "Host")
+            {
+                IsDisconnectedHost = true;
+                try
+                {
+                    Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+                    using (StreamWriter writer = new StreamWriter(TweetWatch_Address, false, sjisEnc))
+                    {
+                        // （2）ファイルにテキストを書き込む
+                        if (TweetWatch_CheckBox)
+                        {
+                            writer.WriteLine("STOP");
+                        }
+                        else
+                        {
+                            writer.WriteLine("OK");
+                        }
+
+
+                    }
+                }
+                catch { }
+            }
+            else if (TweetWatch_Type == "Client")
+            {
+                try
+                {
+                    // Read the file and display it line by line.  
+                    System.IO.StreamReader file =
+                        new System.IO.StreamReader(TweetWatch_Address);
+
+                    string line = file.ReadLine();
+                    System.Console.WriteLine(line);
+                    if (line == "OK")
+                    {
+                        IsDisconnectedHost = false;
+                        CheckedPCLastError = "接続されています。";
+                        if (TweetWatch_CheckBox)
+                        {
+                            IsDisconnectedHost = true;
+                        }
+                    }
+                    else
+                    {
+                        IsDisconnectedHost = true;
+                        CheckedPCLastError = "切断されています。";
+                    }
+                    file.Close();
+
+                }
+                catch
+                {
+                    IsDisconnectedHost = true;
+                    CheckedPCLastError = "接続エラー(認識不可)";
+                }
+            }
+            else
+            {
+                IsDisconnectedHost = true;
+            }
+            CheckedStillRunPC = false;
+        }
+        private void OtherPCWatchingTimer_Tick(object sender, EventArgs e)
+        {
+            if (!CheckedStillRunPC)
+            {
+                Thread t = new Thread(new ThreadStart(CheckOtherPC));
+                t.Start();
+            }
         }
     }
 }

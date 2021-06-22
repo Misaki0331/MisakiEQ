@@ -36,7 +36,6 @@ namespace MisakiEQ
             {
                 Error = e.Message;
                 IsThreadRun = false;
-                throw e;
                 //return;
             }
             finally

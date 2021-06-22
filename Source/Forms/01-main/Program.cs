@@ -59,17 +59,19 @@ namespace MisakiEQ
         // ユーザー・フレンドリなダイアログを表示するメソッド
         public static void ShowErrorMessage(Exception ex, string extraMessage)
         {
-            MainForm.IsApplicationShutDown = true;
-            ExceptionMassage err = new ExceptionMassage(extraMessage + " \n" +
-              
-              "【例外が発生したメゾット】\n" + ex.TargetSite + "\n\n" +
-              "【例外が発生したソース】\n" + ex.Source + "\n\n"+
-              "【エラー内容】\n" + ex.Message +"\n"+ ex.HelpLink+ "\n\n" +
-              "【スタックトレース】\n" + ex.StackTrace,ErrorCount, "" + ex.TargetSite)
+            if(MainForm!=null)MainForm.IsApplicationShutDown = true;
+            string ErrorString = "";
+            ErrorString += extraMessage + " \n";
+            ErrorString += "【例外が発生したメゾット】\n" + ex.TargetSite + "\n\n";
+            ErrorString += "【例外が発生したソース】\n" + ex.Source + "\n\n";
+            ErrorString += "【エラー内容】\n" + ex.Message + "\n\n";
+            ErrorString += "【スタックトレース】\n" + ex.StackTrace;
+            ExceptionMassage err = new ExceptionMassage(ErrorString, ErrorCount, 
+              ex.TargetSite+"")
                ;
             //Application.Run(err);
             err.Show();
-            MainForm.Hide();
+            if (MainForm != null) MainForm.Hide();
         }
     }
 }
