@@ -74,6 +74,8 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.MisakiEQ_LatestData = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.JMAEQData_M = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.JMAEQData_Time = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -84,11 +86,31 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.JMAEQData_km = new System.Windows.Forms.TextBox();
-            this.JMAEQData_M = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.JMAEQData_Shingen = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.KyoshinEx = new System.Windows.Forms.TabPage();
+            this.EEWDisplay_OriginTime = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.EEWDisplay_WarnForecast = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.EEWDisplay_MaxScale = new System.Windows.Forms.TextBox();
+            this.EEWDisplay_Depth = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.EEWDisplay_Magnitude = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.EEWDisplay_Hypocenter = new System.Windows.Forms.TextBox();
+            this.EEWDisplay_IsFinalSerial = new System.Windows.Forms.CheckBox();
+            this.EEWDisplay_Serial = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.EEWDisplay_AnnounceTime = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.EEWDisplay_Type = new System.Windows.Forms.TextBox();
             this.DisplayKyoshinEx = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.KyoshinDateTime = new System.Windows.Forms.DateTimePicker();
@@ -129,6 +151,7 @@
             this.LinkTwitter = new System.Windows.Forms.Button();
             this.VersionName = new System.Windows.Forms.Label();
             this.SettingClose = new System.Windows.Forms.TabPage();
+            this.TestButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.GetDataPauseButton = new System.Windows.Forms.Button();
             this.CloseApplication = new System.Windows.Forms.Button();
@@ -140,28 +163,6 @@
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.OtherPCWatchingTimer = new System.Windows.Forms.Timer(this.components);
-            this.EEWDisplay_Type = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.EEWDisplay_AnnounceTime = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.EEWDisplay_Serial = new System.Windows.Forms.TextBox();
-            this.EEWDisplay_IsFinalSerial = new System.Windows.Forms.CheckBox();
-            this.EEWDisplay_Hypocenter = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.EEWDisplay_Magnitude = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.EEWDisplay_Depth = new System.Windows.Forms.TextBox();
-            this.EEWDisplay_MaxScale = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.EEWDisplay_WarnForecast = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.EEWDisplay_OriginTime = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -671,10 +672,31 @@
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "地震情報";
             // 
+            // JMAEQData_M
+            // 
+            this.JMAEQData_M.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.JMAEQData_M.Location = new System.Drawing.Point(142, 83);
+            this.JMAEQData_M.Name = "JMAEQData_M";
+            this.JMAEQData_M.ReadOnly = true;
+            this.JMAEQData_M.Size = new System.Drawing.Size(42, 31);
+            this.JMAEQData_M.TabIndex = 3;
+            this.JMAEQData_M.Text = "-.-";
+            this.JMAEQData_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label28.Location = new System.Drawing.Point(118, 85);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(29, 24);
+            this.label28.TabIndex = 14;
+            this.label28.Text = "M";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(59, 23);
+            this.label20.Location = new System.Drawing.Point(59, 29);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(53, 12);
             this.label20.TabIndex = 13;
@@ -682,11 +704,11 @@
             // 
             // JMAEQData_Time
             // 
-            this.JMAEQData_Time.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.JMAEQData_Time.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.JMAEQData_Time.Location = new System.Drawing.Point(118, 15);
             this.JMAEQData_Time.Name = "JMAEQData_Time";
             this.JMAEQData_Time.ReadOnly = true;
-            this.JMAEQData_Time.Size = new System.Drawing.Size(231, 28);
+            this.JMAEQData_Time.Size = new System.Drawing.Size(231, 31);
             this.JMAEQData_Time.TabIndex = 12;
             this.JMAEQData_Time.Text = "20xx/xx/xx xx:xx頃";
             this.JMAEQData_Time.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -703,11 +725,11 @@
             // 
             // JMAEQData_Tsunami
             // 
-            this.JMAEQData_Tsunami.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.JMAEQData_Tsunami.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.JMAEQData_Tsunami.Location = new System.Drawing.Point(38, 177);
             this.JMAEQData_Tsunami.Name = "JMAEQData_Tsunami";
             this.JMAEQData_Tsunami.ReadOnly = true;
-            this.JMAEQData_Tsunami.Size = new System.Drawing.Size(311, 28);
+            this.JMAEQData_Tsunami.Size = new System.Drawing.Size(311, 31);
             this.JMAEQData_Tsunami.TabIndex = 10;
             this.JMAEQData_Tsunami.Text = "情報を取得できませんでした。";
             // 
@@ -734,11 +756,11 @@
             // 
             // JMAEQData_Max
             // 
-            this.JMAEQData_Max.Font = new System.Drawing.Font("ＭＳ ゴシック", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.JMAEQData_Max.Location = new System.Drawing.Point(292, 84);
+            this.JMAEQData_Max.Font = new System.Drawing.Font("MS UI Gothic", 42F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.JMAEQData_Max.Location = new System.Drawing.Point(285, 86);
             this.JMAEQData_Max.Name = "JMAEQData_Max";
             this.JMAEQData_Max.ReadOnly = true;
-            this.JMAEQData_Max.Size = new System.Drawing.Size(57, 60);
+            this.JMAEQData_Max.Size = new System.Drawing.Size(64, 63);
             this.JMAEQData_Max.TabIndex = 7;
             this.JMAEQData_Max.Text = "-";
             this.JMAEQData_Max.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -746,7 +768,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(233, 84);
+            this.label17.Location = new System.Drawing.Point(231, 86);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(53, 12);
             this.label17.TabIndex = 6;
@@ -765,25 +787,14 @@
             // 
             // JMAEQData_km
             // 
-            this.JMAEQData_km.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.JMAEQData_km.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.JMAEQData_km.Location = new System.Drawing.Point(118, 118);
             this.JMAEQData_km.Name = "JMAEQData_km";
             this.JMAEQData_km.ReadOnly = true;
-            this.JMAEQData_km.Size = new System.Drawing.Size(94, 28);
+            this.JMAEQData_km.Size = new System.Drawing.Size(82, 31);
             this.JMAEQData_km.TabIndex = 4;
             this.JMAEQData_km.Text = "N/A";
             this.JMAEQData_km.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // JMAEQData_M
-            // 
-            this.JMAEQData_M.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.JMAEQData_M.Location = new System.Drawing.Point(140, 83);
-            this.JMAEQData_M.Name = "JMAEQData_M";
-            this.JMAEQData_M.ReadOnly = true;
-            this.JMAEQData_M.Size = new System.Drawing.Size(42, 28);
-            this.JMAEQData_M.TabIndex = 3;
-            this.JMAEQData_M.Text = "N/A";
-            this.JMAEQData_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label15
             // 
@@ -797,11 +808,11 @@
             // 
             // JMAEQData_Shingen
             // 
-            this.JMAEQData_Shingen.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.JMAEQData_Shingen.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.JMAEQData_Shingen.Location = new System.Drawing.Point(118, 49);
             this.JMAEQData_Shingen.Name = "JMAEQData_Shingen";
             this.JMAEQData_Shingen.ReadOnly = true;
-            this.JMAEQData_Shingen.Size = new System.Drawing.Size(231, 28);
+            this.JMAEQData_Shingen.Size = new System.Drawing.Size(231, 31);
             this.JMAEQData_Shingen.TabIndex = 1;
             this.JMAEQData_Shingen.Text = "N/A";
             this.JMAEQData_Shingen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -809,7 +820,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(71, 57);
+            this.label14.Location = new System.Drawing.Point(71, 63);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(41, 12);
             this.label14.TabIndex = 0;
@@ -849,6 +860,203 @@
             this.KyoshinEx.Size = new System.Drawing.Size(792, 408);
             this.KyoshinEx.TabIndex = 1;
             this.KyoshinEx.Text = "強震モニタ";
+            // 
+            // EEWDisplay_OriginTime
+            // 
+            this.EEWDisplay_OriginTime.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_OriginTime.Location = new System.Drawing.Point(73, 80);
+            this.EEWDisplay_OriginTime.Name = "EEWDisplay_OriginTime";
+            this.EEWDisplay_OriginTime.ReadOnly = true;
+            this.EEWDisplay_OriginTime.Size = new System.Drawing.Size(184, 26);
+            this.EEWDisplay_OriginTime.TabIndex = 24;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(18, 88);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(53, 12);
+            this.label33.TabIndex = 23;
+            this.label33.Text = "発生時刻";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(8, 238);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(201, 12);
+            this.label32.TabIndex = 22;
+            this.label32.Text = "警報対象地域(予報では表示されません)";
+            // 
+            // EEWDisplay_WarnForecast
+            // 
+            this.EEWDisplay_WarnForecast.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_WarnForecast.Location = new System.Drawing.Point(10, 253);
+            this.EEWDisplay_WarnForecast.Multiline = true;
+            this.EEWDisplay_WarnForecast.Name = "EEWDisplay_WarnForecast";
+            this.EEWDisplay_WarnForecast.ReadOnly = true;
+            this.EEWDisplay_WarnForecast.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.EEWDisplay_WarnForecast.Size = new System.Drawing.Size(424, 149);
+            this.EEWDisplay_WarnForecast.TabIndex = 21;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(320, 153);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 12);
+            this.label31.TabIndex = 20;
+            this.label31.Text = "最大震度";
+            // 
+            // EEWDisplay_MaxScale
+            // 
+            this.EEWDisplay_MaxScale.Font = new System.Drawing.Font("ＭＳ ゴシック", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_MaxScale.Location = new System.Drawing.Point(377, 110);
+            this.EEWDisplay_MaxScale.Name = "EEWDisplay_MaxScale";
+            this.EEWDisplay_MaxScale.ReadOnly = true;
+            this.EEWDisplay_MaxScale.Size = new System.Drawing.Size(57, 60);
+            this.EEWDisplay_MaxScale.TabIndex = 19;
+            this.EEWDisplay_MaxScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // EEWDisplay_Depth
+            // 
+            this.EEWDisplay_Depth.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_Depth.Location = new System.Drawing.Point(73, 190);
+            this.EEWDisplay_Depth.Name = "EEWDisplay_Depth";
+            this.EEWDisplay_Depth.ReadOnly = true;
+            this.EEWDisplay_Depth.Size = new System.Drawing.Size(95, 34);
+            this.EEWDisplay_Depth.TabIndex = 18;
+            this.EEWDisplay_Depth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(8, 206);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(59, 12);
+            this.label30.TabIndex = 17;
+            this.label30.Text = "震源の深さ";
+            // 
+            // EEWDisplay_Magnitude
+            // 
+            this.EEWDisplay_Magnitude.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_Magnitude.Location = new System.Drawing.Point(101, 150);
+            this.EEWDisplay_Magnitude.Name = "EEWDisplay_Magnitude";
+            this.EEWDisplay_Magnitude.ReadOnly = true;
+            this.EEWDisplay_Magnitude.Size = new System.Drawing.Size(41, 34);
+            this.EEWDisplay_Magnitude.TabIndex = 15;
+            this.EEWDisplay_Magnitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label29.Location = new System.Drawing.Point(74, 153);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(33, 27);
+            this.label29.TabIndex = 16;
+            this.label29.Text = "M";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(8, 166);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(63, 12);
+            this.label27.TabIndex = 14;
+            this.label27.Text = "地震の規模";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(30, 126);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(41, 12);
+            this.label26.TabIndex = 13;
+            this.label26.Text = "震源地";
+            // 
+            // EEWDisplay_Hypocenter
+            // 
+            this.EEWDisplay_Hypocenter.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_Hypocenter.Location = new System.Drawing.Point(73, 110);
+            this.EEWDisplay_Hypocenter.Name = "EEWDisplay_Hypocenter";
+            this.EEWDisplay_Hypocenter.ReadOnly = true;
+            this.EEWDisplay_Hypocenter.Size = new System.Drawing.Size(291, 34);
+            this.EEWDisplay_Hypocenter.TabIndex = 12;
+            // 
+            // EEWDisplay_IsFinalSerial
+            // 
+            this.EEWDisplay_IsFinalSerial.AutoSize = true;
+            this.EEWDisplay_IsFinalSerial.Enabled = false;
+            this.EEWDisplay_IsFinalSerial.Location = new System.Drawing.Point(356, 79);
+            this.EEWDisplay_IsFinalSerial.Name = "EEWDisplay_IsFinalSerial";
+            this.EEWDisplay_IsFinalSerial.Size = new System.Drawing.Size(60, 16);
+            this.EEWDisplay_IsFinalSerial.TabIndex = 11;
+            this.EEWDisplay_IsFinalSerial.Text = "最終報";
+            this.EEWDisplay_IsFinalSerial.UseVisualStyleBackColor = true;
+            // 
+            // EEWDisplay_Serial
+            // 
+            this.EEWDisplay_Serial.Location = new System.Drawing.Point(322, 77);
+            this.EEWDisplay_Serial.Name = "EEWDisplay_Serial";
+            this.EEWDisplay_Serial.ReadOnly = true;
+            this.EEWDisplay_Serial.Size = new System.Drawing.Size(28, 19);
+            this.EEWDisplay_Serial.TabIndex = 10;
+            this.EEWDisplay_Serial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(263, 80);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(53, 12);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "情報番号";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(8, 31);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(111, 12);
+            this.label24.TabIndex = 8;
+            this.label24.Text = "緊急地震速報の状態";
+            // 
+            // EEWDisplay_AnnounceTime
+            // 
+            this.EEWDisplay_AnnounceTime.Location = new System.Drawing.Point(322, 56);
+            this.EEWDisplay_AnnounceTime.Name = "EEWDisplay_AnnounceTime";
+            this.EEWDisplay_AnnounceTime.ReadOnly = true;
+            this.EEWDisplay_AnnounceTime.Size = new System.Drawing.Size(112, 19);
+            this.EEWDisplay_AnnounceTime.TabIndex = 7;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(263, 59);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(53, 12);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "発表時刻";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(8, 56);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(63, 12);
+            this.label22.TabIndex = 5;
+            this.label22.Text = "情報の種類";
+            // 
+            // EEWDisplay_Type
+            // 
+            this.EEWDisplay_Type.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_Type.Location = new System.Drawing.Point(73, 43);
+            this.EEWDisplay_Type.Name = "EEWDisplay_Type";
+            this.EEWDisplay_Type.ReadOnly = true;
+            this.EEWDisplay_Type.Size = new System.Drawing.Size(114, 34);
+            this.EEWDisplay_Type.TabIndex = 4;
+            this.EEWDisplay_Type.Text = "発表なし";
             // 
             // DisplayKyoshinEx
             // 
@@ -1301,6 +1509,7 @@
             // SettingClose
             // 
             this.SettingClose.AccessibleName = "SettingClose";
+            this.SettingClose.Controls.Add(this.TestButton);
             this.SettingClose.Controls.Add(this.button3);
             this.SettingClose.Controls.Add(this.GetDataPauseButton);
             this.SettingClose.Controls.Add(this.CloseApplication);
@@ -1310,6 +1519,16 @@
             this.SettingClose.Size = new System.Drawing.Size(788, 408);
             this.SettingClose.TabIndex = 3;
             this.SettingClose.Text = "終了";
+            // 
+            // TestButton
+            // 
+            this.TestButton.Location = new System.Drawing.Point(235, 124);
+            this.TestButton.Name = "TestButton";
+            this.TestButton.Size = new System.Drawing.Size(75, 23);
+            this.TestButton.TabIndex = 3;
+            this.TestButton.Text = "TestButton";
+            this.TestButton.UseVisualStyleBackColor = true;
+            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
             // 
             // button3
             // 
@@ -1398,212 +1617,6 @@
             this.OtherPCWatchingTimer.Interval = 5000;
             this.OtherPCWatchingTimer.Tick += new System.EventHandler(this.OtherPCWatchingTimer_Tick);
             // 
-            // EEWDisplay_Type
-            // 
-            this.EEWDisplay_Type.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_Type.Location = new System.Drawing.Point(73, 43);
-            this.EEWDisplay_Type.Name = "EEWDisplay_Type";
-            this.EEWDisplay_Type.ReadOnly = true;
-            this.EEWDisplay_Type.Size = new System.Drawing.Size(114, 34);
-            this.EEWDisplay_Type.TabIndex = 4;
-            this.EEWDisplay_Type.Text = "発表なし";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(8, 56);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(63, 12);
-            this.label22.TabIndex = 5;
-            this.label22.Text = "情報の種類";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(263, 59);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(53, 12);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "発表時刻";
-            // 
-            // EEWDisplay_AnnounceTime
-            // 
-            this.EEWDisplay_AnnounceTime.Location = new System.Drawing.Point(322, 56);
-            this.EEWDisplay_AnnounceTime.Name = "EEWDisplay_AnnounceTime";
-            this.EEWDisplay_AnnounceTime.ReadOnly = true;
-            this.EEWDisplay_AnnounceTime.Size = new System.Drawing.Size(112, 19);
-            this.EEWDisplay_AnnounceTime.TabIndex = 7;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(8, 31);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(111, 12);
-            this.label24.TabIndex = 8;
-            this.label24.Text = "緊急地震速報の状態";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(263, 80);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(53, 12);
-            this.label25.TabIndex = 9;
-            this.label25.Text = "情報番号";
-            // 
-            // EEWDisplay_Serial
-            // 
-            this.EEWDisplay_Serial.Location = new System.Drawing.Point(322, 77);
-            this.EEWDisplay_Serial.Name = "EEWDisplay_Serial";
-            this.EEWDisplay_Serial.ReadOnly = true;
-            this.EEWDisplay_Serial.Size = new System.Drawing.Size(28, 19);
-            this.EEWDisplay_Serial.TabIndex = 10;
-            this.EEWDisplay_Serial.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // EEWDisplay_IsFinalSerial
-            // 
-            this.EEWDisplay_IsFinalSerial.AutoSize = true;
-            this.EEWDisplay_IsFinalSerial.Enabled = false;
-            this.EEWDisplay_IsFinalSerial.Location = new System.Drawing.Point(356, 79);
-            this.EEWDisplay_IsFinalSerial.Name = "EEWDisplay_IsFinalSerial";
-            this.EEWDisplay_IsFinalSerial.Size = new System.Drawing.Size(60, 16);
-            this.EEWDisplay_IsFinalSerial.TabIndex = 11;
-            this.EEWDisplay_IsFinalSerial.Text = "最終報";
-            this.EEWDisplay_IsFinalSerial.UseVisualStyleBackColor = true;
-            // 
-            // EEWDisplay_Hypocenter
-            // 
-            this.EEWDisplay_Hypocenter.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_Hypocenter.Location = new System.Drawing.Point(73, 110);
-            this.EEWDisplay_Hypocenter.Name = "EEWDisplay_Hypocenter";
-            this.EEWDisplay_Hypocenter.ReadOnly = true;
-            this.EEWDisplay_Hypocenter.Size = new System.Drawing.Size(291, 34);
-            this.EEWDisplay_Hypocenter.TabIndex = 12;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(30, 126);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(41, 12);
-            this.label26.TabIndex = 13;
-            this.label26.Text = "震源地";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(8, 166);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(63, 12);
-            this.label27.TabIndex = 14;
-            this.label27.Text = "地震の規模";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label28.Location = new System.Drawing.Point(118, 85);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(27, 21);
-            this.label28.TabIndex = 14;
-            this.label28.Text = "M";
-            // 
-            // EEWDisplay_Magnitude
-            // 
-            this.EEWDisplay_Magnitude.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_Magnitude.Location = new System.Drawing.Point(101, 150);
-            this.EEWDisplay_Magnitude.Name = "EEWDisplay_Magnitude";
-            this.EEWDisplay_Magnitude.ReadOnly = true;
-            this.EEWDisplay_Magnitude.Size = new System.Drawing.Size(41, 34);
-            this.EEWDisplay_Magnitude.TabIndex = 15;
-            this.EEWDisplay_Magnitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label29.Location = new System.Drawing.Point(74, 153);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(33, 27);
-            this.label29.TabIndex = 16;
-            this.label29.Text = "M";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(8, 206);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(59, 12);
-            this.label30.TabIndex = 17;
-            this.label30.Text = "震源の深さ";
-            // 
-            // EEWDisplay_Depth
-            // 
-            this.EEWDisplay_Depth.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_Depth.Location = new System.Drawing.Point(73, 190);
-            this.EEWDisplay_Depth.Name = "EEWDisplay_Depth";
-            this.EEWDisplay_Depth.ReadOnly = true;
-            this.EEWDisplay_Depth.Size = new System.Drawing.Size(95, 34);
-            this.EEWDisplay_Depth.TabIndex = 18;
-            this.EEWDisplay_Depth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // EEWDisplay_MaxScale
-            // 
-            this.EEWDisplay_MaxScale.Font = new System.Drawing.Font("ＭＳ ゴシック", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_MaxScale.Location = new System.Drawing.Point(377, 110);
-            this.EEWDisplay_MaxScale.Name = "EEWDisplay_MaxScale";
-            this.EEWDisplay_MaxScale.ReadOnly = true;
-            this.EEWDisplay_MaxScale.Size = new System.Drawing.Size(57, 60);
-            this.EEWDisplay_MaxScale.TabIndex = 19;
-            this.EEWDisplay_MaxScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(320, 153);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(53, 12);
-            this.label31.TabIndex = 20;
-            this.label31.Text = "最大震度";
-            // 
-            // EEWDisplay_WarnForecast
-            // 
-            this.EEWDisplay_WarnForecast.Location = new System.Drawing.Point(10, 253);
-            this.EEWDisplay_WarnForecast.Multiline = true;
-            this.EEWDisplay_WarnForecast.Name = "EEWDisplay_WarnForecast";
-            this.EEWDisplay_WarnForecast.ReadOnly = true;
-            this.EEWDisplay_WarnForecast.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.EEWDisplay_WarnForecast.Size = new System.Drawing.Size(424, 149);
-            this.EEWDisplay_WarnForecast.TabIndex = 21;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(8, 238);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(201, 12);
-            this.label32.TabIndex = 22;
-            this.label32.Text = "警報対象地域(予報では表示されません)";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(18, 88);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(53, 12);
-            this.label33.TabIndex = 23;
-            this.label33.Text = "発生時刻";
-            // 
-            // EEWDisplay_OriginTime
-            // 
-            this.EEWDisplay_OriginTime.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_OriginTime.Location = new System.Drawing.Point(73, 80);
-            this.EEWDisplay_OriginTime.Name = "EEWDisplay_OriginTime";
-            this.EEWDisplay_OriginTime.ReadOnly = true;
-            this.EEWDisplay_OriginTime.Size = new System.Drawing.Size(184, 26);
-            this.EEWDisplay_OriginTime.TabIndex = 24;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1616,6 +1629,7 @@
             this.Name = "Form1";
             this.Text = "設定 - MisakiEQ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).EndInit();
@@ -1680,7 +1694,6 @@
         private System.Windows.Forms.Label P2P_Request_Max;
         private System.Windows.Forms.Label P2P_Request_Usage;
         private System.Windows.Forms.ProgressBar P2P_Progress_Usage;
-        private System.Windows.Forms.NotifyIcon notification;
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
@@ -1799,6 +1812,8 @@
         private System.Windows.Forms.TextBox EEWDisplay_MaxScale;
         private System.Windows.Forms.TextBox EEWDisplay_OriginTime;
         private System.Windows.Forms.Label label33;
+        public System.Windows.Forms.NotifyIcon notification;
+        private System.Windows.Forms.Button TestButton;
     }
 }
 

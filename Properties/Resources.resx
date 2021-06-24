@@ -163,6 +163,27 @@
   <data name="ReportUserID" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Private\ReportUserID.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
+  <data name="SND_Earthquake_Break" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_earthquake_break.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SND_Earthquake_Mid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_earthquake_mid.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SND_Earthquake_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_earthquake_small.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SND_EEW_Info" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_eew_info.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SND_EEW_Warn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_eew_warn.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SND_Tsunami_Alert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_tsunami_alert.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SND_Tsunami_Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\se\sound\snd_tsunami_update.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="TwitterLink" xml:space="preserve">
     <value>https://twitter.com/0x7FF</value>
     <comment>私のツイッターリンクです。凍結もしくは消えたら変更</comment>

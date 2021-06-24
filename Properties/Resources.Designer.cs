@@ -214,6 +214,69 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_Earthquake_Break {
+            get {
+                return ResourceManager.GetStream("SND_Earthquake_Break", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_Earthquake_Mid {
+            get {
+                return ResourceManager.GetStream("SND_Earthquake_Mid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_Earthquake_Small {
+            get {
+                return ResourceManager.GetStream("SND_Earthquake_Small", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_EEW_Info {
+            get {
+                return ResourceManager.GetStream("SND_EEW_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_EEW_Warn {
+            get {
+                return ResourceManager.GetStream("SND_EEW_Warn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_Tsunami_Alert {
+            get {
+                return ResourceManager.GetStream("SND_Tsunami_Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SND_Tsunami_Update {
+            get {
+                return ResourceManager.GetStream("SND_Tsunami_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   LsJ5tDiMeLhg0pczmv9SNzUcE に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Twitter_ConsumerKey {
@@ -241,7 +304,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/06/05 - 0.2.3 Updated
+        ///   2021/06/22 - 0.2.5 Updated
+        ///強震モニタのタブで緊急地震速報の状況が見れるようになりました。
+        ///例外エラー発生時エラー表示が消える不具合も修正しました。
+        ///
+        ///2021/06/21 - 0.2.4 Updated
+        ///地震情報のタブを付け加えました。
+        ///強震モニタの自動時刻更新機能を付け加えました。
+        ///
+        ///2021/06/05 - 0.2.3 Updated
         ///アイコンを変更(初期アイコンからオリジナルアイコン)
         ///バージョン情報のUIを一部修正
         ///素敵なキャラクター絵を描いてくださった あめ(@Flast_03)氏に感謝を申し上げます。
@@ -257,14 +328,7 @@ namespace MisakiEQ.Properties {
         ///ただしDLLは除く。
         ///
         ///2021/05/27 - 0.2.0 Updated
-        ///強震モニタを追加しました。
-        ///今のところリアルタイム震度と緊急地震速報の予測震度と予測円しか表示されないけどまあ許容範囲
-        ///
-        ///2021/05/14 - 0.1.2 Updated
-        ///開発者専用ビルドにてTwitter連携をボタン一つで自分のアカウントと連携できるようになった。
-        ///
-        ///2021/04/20 - 0.1.1 Updated
-        ///予測不可能 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///強震モニタを追加しま [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -273,7 +337,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.2.3
+        ///   MisakiEQ For Windows Version 0.2.5
         ///このバージョンは非公開です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {

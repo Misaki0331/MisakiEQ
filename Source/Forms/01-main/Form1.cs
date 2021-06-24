@@ -14,6 +14,9 @@ using System.Threading;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Diagnostics;
 using MisakiEQ.Mini_Window;
+using MisakiEQ.Audio;
+using SharpDX.XAudio2;
+using SharpDX.Multimedia;
 namespace MisakiEQ
 {
     
@@ -91,7 +94,10 @@ namespace MisakiEQ
         int KyoshinTempTimer = 0;
         bool IsKyoshinWorking = false;
         MisakiEQ.Mini_Window.KyoshinWindow MiniKyoshinWindow;
-        WindowsDeskBand wdb;
+        MisakiEQDeskBand wdb;
+        
+        Sound sound=new Sound();
+        MisakiEQSound SEData = new MisakiEQSound();
 
         bool IsDisconnectedHost = true; //ホストが切断時、もしくは自分がホストの時にtrue
         bool IsDiconnectedTmp = true;
@@ -116,6 +122,17 @@ namespace MisakiEQ
             public string MaxScale;
         }
         _EEWDisplayData EEWDisplayData = new _EEWDisplayData();
+        
+        void SoundInit()
+        {
+            sound.GetStream(Properties.Resources.SND_Earthquake_Break, ref SEData.SE.Earthquake_Break);
+            sound.GetStream(Properties.Resources.SND_Earthquake_Small, ref SEData.SE.Earthquake_Small);
+            sound.GetStream(Properties.Resources.SND_Earthquake_Mid, ref SEData.SE.Earthquake_Mid);
+            sound.GetStream(Properties.Resources.SND_EEW_Info, ref SEData.SE.EEW_Info);
+            sound.GetStream(Properties.Resources.SND_EEW_Warn, ref SEData.SE.EEW_Warn);
+            sound.GetStream(Properties.Resources.SND_Tsunami_Alert, ref SEData.SE.Tsunami_Alert);
+            sound.GetStream(Properties.Resources.SND_Tsunami_Update, ref SEData.SE.Tsunami_Update);
+        }
         public Form1()
         {
             //throw null;
@@ -123,9 +140,15 @@ namespace MisakiEQ
             InitWindow.Location = new Point(0, 0);
             InitWindow.Show();
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
+            
             InitializeComponent();
+            TestButton.Visible = false;
+            TestButton.Enabled = false;
             this.Icon = Properties.Resources.mainico;
             notification.Icon= Properties.Resources.mainico;
+            InitWindow.SetInfo(10, "音声ファイル読み込み中です...");
+            sound.SetMasterVolume(0);
+            SoundInit();
             VersionName.Text = "MisakiEQ For Windows Version 0.2.0\n非公開ベータ版\n\n";
 #if ADMIN || DEBUG
             try
@@ -138,8 +161,7 @@ namespace MisakiEQ
                 this.P2P_Interval_EarthQuake.Value = IntervalEQ;
                 this.P2P_Interval_Tsunami.Value = IntervalTsunami;
                 P2P_Request_Changed();
-                wdb = new WindowsDeskBand();
-                wdb.Update();
+                wdb = new MisakiEQ.MisakiEQDeskBand();
                 if (File.Exists("TwiSession.dat"))
                 {
                     try
@@ -273,7 +295,7 @@ namespace MisakiEQ
             this.Text = "設定 - MisakiEQ (Debug)";
 
 #endif
-
+            sound.SetMasterVolume(1);
             if (Environment.UserName == "Misaki")
             {
                 InitWindow.SetInfo(100, "おかえりなさい " + Environment.UserName + " 様");
@@ -583,7 +605,7 @@ namespace MisakiEQ
                     if (converter.GetTimeError()) return;
                     EQ_IndexText = "震度速報\n"+time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + converter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
                         "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami)) + "\n観測した地域は以下の通りです。\n\n" + ShindoText;
-
+                    sound.Play(ref SEData.SE.Earthquake_Mid);
                     if (tweet)
                     {
                         TweetData[0] = "震度速報\n" + time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + converter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
@@ -698,7 +720,10 @@ namespace MisakiEQ
                     JMAEQData_M.Text = data.earthquake.hypocenter.magnitude.ToString("F1");
                     JMAEQData_Max.Text = converter.ASCIIScaleString(data.earthquake.maxScale);
                     string[] result = ShindoText.Split(new char[] { '\n' });
-
+                    
+                        sound.Play(ref SEData.SE.Earthquake_Small);
+                    
+                    
                     JMAEQData_ShindoInfo.Lines = result;
                     //if ((data.earthquake.hypocenter.magnitude >= 0.0||converter.ScaleToValue(data.earthquake.maxScale)>=1)||IsTweetedEEW)
                     if (true)
@@ -783,12 +808,16 @@ namespace MisakiEQ
             if (tsunami.cancelled)
             {
                 vs[3] = "全ての津波予報が解除されました。";
-
+                sound.Play(ref SEData.SE.Tsunami_Update);
             }
+          
+                
+            
 
             else
             {
                 vs[3] = "現在以下の地域に津波予報が発令されています。";
+                sound.Play(ref SEData.SE.Tsunami_Alert);
                 vs[line] = " ";
                 line++;
                 int len = 0;
@@ -1085,6 +1114,9 @@ namespace MisakiEQ
                     {
                         
                         EEW_IndexText = "🔴🔴⚠緊急地震速報(警報)⚠🔴🔴";
+                        sound.Stop(ref SEData.SE.EEW_Info);
+                        sound.Stop(ref SEData.SE.EEW_Warn);
+                        sound.Play(ref SEData.SE.EEW_Warn);
                         if (!IsFirstEEW||EEWAreaCount<eew.WarnForecast.LocalAreas.Count)
                         {
                             EEWAreaCount = eew.WarnForecast.LocalAreas.Count;
@@ -1112,7 +1144,39 @@ namespace MisakiEQ
                             len += num+1;
                             
                         }
-                        //for(int i=0;i<eew.WarnForecast.)
+                        string EEWIndex = "";
+                        for(int i = 0; i < eew.Forecast.Count; i++)
+                        {
+                            if (eew.Forecast[i].Warn)
+                            {
+                                EEWIndex += "[警報]";
+                            }
+                            else
+                            {
+                                EEWIndex += "      ";
+                            }
+                            if (eew.Forecast[i].Arrival.Flag)
+                            {
+                                EEWIndex += "[到達済と予想]";
+                            }
+                            else
+                            {
+                                int hikaku1 = KyoshinLatest.Hour * 3600 + KyoshinLatest.Minute * 60 + KyoshinLatest.Second;
+                                DateTime ret;
+                                DateTime.TryParseExact(eew.Forecast[i].Arrival.Time, "H:mm:ss", null, DateTimeStyles.AssumeLocal, out ret);
+                                int hikaku2 = ret.Hour * 3600 + ret.Minute * 60 + ret.Second;
+                                int left = hikaku2 - hikaku1;
+                                if (left >= 43200) left -= 86400;
+                                if (left <= -43200) left += 86400;
+                                if (left < -99) left = -99;
+                                if (left > 999) left = 999;
+                                EEWIndex += ""+eew.Forecast[i].Arrival.Time.PadLeft(8)+"("+left.ToString().PadLeft(3)+"s)";
+                            }
+                            EEWIndex += " 震度" +　eew.Forecast[i].Intensity.To.PadLeft(2)+" ";
+                            EEWIndex += eew.Forecast[i].Intensity.Name;
+                            EEWIndex += "\n";
+                        }
+                        EEWDisplayData.Index = EEWIndex;
                         EEWDisplayData.Index = EEWText_Index;
                         EEWText_Description = eew.Hypocenter.Name + "で地震 強い揺れに警戒";
                         EEWText_Graph ="規模 : M"+ eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
@@ -1127,6 +1191,8 @@ namespace MisakiEQ
                     }
                     else
                     {
+                        sound.Stop(ref SEData.SE.EEW_Info);
+                        sound.Play(ref SEData.SE.EEW_Info);
                         EEW_IndexText = "緊急地震速報(予報) ";
                         EEWDisplayData.Type = "予報";
                     }
@@ -1432,15 +1498,39 @@ namespace MisakiEQ
             {
                 EEWDisplayData.Updated = false;
                 EEWDisplay_Type.Text = EEWDisplayData.Type;
-                EEWDisplay_OriginTime.Text = EEWDisplayData.OriginTime;
+                if (EEWDisplayData.Type == "予報")
+                {
+                    EEWDisplay_Type.BackColor = Color.Blue;
+                    EEWDisplay_Type.ForeColor = Color.White;
+                }
+                else if(EEWDisplayData.Type=="警報")
+                {
+                    EEWDisplay_Type.BackColor = Color.Red;
+                    EEWDisplay_Type.ForeColor = Color.White;
+                }
+                else
+                {
+                    EEWDisplay_Type.BackColor = SystemColors.Control;
+                    EEWDisplay_Type.ForeColor = SystemColors.WindowText;
+                }
+                    EEWDisplay_OriginTime.Text = EEWDisplayData.OriginTime;
                 EEWDisplay_AnnounceTime.Text = EEWDisplayData.AnnounceTime;
                 EEWDisplay_Serial.Text = EEWDisplayData.Serial.ToString();
                 EEWDisplay_IsFinalSerial.Checked = EEWDisplayData.IsFinal;
                 EEWDisplay_Hypocenter.Text = EEWDisplayData.HypoCenter;
-                EEWDisplay_MaxScale.Text = EEWDisplayData.MaxScale;
+                if (EEWDisplayData.MaxScale == "不明")
+                {
+                    EEWDisplay_MaxScale.Text = "-";
+                }
+                else
+                {
+                    EEWDisplay_MaxScale.Text = EEWDisplayData.MaxScale;
+                }
                 EEWDisplay_Magnitude.Text = EEWDisplayData.Magnitude;
                 EEWDisplay_Depth.Text = EEWDisplayData.Depth;
-                EEWDisplay_WarnForecast.Text = EEWDisplayData.Index;
+                string[] result = EEWDisplayData.Index.Split(new char[] { '\n' });
+
+                EEWDisplay_WarnForecast.Lines = result;
             }
 #if DEBUG || ADMIN
             if (isTweet)
@@ -2029,6 +2119,16 @@ namespace MisakiEQ
                 Thread t = new Thread(new ThreadStart(CheckOtherPC));
                 t.Start();
             }
+        }
+        
+        private void TestButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SEData.AllDispose();
         }
     }
 }

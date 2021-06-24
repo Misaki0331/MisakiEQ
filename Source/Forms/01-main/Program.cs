@@ -59,7 +59,12 @@ namespace MisakiEQ
         // ユーザー・フレンドリなダイアログを表示するメソッド
         public static void ShowErrorMessage(Exception ex, string extraMessage)
         {
-            if(MainForm!=null)MainForm.IsApplicationShutDown = true;
+            if (MainForm != null)
+            {
+                MainForm.IsApplicationShutDown = true;
+                MainForm.Hide();
+                MainForm.notification.Visible = false;
+            } 
             string ErrorString = "";
             ErrorString += extraMessage + " \n";
             ErrorString += "【例外が発生したメゾット】\n" + ex.TargetSite + "\n\n";
@@ -71,7 +76,7 @@ namespace MisakiEQ
                ;
             //Application.Run(err);
             err.Show();
-            if (MainForm != null) MainForm.Hide();
+            
         }
     }
 }
