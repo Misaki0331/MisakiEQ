@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace MisakiEQ.Source.Forms.Mini_Window
 {
+    
     public partial class EEWKyoshin : Form
     {
         public EEWKyoshin()

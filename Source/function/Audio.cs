@@ -14,68 +14,6 @@ namespace MisakiEQ.Audio
     class Sound
     {
 
-        /*
-        public Sound()
-        {
-            xAudio = new XAudio2();
-            _mastering = new MasteringVoice(xAudio);
-            _mastering.SetVolume(1, 0);
-            xAudio.StartEngine();
-        }
-        public double GetMasterVolume()
-        {
-            float vol;
-            _mastering.GetVolume(out vol);
-            return vol;
-        }
-        public void SetMasterVolume(double vol)
-        {
-            _mastering.SetVolume((float)vol, 0);
-        }
-        public void GetStream(System.IO.Stream data, ref SourceVoice voice)
-        {
-            var stream = new SoundStream(data);
-            var waveFormat = stream.Format;
-            var buffer = new AudioBuffer
-            {
-                Stream = stream.ToDataStream(),
-                AudioBytes = (int)stream.Length,
-                Flags = BufferFlags.EndOfStream
-            };
-            stream.Close();
-            
-            voice = new SourceVoice(xAudio, waveFormat, true);
-            // Adds a sample callback to check that they are working on source voices
-            voice.SubmitSourceBuffer(buffer, stream.DecodedPacketsInfo);
-            buffer.Stream.Dispose();
-        }
-        public void Play(ref SourceVoice voice)
-        {
-            voice.Start();
-        }
-        public void Stop(ref SourceVoice voice)
-        {
-            voice.Stop();
-
-        }
-        public void Replay(ref SourceVoice voice)
-        {
-            voice.Stop();
-            voice.Start();
-        }
-        public bool Dispose(ref SourceVoice voice)
-        {
-            try
-            {
-                voice.DestroyVoice();
-                voice.Dispose();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }*/
         public Sound()
         {
 
@@ -140,6 +78,7 @@ namespace MisakiEQ.Audio
             {
                 voice.Wave.Dispose();
                 voice.Reader.Dispose();
+                voice = null;
                 return true;
             }
             catch
@@ -152,6 +91,12 @@ namespace MisakiEQ.Audio
     {
         public WaveOut Wave;
         public WaveFileReader Reader;
+
+        public void Dispose()
+        {
+            Wave.Dispose();
+            Reader.Dispose();
+        }
     }
     class MisakiEQSound
     {

@@ -2,47 +2,25 @@
 using System.Windows.Forms;
 namespace MisakiEQ.Mini_Window
 {
+    
     public partial class KyoshinWindow : Form
     {
-        Image Temp;
+        public bool IsClose = false;
         public KyoshinWindow()
         {
             Initialize();
             InitializeComponent();
+            
         }
-        public void UpdateKyoshin(ref Image Data)
-        {
-            if (this.Enabled)
-            {
-                pictureBox1.Image = Data;
-            }
-            else
-            {
-                Temp = Data;
-            }
-        }
-        public void UpdateWindow(bool status)
-        {
-            if (status)
-            {
-                Enabled = true;
-                Visible = true;
-                Show();
-                if (Temp != null) pictureBox1.Image = Temp;
-                Temp = null;
-            }
-            else
-            {
-                Enabled = false;
-                Visible = false;
-                Hide();
-            }
-        }
-
+        
+        
+        
         private void KyoshinWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            UpdateWindow(false);
+            //e.Cancel = true;
+            //UpdateWindow(false);
+            pictureBox1.Dispose();
+            IsClose = true;
         }
 
         private void Initialize()
@@ -103,7 +81,7 @@ namespace MisakiEQ.Mini_Window
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(352, 400);
+            this.ClientSize = new System.Drawing.Size(362, 410);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -112,7 +90,7 @@ namespace MisakiEQ.Mini_Window
             this.MinimumSize = new System.Drawing.Size(368, 439);
             this.Name = "KyoshinWindow";
             this.ShowInTaskbar = false;
-            this.Text = "強震モニタ";
+            this.Text = "MisakiEQ 強震モニタ";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KyoshinWindow_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -122,6 +100,68 @@ namespace MisakiEQ.Mini_Window
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.PictureBox pictureBox1;
+    }
+    public class KyoshinEx
+    {
+        Image Temp;
+        KyoshinWindow window;
+        public void Show()
+        {
+            if (window != null)
+            {
+                if (window.IsClose)
+                {
+                    window.Dispose();
+                    window = null;
+
+                }
+                else
+                {
+                    return;
+
+                }
+            }
+            window = new KyoshinWindow();
+            window.pictureBox1.Image = Temp;
+            window.Show();
+        }
+        public void Hide()
+        {
+            if (window != null)
+            {
+                window.Close();
+                window.Dispose();
+                window = null;
+            }
+        }
+        public void UpdateKyoshin(ref Image Data)
+        {
+            Temp = Data;
+            if (window != null)
+            {
+                window.pictureBox1.Image = Data;
+            }
+        }
+        public void UpdateWindow(bool status)
+        {
+            if (status)
+            {
+                Show();
+            }
+            else
+            {
+                Hide();
+            }
+        }
+        public void Location(Point pos)
+        {
+            if (window != null) window.Location = pos;
+        }
+        public void Activate()
+        {
+            if (window != null) window.Activate();
+        }
+
     }
 }

@@ -93,7 +93,7 @@ namespace MisakiEQ
         Stopwatch KyoshinUpdateTimer;
         int KyoshinTempTimer = 0;
         bool IsKyoshinWorking = false;
-        MisakiEQ.Mini_Window.KyoshinWindow MiniKyoshinWindow;
+        MisakiEQ.Mini_Window.KyoshinEx MiniKyoshinWindow;
         MisakiEQDeskBand wdb;
         
         Sound sound=new Sound();
@@ -142,8 +142,8 @@ namespace MisakiEQ
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             
             InitializeComponent();
-            //TestButton.Visible = false;
-            //TestButton.Enabled = false;
+            TestButton.Visible = false;
+            TestButton.Enabled = false;
             this.Icon = Properties.Resources.mainico;
             notification.Icon= Properties.Resources.mainico;
             InitWindow.SetInfo(10, "音声ファイル読み込み中です...");
@@ -196,7 +196,7 @@ namespace MisakiEQ
             EEWInfomationWindow.Show();
             EEWNotificationWindow.SetVisible(false);
             EEWInfomationWindow.SetVisible(false);
-            MiniKyoshinWindow = new Mini_Window.KyoshinWindow();
+            MiniKyoshinWindow = new Mini_Window.KyoshinEx();
             MiniKyoshinWindow.UpdateWindow(false);
             InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
             KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
@@ -1249,9 +1249,9 @@ namespace MisakiEQ
                         EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
                         if (SettingKyoshinExDisplayEEW.Checked)
                         {
-                            MiniKyoshinWindow.UpdateWindow(false);
+                            
                             MiniKyoshinWindow.UpdateWindow(true);
-                            MiniKyoshinWindow.Location = new Point(0, 0);
+                            MiniKyoshinWindow.Location(new Point(0, 0));
                             MiniKyoshinWindow.Activate();
                         }
 
@@ -1942,9 +1942,8 @@ namespace MisakiEQ
 
         private void DisplayKyoshinEx_Click(object sender, EventArgs e)
         {
-            MiniKyoshinWindow.UpdateWindow(false);
             MiniKyoshinWindow.UpdateWindow(true);
-            MiniKyoshinWindow.Location = new Point(0, 0);
+            MiniKyoshinWindow.Location(new Point(0, 0));
             MiniKyoshinWindow.Activate();
         }
 
