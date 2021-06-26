@@ -163,6 +163,7 @@
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.OtherPCWatchingTimer = new System.Windows.Forms.Timer(this.components);
+            this.TestLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -1509,6 +1510,7 @@
             // SettingClose
             // 
             this.SettingClose.AccessibleName = "SettingClose";
+            this.SettingClose.Controls.Add(this.TestLabel);
             this.SettingClose.Controls.Add(this.TestButton);
             this.SettingClose.Controls.Add(this.button3);
             this.SettingClose.Controls.Add(this.GetDataPauseButton);
@@ -1617,6 +1619,15 @@
             this.OtherPCWatchingTimer.Interval = 5000;
             this.OtherPCWatchingTimer.Tick += new System.EventHandler(this.OtherPCWatchingTimer_Tick);
             // 
+            // TestLabel
+            // 
+            this.TestLabel.AutoSize = true;
+            this.TestLabel.Location = new System.Drawing.Point(326, 129);
+            this.TestLabel.Name = "TestLabel";
+            this.TestLabel.Size = new System.Drawing.Size(55, 12);
+            this.TestLabel.TabIndex = 4;
+            this.TestLabel.Text = "TestLabel";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1669,6 +1680,7 @@
             this.SettingsAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).EndInit();
             this.SettingClose.ResumeLayout(false);
+            this.SettingClose.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -1814,6 +1826,7 @@
         private System.Windows.Forms.Label label33;
         public System.Windows.Forms.NotifyIcon notification;
         private System.Windows.Forms.Button TestButton;
+        private System.Windows.Forms.Label TestLabel;
     }
 }
 

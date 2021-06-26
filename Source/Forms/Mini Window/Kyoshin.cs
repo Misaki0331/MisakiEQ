@@ -81,18 +81,19 @@ namespace MisakiEQ.Mini_Window
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(362, 410);
+            this.ClientSize = new System.Drawing.Size(352, 400);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(368, 439);
+            this.MaximumSize = new System.Drawing.Size(358, 429);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(368, 439);
+            this.MinimumSize = new System.Drawing.Size(358, 429);
             this.Name = "KyoshinWindow";
             this.ShowInTaskbar = false;
             this.Text = "MisakiEQ 強震モニタ";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KyoshinWindow_FormClosing);
+            this.Load += new System.EventHandler(this.KyoshinWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -101,6 +102,11 @@ namespace MisakiEQ.Mini_Window
         #endregion
 
         public System.Windows.Forms.PictureBox pictureBox1;
+
+        private void KyoshinWindow_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
     public class KyoshinEx
     {

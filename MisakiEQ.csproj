@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'User|AnyCPU'">
     <OutputPath>bin\User\</OutputPath>
@@ -58,6 +60,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Admin|AnyCPU'">
     <OutputPath>bin\Admin\</OutputPath>
@@ -69,6 +72,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>300E29B96F2F92AB13888AB61802193746F46326</ManifestCertificateThumbprint>
@@ -174,6 +178,12 @@
     <Compile Include="Source\Forms\03-taskbar\Desk.Designer.cs">
       <DependentUpon>Desk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Forms\98-User Confirm\MapSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\98-User Confirm\MapSetting.Designer.cs">
+      <DependentUpon>MapSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Forms\Mini Window\EEW.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +261,9 @@
     <EmbeddedResource Include="Source\Forms\03-taskbar\Desk.resx">
       <DependentUpon>Desk.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\98-User Confirm\MapSetting.resx">
+      <DependentUpon>MapSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\Mini Window\EEW.resx">
       <DependentUpon>EEW.cs</DependentUpon>
     </EmbeddedResource>
@@ -320,9 +333,7 @@
   <ItemGroup>
     <None Include="Resources\Private\API\Twitter\ConsumerKey.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Source\Forms\98-User Confirm\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Text\Misaki License.txt" />
   </ItemGroup>
@@ -337,6 +348,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
+    <None Include="Resources\img\bassmap_shadow.PNG" />
+    <None Include="Resources\img\basemap_Alpha.png" />
     <None Include="Resources\SE\Sound\SND_Earthquake_Mid.wav" />
     <None Include="Resources\SE\Sound\SND_Earthquake_Break.wav" />
     <None Include="Resources\SE\Sound\SND_Tsunami_Update.wav" />

@@ -99,6 +99,7 @@ namespace MisakiEQ
         Sound sound=new Sound();
         MisakiEQSound SEData = new MisakiEQSound();
 
+        
         bool IsDisconnectedHost = true; //ホストが切断時、もしくは自分がホストの時にtrue
         bool IsDiconnectedTmp = true;
         string TweetWatch_Type="";
@@ -142,8 +143,11 @@ namespace MisakiEQ
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             
             InitializeComponent();
+#if !DEBUG
             TestButton.Visible = false;
+            TestLabel.Visible = false;
             TestButton.Enabled = false;
+#endif
             this.Icon = Properties.Resources.mainico;
             notification.Icon= Properties.Resources.mainico;
             InitWindow.SetInfo(10, "音声ファイル読み込み中です...");
@@ -1676,7 +1680,10 @@ namespace MisakiEQ
                 TextBoxWindow.Close();
                 TextBoxWindow = null;
             }
-            
+
+            TestLabel.Text = "Point(" + Pos.X.ToString() + "," + Pos.Y.ToString() + ")";
+
+
         }
 
         private void Timer_EarthQuake_Tick(object sender, EventArgs e)
@@ -2119,14 +2126,28 @@ namespace MisakiEQ
                 t.Start();
             }
         }
-        
+        Point Pos = new Point(-100, -100);
+        MisakiEQ.Setting.MapSettingForm MapSet;
         private void TestButton_Click(object sender, EventArgs e)
         {
-            sound.Replay(ref SEData.SE.Earthquake_Break);
-            sound.Replay(ref SEData.SE.Earthquake_Small);
-            sound.Replay(ref SEData.SE.Earthquake_Mid);
-            sound.Replay(ref SEData.SE.EEW_Info);
-            sound.Replay(ref SEData.SE.EEW_Warn);
+            if (MapSet != null)
+            {
+                if (MapSet.IsClosed)
+                {
+                    MapSet.Dispose();
+                    MapSet = null;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            unsafe
+            {
+                fixed (Point* PosP = &Pos) {
+                    MapSet = new Setting.MapSettingForm(PosP,Location);
+                }
+            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

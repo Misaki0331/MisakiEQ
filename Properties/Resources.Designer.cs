@@ -85,6 +85,26 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap basemap_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("basemap_Alpha", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap basemap_shadow {
+            get {
+                object obj = ResourceManager.GetObject("basemap_shadow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   このアプリはすべての機能が無料でご利用いただけますが、開発者に寄付を送ることも可能です。
         ///
         ///PayPalリンク
@@ -304,7 +324,16 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/06/22 - 0.2.5 Updated
+        ///   2021/06/26 - 0.3.2 Updated
+        ///強震モニタが一定確率で出現しない不具合を修正
+        ///
+        ///2021/06/26 - 0.3.1 Updated
+        ///挙動が不安定なためXAudio2を削除。代わりにNAudio(DirectSound)を使用。
+        ///
+        ///2021/06/24 - 0.3.0 Updated
+        ///XAudio2を実装しました。今後MisakiEQは音も鳴ります。
+        ///
+        ///2021/06/22 - 0.2.5 Updated
         ///強震モニタのタブで緊急地震速報の状況が見れるようになりました。
         ///例外エラー発生時エラー表示が消える不具合も修正しました。
         ///
@@ -317,18 +346,7 @@ namespace MisakiEQ.Properties {
         ///バージョン情報のUIを一部修正
         ///素敵なキャラクター絵を描いてくださった あめ(@Flast_03)氏に感謝を申し上げます。
         ///
-        ///2021/06/03 - 0.2.2 Updated
-        ///強震モニタを別ウィンドウに表示
-        ///緊急地震速報受信時に自動ポップアップするようになりました。
-        ///詳しい設定はあとで付け加える予定。
-        ///
-        ///2021/05/28 - 0.2.1 Updated
-        ///全てのリソースをEXEファイル内に押し込みました。
-        ///これで間違って削除されることなかれ。
-        ///ただしDLLは除く。
-        ///
-        ///2021/05/27 - 0.2.0 Updated
-        ///強震モニタを追加しま [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///2021/06/03 - 0.2.2 Updated [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -337,7 +355,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.2.5
+        ///   MisakiEQ For Windows Version 0.3.2
         ///このバージョンは非公開です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {

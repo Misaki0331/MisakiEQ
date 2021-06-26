@@ -50,7 +50,9 @@ namespace MisakiEQ.Source.Forms.Mini_Window
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(358, 429);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(358, 429);
             this.Name = "EEWKyoshin";
             this.ShowInTaskbar = false;
             this.Text = "緊急地震速報";
