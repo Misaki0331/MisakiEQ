@@ -142,8 +142,8 @@ namespace MisakiEQ
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             
             InitializeComponent();
-            TestButton.Visible = false;
-            TestButton.Enabled = false;
+            //TestButton.Visible = false;
+            //TestButton.Enabled = false;
             this.Icon = Properties.Resources.mainico;
             notification.Icon= Properties.Resources.mainico;
             InitWindow.SetInfo(10, "音声ファイル読み込み中です...");
@@ -2123,7 +2123,11 @@ namespace MisakiEQ
         
         private void TestButton_Click(object sender, EventArgs e)
         {
-            
+            sound.Replay(ref SEData.SE.Earthquake_Break);
+            sound.Replay(ref SEData.SE.Earthquake_Small);
+            sound.Replay(ref SEData.SE.Earthquake_Mid);
+            sound.Replay(ref SEData.SE.EEW_Info);
+            sound.Replay(ref SEData.SE.EEW_Warn);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
