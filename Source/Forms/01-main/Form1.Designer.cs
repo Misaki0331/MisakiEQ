@@ -90,6 +90,9 @@
             this.JMAEQData_Shingen = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.KyoshinEx = new System.Windows.Forms.TabPage();
+            this.EEWDisplay_AreaShindoLabel = new System.Windows.Forms.Label();
+            this.EEWDisplay_AreaShindo = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.EEWDisplay_OriginTime = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
@@ -127,6 +130,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.SettingKyoshinExUpdateTimerValue = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.AreaSettings = new System.Windows.Forms.TabPage();
+            this.Setting_AreaSetup = new System.Windows.Forms.Button();
             this.ComputerSettings = new System.Windows.Forms.TabPage();
             this.CSettingEventlogEEW = new System.Windows.Forms.CheckBox();
             this.CSettingEventlog = new System.Windows.Forms.CheckBox();
@@ -151,6 +156,7 @@
             this.LinkTwitter = new System.Windows.Forms.Button();
             this.VersionName = new System.Windows.Forms.Label();
             this.SettingClose = new System.Windows.Forms.TabPage();
+            this.TestLabel = new System.Windows.Forms.Label();
             this.TestButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.GetDataPauseButton = new System.Windows.Forms.Button();
@@ -163,7 +169,6 @@
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.OtherPCWatchingTimer = new System.Windows.Forms.Timer(this.components);
-            this.TestLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -185,6 +190,7 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateDelayValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateTimerValue)).BeginInit();
+            this.AreaSettings.SuspendLayout();
             this.ComputerSettings.SuspendLayout();
             this.TwitterSettings.SuspendLayout();
             this.SettingsAbout.SuspendLayout();
@@ -830,6 +836,9 @@
             // KyoshinEx
             // 
             this.KyoshinEx.BackColor = System.Drawing.SystemColors.Control;
+            this.KyoshinEx.Controls.Add(this.EEWDisplay_AreaShindoLabel);
+            this.KyoshinEx.Controls.Add(this.EEWDisplay_AreaShindo);
+            this.KyoshinEx.Controls.Add(this.label34);
             this.KyoshinEx.Controls.Add(this.EEWDisplay_OriginTime);
             this.KyoshinEx.Controls.Add(this.label33);
             this.KyoshinEx.Controls.Add(this.label32);
@@ -861,6 +870,34 @@
             this.KyoshinEx.Size = new System.Drawing.Size(792, 408);
             this.KyoshinEx.TabIndex = 1;
             this.KyoshinEx.Text = "強震モニタ";
+            // 
+            // EEWDisplay_AreaShindoLabel
+            // 
+            this.EEWDisplay_AreaShindoLabel.AutoSize = true;
+            this.EEWDisplay_AreaShindoLabel.Location = new System.Drawing.Point(378, 238);
+            this.EEWDisplay_AreaShindoLabel.Name = "EEWDisplay_AreaShindoLabel";
+            this.EEWDisplay_AreaShindoLabel.Size = new System.Drawing.Size(53, 12);
+            this.EEWDisplay_AreaShindoLabel.TabIndex = 27;
+            this.EEWDisplay_AreaShindoLabel.Text = "推定 : 0.0";
+            // 
+            // EEWDisplay_AreaShindo
+            // 
+            this.EEWDisplay_AreaShindo.Font = new System.Drawing.Font("ＭＳ ゴシック", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_AreaShindo.Location = new System.Drawing.Point(377, 176);
+            this.EEWDisplay_AreaShindo.Name = "EEWDisplay_AreaShindo";
+            this.EEWDisplay_AreaShindo.ReadOnly = true;
+            this.EEWDisplay_AreaShindo.Size = new System.Drawing.Size(57, 60);
+            this.EEWDisplay_AreaShindo.TabIndex = 26;
+            this.EEWDisplay_AreaShindo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(320, 224);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(53, 12);
+            this.label34.TabIndex = 25;
+            this.label34.Text = "地域震度";
             // 
             // EEWDisplay_OriginTime
             // 
@@ -1120,6 +1157,7 @@
             // SettingTab
             // 
             this.SettingTab.Controls.Add(this.DataUpdateSettings);
+            this.SettingTab.Controls.Add(this.AreaSettings);
             this.SettingTab.Controls.Add(this.ComputerSettings);
             this.SettingTab.Controls.Add(this.TwitterSettings);
             this.SettingTab.Controls.Add(this.SettingsAbout);
@@ -1246,6 +1284,27 @@
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 10;
             this.label9.Text = "時刻補正";
+            // 
+            // AreaSettings
+            // 
+            this.AreaSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.AreaSettings.Controls.Add(this.Setting_AreaSetup);
+            this.AreaSettings.Location = new System.Drawing.Point(4, 22);
+            this.AreaSettings.Name = "AreaSettings";
+            this.AreaSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.AreaSettings.Size = new System.Drawing.Size(788, 408);
+            this.AreaSettings.TabIndex = 5;
+            this.AreaSettings.Text = "地域設定";
+            // 
+            // Setting_AreaSetup
+            // 
+            this.Setting_AreaSetup.Location = new System.Drawing.Point(16, 18);
+            this.Setting_AreaSetup.Name = "Setting_AreaSetup";
+            this.Setting_AreaSetup.Size = new System.Drawing.Size(75, 23);
+            this.Setting_AreaSetup.TabIndex = 0;
+            this.Setting_AreaSetup.Text = "エリア設定";
+            this.Setting_AreaSetup.UseVisualStyleBackColor = true;
+            this.Setting_AreaSetup.Click += new System.EventHandler(this.Setting_AreaSetup_Click);
             // 
             // ComputerSettings
             // 
@@ -1522,6 +1581,15 @@
             this.SettingClose.TabIndex = 3;
             this.SettingClose.Text = "終了";
             // 
+            // TestLabel
+            // 
+            this.TestLabel.AutoSize = true;
+            this.TestLabel.Location = new System.Drawing.Point(326, 129);
+            this.TestLabel.Name = "TestLabel";
+            this.TestLabel.Size = new System.Drawing.Size(55, 12);
+            this.TestLabel.TabIndex = 4;
+            this.TestLabel.Text = "TestLabel";
+            // 
             // TestButton
             // 
             this.TestButton.Location = new System.Drawing.Point(235, 124);
@@ -1619,15 +1687,6 @@
             this.OtherPCWatchingTimer.Interval = 5000;
             this.OtherPCWatchingTimer.Tick += new System.EventHandler(this.OtherPCWatchingTimer_Tick);
             // 
-            // TestLabel
-            // 
-            this.TestLabel.AutoSize = true;
-            this.TestLabel.Location = new System.Drawing.Point(326, 129);
-            this.TestLabel.Name = "TestLabel";
-            this.TestLabel.Size = new System.Drawing.Size(55, 12);
-            this.TestLabel.TabIndex = 4;
-            this.TestLabel.Text = "TestLabel";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1672,6 +1731,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateDelayValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateTimerValue)).EndInit();
+            this.AreaSettings.ResumeLayout(false);
             this.ComputerSettings.ResumeLayout(false);
             this.ComputerSettings.PerformLayout();
             this.TwitterSettings.ResumeLayout(false);
@@ -1827,6 +1887,11 @@
         public System.Windows.Forms.NotifyIcon notification;
         private System.Windows.Forms.Button TestButton;
         private System.Windows.Forms.Label TestLabel;
+        private System.Windows.Forms.Label EEWDisplay_AreaShindoLabel;
+        private System.Windows.Forms.TextBox EEWDisplay_AreaShindo;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TabPage AreaSettings;
+        private System.Windows.Forms.Button Setting_AreaSetup;
     }
 }
 

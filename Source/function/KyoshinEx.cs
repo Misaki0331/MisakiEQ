@@ -185,6 +185,30 @@ namespace MisakiEQ
                 return null;
             }
         }
+        public double GetEEWAreaShindo(Point Pos)
+        {
+            try{
+                List<KyoshinShindoColor> color = JsonConvert.DeserializeObject<List<KyoshinShindoColor>>(Properties.Resources.KyoshinColor);
+                if (EEWShindo == null) return 0;
+                if (EEWShindo.Width == 0 || EEWShindo.Height == 0) return 0;
+                Color col = ((Bitmap)EEWShindo).GetPixel((int)Pos.X, (int)Pos.Y);
+                if (col.A == 0) return 0;
+                for (int i = color.Count - 1; color[i].Intensity >= 0; i--)
+                {
+                    if (col.R == color[i].R && col.G == color[i].G && col.B == color[i].B)
+                    {
+                        return color[i].Intensity;
+                    }
+                }
+            }
+            catch
+            {
+                IsLastError = true ;
+                LastErrorStatus = "強震モニタの震度情報読み取りに失敗";
+            }
+            return 0;
+
+        } 
         public bool GetErrorFlg()
         {
             return IsLastError;

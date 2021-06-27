@@ -49,8 +49,8 @@ namespace MisakiEQ.Setting
             Graphics g = Graphics.FromImage(canvas);
             g.Clear(Color.Black);
             g.DrawImage(Properties.Resources.basemap_Alpha, new Point(0, 0));
-            g.DrawLine(Pens.Red, new Point(check.X - 3, check.Y), new Point(check.X + 3, check.Y));
-            g.DrawLine(Pens.Red, new Point(check.X, check.Y - 3), new Point(check.X, check.Y + 3));
+            g.DrawLine(Pens.Red, new Point(check.X - 5, check.Y - 5), new Point(check.X + 5, check.Y + 5));
+            g.DrawLine(Pens.Red, new Point(check.X - 5, check.Y + 5), new Point(check.X + 5, check.Y - 5));
             pictureBox1.Image = canvas;
             g.Dispose();
             ZoomDraw(check);
@@ -125,17 +125,8 @@ namespace MisakiEQ.Setting
             // クライアント座標に変換
             Point cp = this.PointToClient(sp);
             Draw(cp);
-        Temp = cp;
-            if (IsRand(cp))
-            {
-                Confirm.Enabled = true;
-                Confirm.Text = "決定";
-            }
-            else
-            {
-                Confirm.Enabled = false;
-                Confirm.Text = "指定不可";
-            }
+            Temp = cp;
+            ButtonEnable(Temp);
         }
         
         private void timer1_Tick(object sender, EventArgs e)
@@ -147,6 +138,56 @@ namespace MisakiEQ.Setting
         {
             PosUpdate();
             timer1.Stop();
+        }
+        void ButtonUpdate()
+        {
+ 
+            Button_Up.Enabled =Temp.Y>0;
+            Button_Right.Enabled =Temp.X<351;
+            Button_Down.Enabled =Temp.Y<399;
+            Button_Left.Enabled =Temp.X>0;
+        }
+        private void Button_Up_Click(object sender, EventArgs e)
+        {
+            if (Temp.Y > 0)Temp.Y--;
+            Draw(Temp);
+            ButtonEnable(Temp);
+        }
+
+        private void Button_Right_Click(object sender, EventArgs e)
+        {
+            if (Temp.X < 351)Temp.X++;
+            Draw(Temp);
+            ButtonEnable(Temp);
+        }
+
+        private void Button_Down_Click(object sender, EventArgs e)
+        {
+            if (Temp.Y < 399)Temp.Y++;
+            Draw(Temp);
+            ButtonEnable(Temp);
+        }
+
+        private void Button_Left_Click(object sender, EventArgs e)
+        {
+            if (Temp.X > 0)Temp.X--;
+            Draw(Temp);
+            ButtonEnable(Temp);
+            
+        }
+        void ButtonEnable(Point cs)
+        {
+            if (IsRand(cs))
+            {
+                Confirm.Enabled = true;
+                Confirm.Text = "決定";
+            }
+            else
+            {
+                Confirm.Enabled = false;
+                Confirm.Text = "指定不可";
+            }
+            ButtonUpdate();
         }
     }
 }

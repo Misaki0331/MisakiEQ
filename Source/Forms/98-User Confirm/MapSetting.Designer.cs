@@ -36,8 +36,14 @@ namespace MisakiEQ.Setting
             this.Cancel = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.Button_Up = new System.Windows.Forms.Button();
+            this.Button_Right = new System.Windows.Forms.Button();
+            this.Button_Down = new System.Windows.Forms.Button();
+            this.Button_Left = new System.Windows.Forms.Button();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -56,7 +62,7 @@ namespace MisakiEQ.Setting
             this.Confirm.Location = new System.Drawing.Point(277, 415);
             this.Confirm.Name = "Confirm";
             this.Confirm.Size = new System.Drawing.Size(75, 23);
-            this.Confirm.TabIndex = 1;
+            this.Confirm.TabIndex = 2;
             this.Confirm.Text = "決定";
             this.Confirm.UseVisualStyleBackColor = true;
             this.Confirm.Click += new System.EventHandler(this.Confirm_Click);
@@ -66,7 +72,7 @@ namespace MisakiEQ.Setting
             this.Cancel.Location = new System.Drawing.Point(196, 415);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 2;
+            this.Cancel.TabIndex = 1;
             this.Cancel.Text = "キャンセル";
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
@@ -87,12 +93,66 @@ namespace MisakiEQ.Setting
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
+            // Button_Up
+            // 
+            this.Button_Up.Location = new System.Drawing.Point(196, 335);
+            this.Button_Up.Name = "Button_Up";
+            this.Button_Up.Size = new System.Drawing.Size(23, 23);
+            this.Button_Up.TabIndex = 3;
+            this.Button_Up.Text = "↑";
+            this.Button_Up.UseVisualStyleBackColor = true;
+            this.Button_Up.Click += new System.EventHandler(this.Button_Up_Click);
+            // 
+            // Button_Right
+            // 
+            this.Button_Right.Location = new System.Drawing.Point(218, 356);
+            this.Button_Right.Name = "Button_Right";
+            this.Button_Right.Size = new System.Drawing.Size(23, 23);
+            this.Button_Right.TabIndex = 5;
+            this.Button_Right.Text = "→";
+            this.Button_Right.UseVisualStyleBackColor = true;
+            this.Button_Right.Click += new System.EventHandler(this.Button_Right_Click);
+            // 
+            // Button_Down
+            // 
+            this.Button_Down.Location = new System.Drawing.Point(196, 377);
+            this.Button_Down.Name = "Button_Down";
+            this.Button_Down.Size = new System.Drawing.Size(23, 23);
+            this.Button_Down.TabIndex = 6;
+            this.Button_Down.Text = "↓";
+            this.Button_Down.UseVisualStyleBackColor = true;
+            this.Button_Down.Click += new System.EventHandler(this.Button_Down_Click);
+            // 
+            // Button_Left
+            // 
+            this.Button_Left.Location = new System.Drawing.Point(174, 356);
+            this.Button_Left.Name = "Button_Left";
+            this.Button_Left.Size = new System.Drawing.Size(23, 23);
+            this.Button_Left.TabIndex = 4;
+            this.Button_Left.Text = "←";
+            this.Button_Left.UseVisualStyleBackColor = true;
+            this.Button_Left.Click += new System.EventHandler(this.Button_Left_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.Location = new System.Drawing.Point(164, 329);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(87, 71);
+            this.pictureBox3.TabIndex = 8;
+            this.pictureBox3.TabStop = false;
+            // 
             // MapSettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(352, 442);
+            this.Controls.Add(this.Button_Left);
+            this.Controls.Add(this.Button_Down);
+            this.Controls.Add(this.Button_Right);
+            this.Controls.Add(this.Button_Up);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Confirm);
@@ -107,6 +167,7 @@ namespace MisakiEQ.Setting
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MapSettingForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,5 +179,10 @@ namespace MisakiEQ.Setting
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button Button_Up;
+        private System.Windows.Forms.Button Button_Right;
+        private System.Windows.Forms.Button Button_Down;
+        private System.Windows.Forms.Button Button_Left;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

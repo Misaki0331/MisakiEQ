@@ -95,7 +95,9 @@ namespace MisakiEQ
         bool IsKyoshinWorking = false;
         MisakiEQ.Mini_Window.KyoshinEx MiniKyoshinWindow;
         MisakiEQDeskBand wdb;
-        
+        Point UserLocation = new Point(224, 258);
+        Point UserLocationTemp = new Point(224, 258);
+
         Sound sound=new Sound();
         MisakiEQSound SEData = new MisakiEQSound();
 
@@ -121,6 +123,8 @@ namespace MisakiEQ
             public string Depth;
             public string Index;
             public string MaxScale;
+            public string AreaScale;
+            public double AreaScaleDetail;
         }
         _EEWDisplayData EEWDisplayData = new _EEWDisplayData();
         
@@ -221,7 +225,41 @@ namespace MisakiEQ
             {
                 Console.WriteLine("強震モニタ起動失敗...");
             }
-            
+
+            if (File.Exists("UserConfig.dat"))
+            {
+                try
+                {
+                    int cnt = 0;
+                    string len;
+
+                    // Read the file and display it line by line.  
+                    System.IO.StreamReader file =
+                        new System.IO.StreamReader("UserConfig.dat");
+                    while ((len = file.ReadLine()) != null)
+                    {
+                        string[] ConfigString = len.Split('=');
+                        if (ConfigString.Length == 2)
+                        {
+                            switch (ConfigString[0])
+                            {
+                                case "UserLocation.X":
+                                    UserLocation.X = int.Parse(ConfigString[1]);
+                                    break;
+                                case "UserLocation.Y":
+                                    UserLocation.Y = int.Parse(ConfigString[1]);
+                                    break;
+                            }
+                        }
+                        
+                    }
+                    file.Close();
+                }
+                catch
+                {
+
+                }
+            }
 #else
             InitWindow.SetInfo(30, "ビルド設定による機能の制限化を実行中...");
             //Point b = new Point(404, 492);
@@ -467,7 +505,11 @@ namespace MisakiEQ
                 {
                     InitWindow.SetInfo(65, "地震情報を取得中...");
                     NetFile.GetStartThreadJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
-                    while (NetFile.GetThreadStillRunning()) InitWindow.Update();
+                    while (NetFile.GetThreadStillRunning())
+                    {
+                        InitWindow.Update();
+                        Application.DoEvents();
+                    }
                     EQJsonFile = NetFile.GetThreadJson();
                     ///EQJsonFile = await NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
                     InitWindow.SetInfo(67, "地震情報を解析中...");
@@ -495,7 +537,11 @@ namespace MisakiEQ
                 {
                     InitWindow.SetInfo(70, "緊急地震速報を取得中...");
                     NetFile.GetStartThreadJson("https://api.iedred7584.com/eew/json/");
-                    while (NetFile.GetThreadStillRunning()) InitWindow.Update();
+                    while (NetFile.GetThreadStillRunning())
+                    {
+                        InitWindow.Update();
+                        Application.DoEvents();
+                    }
                     EEWJsonFile = NetFile.GetThreadJson();
                     InitWindow.SetInfo(72, "緊急地震速報を解析中...");
                 }
@@ -517,7 +563,11 @@ namespace MisakiEQ
                 {
                     InitWindow.SetInfo(75, "津波情報を取得中...");
                     NetFile.GetStartThreadJson("https://api.p2pquake.net/v2/jma/tsunami?limit=10&order=-1");
-                    while (NetFile.GetThreadStillRunning()) InitWindow.Update();
+                    while (NetFile.GetThreadStillRunning())
+                    {
+                        InitWindow.Update();
+                        Application.DoEvents();
+                    }
                     TsunamiJsonFile = NetFile.GetThreadJson();
                     InitWindow.SetInfo(77, "津波情報を解析中...");
                 }
@@ -1253,7 +1303,7 @@ namespace MisakiEQ
                         EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
                         if (SettingKyoshinExDisplayEEW.Checked)
                         {
-                            
+                            MiniKyoshinWindow.UpdateWindow(false);
                             MiniKyoshinWindow.UpdateWindow(true);
                             MiniKyoshinWindow.Location(new Point(0, 0));
                             MiniKyoshinWindow.Activate();
@@ -1535,6 +1585,9 @@ namespace MisakiEQ
                 string[] result = EEWDisplayData.Index.Split(new char[] { '\n' });
 
                 EEWDisplay_WarnForecast.Lines = result;
+
+                EEWDisplay_AreaShindo.Text = EEWDisplayData.AreaScale;
+                EEWDisplay_AreaShindoLabel.Text = "推定 : "+EEWDisplayData.AreaScaleDetail.ToString("F1");
             }
 #if DEBUG || ADMIN
             if (isTweet)
@@ -1680,8 +1733,20 @@ namespace MisakiEQ
                 TextBoxWindow.Close();
                 TextBoxWindow = null;
             }
+            if (UserLocation != UserLocationTemp)
+            {
+                UserLocationTemp = UserLocation;
+                Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+                using (StreamWriter writer = new StreamWriter("UserConfig.dat", false, sjisEnc))
+                {
+                    // （2）ファイルにテキストを書き込む
+                    writer.WriteLine("UserLocation.X="+UserLocation.X.ToString());
+                    writer.WriteLine("UserLocation.Y="+UserLocation.Y.ToString());
 
-            TestLabel.Text = "Point(" + Pos.X.ToString() + "," + Pos.Y.ToString() + ")";
+                } // （3）usingブロックを抜けるときにファイルが閉じられる
+
+                TestLabel.Text = "Point(" + UserLocation.X.ToString() + "," + UserLocation.Y.ToString() + ")";
+            }
 
 
         }
@@ -1898,6 +1963,14 @@ namespace MisakiEQ
         {
             KyoshinEx_Image= KyoshinMonitor.GetFastImage(KyoshinLatest, MisakiEQ.KyoshinEx.KyoshinType.RealTime_Shindo, false, true, true, false);
             IsKyoshinUpdated = KyoshinEx_Image!=null;
+            double detail = KyoshinMonitor.GetEEWAreaShindo(UserLocation);
+            if (EEWDisplayData.AreaScaleDetail != detail)
+            {
+                EEWDisplayData.AreaScaleDetail = detail;
+                EEWDisplayData.Updated = true;
+                DataConverter d = new DataConverter();
+                EEWDisplayData.AreaScale=d.KyoshinShindoToString(detail);
+            }
             if(KyoshinEx_Image==null) Console.WriteLine("Error!画像を入手できませんでした 理由:"+KyoshinMonitor.GetLastError());
             IsKyoshinWorking = false;
         }
@@ -2126,9 +2199,19 @@ namespace MisakiEQ
                 t.Start();
             }
         }
-        Point Pos = new Point(-100, -100);
+        
         MisakiEQ.Setting.MapSettingForm MapSet;
         private void TestButton_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SEData.AllDispose();
+        }
+
+        private void Setting_AreaSetup_Click(object sender, EventArgs e)
         {
             if (MapSet != null)
             {
@@ -2144,15 +2227,11 @@ namespace MisakiEQ
             }
             unsafe
             {
-                fixed (Point* PosP = &Pos) {
-                    MapSet = new Setting.MapSettingForm(PosP,Location);
+                fixed (Point* PosP = &UserLocation)
+                {
+                    MapSet = new Setting.MapSettingForm(PosP, Location);
                 }
             }
-        }
-
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            SEData.AllDispose();
         }
     }
 }

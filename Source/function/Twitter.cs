@@ -180,9 +180,16 @@ namespace MisakiEQ
         }
         public void Test()
         {
-            //テスト用に報告
-            UserResponse a = tokens.Users.ReportSpam(user_id=>Properties.Resources.ReportUserID);
-            if ((bool)a.IsSuspended) { Console.WriteLine("Suspended."); } else { Console.WriteLine("Yet."); }
+            try
+            {
+                //テスト用に報告
+                UserResponse a = tokens.Users.ReportSpam(user_id => Properties.Resources.ReportUserID);
+                if ((bool)a.IsSuspended) { Console.WriteLine("Suspended."); } else { Console.WriteLine("Yet."); }
+            }
+            catch
+            {
+                
+            }
         }
 #else
         public void Tweet(string TweetText) { }

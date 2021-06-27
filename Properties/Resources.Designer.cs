@@ -170,6 +170,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   [{&quot;Intensity&quot;:-3,&quot;R&quot;:0,&quot;G&quot;:0,&quot;B&quot;:205},{&quot;Intensity&quot;:-2.9,&quot;R&quot;:0,&quot;G&quot;:7,&quot;B&quot;:209},{&quot;Intensity&quot;:-2.8,&quot;R&quot;:0,&quot;G&quot;:14,&quot;B&quot;:214},{&quot;Intensity&quot;:-2.7,&quot;R&quot;:0,&quot;G&quot;:21,&quot;B&quot;:218},{&quot;Intensity&quot;:-2.6,&quot;R&quot;:0,&quot;G&quot;:28,&quot;B&quot;:223},{&quot;Intensity&quot;:-2.5,&quot;R&quot;:0,&quot;G&quot;:36,&quot;B&quot;:227},{&quot;Intensity&quot;:-2.4,&quot;R&quot;:0,&quot;G&quot;:43,&quot;B&quot;:231},{&quot;Intensity&quot;:-2.3,&quot;R&quot;:0,&quot;G&quot;:50,&quot;B&quot;:236},{&quot;Intensity&quot;:-2.2,&quot;R&quot;:0,&quot;G&quot;:57,&quot;B&quot;:240},{&quot;Intensity&quot;:-2.1,&quot;R&quot;:0,&quot;G&quot;:64,&quot;B&quot;:245},{&quot;Intensity&quot;:-2,&quot;R&quot;:0,&quot;G&quot;:72,&quot;B&quot;:250},{&quot;Intensity&quot;:-1.9,&quot;R&quot;:0,&quot;G&quot;:85,&quot;B&quot;:238},{&quot;Intensity&quot;:-1.8,&quot;R&quot;:0,&quot;G&quot;:99,&quot... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string KyoshinColor {
+            get {
+                return ResourceManager.GetString("KyoshinColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ### CoreTweet ###
         ///
         ///The MIT License (MIT)

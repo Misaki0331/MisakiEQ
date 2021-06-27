@@ -348,6 +348,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
+    <None Include="Resources\json\KyoshinColor.json" />
+    <Content Include="Resources\Text\MisakiEQ_License_JP.txt" />
     <None Include="Resources\img\bassmap_shadow.PNG" />
     <None Include="Resources\img\basemap_Alpha.png" />
     <None Include="Resources\SE\Sound\SND_Earthquake_Mid.wav" />

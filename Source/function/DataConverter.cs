@@ -122,6 +122,21 @@ namespace MisakiEQ
                     return "不明";
             }
         }
+        public string KyoshinShindoToString(double value)
+        {
+            if (value >= 7)return "7";
+            if (value >= 6.5)return "6+";
+            if (value >= 6)return "6-";
+            if (value >= 5.5) return "5+";
+            if (value >= 5) return "5-";
+            if (value >= 4) return "4";
+            if (value >= 3) return "3";
+            if (value >= 2) return "2";
+            if (value >= 1) return "1";
+            if (value >= 0.1) return "0";
+            return "-";
+
+        }
         public int ScaleValue(string name)
         {
             if (name == "1") return 1;
