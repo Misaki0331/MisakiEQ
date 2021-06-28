@@ -545,7 +545,26 @@ namespace MisakiEQ
                     EEWJsonFile = NetFile.GetThreadJson();
                     InitWindow.SetInfo(72, "緊急地震速報を解析中...");
                 }
+                DataConverter converter = new DataConverter();
                 EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
+                EEWDisplayData.Serial = eew.Serial;
+                EEWDisplayData.IsFinal = eew.Type.Code == 9;
+                EEWDisplayData.HypoCenter = eew.Hypocenter.Name;
+                EEWDisplayData.AnnounceTime = converter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                EEWDisplayData.OriginTime = converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                EEWDisplayData.MaxScale = eew.MaxIntensity.To;
+                EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
+                EEWDisplayData.Index = "---\n";
+                EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
+                if (eew.Warn)
+                {
+                    EEWDisplayData.Type = "警報";
+                }
+                else
+                {
+                    EEWDisplayData.Type = "予報";
+                }
+                EEWDisplayData.Updated = true;
                 EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
                 if (EEWLatestUNIXTime != 0)
                 {
