@@ -204,62 +204,7 @@ namespace MisakiEQ
             EEWInfomationWindow.Show();
             EEWNotificationWindow.SetVisible(false);
             EEWInfomationWindow.SetVisible(false);
-            MiniKyoshinWindow = new Mini_Window.KyoshinEx();
-            MiniKyoshinWindow.UpdateWindow(false);
-            InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
-            KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
-            Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
-            KyoshinUpdateTimer = new Stopwatch();
-            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
-            {
-
-                IsKyoshinInited = true;
-                Timer_KyoshinEx.Start();
-                KyoshinUpdateTimer.Reset();
-                KyoshinUpdateTimer.Start();
-                Timer_AdjustKyoshinEx.Start();
-                KyoshinTempTimer = 0;
-                Console.WriteLine("強震モニタ起動成功！");
-            }
-            else
-            {
-                Console.WriteLine("強震モニタ起動失敗...");
-            }
-
-            if (File.Exists("UserConfig.dat"))
-            {
-                try
-                {
-                    int cnt = 0;
-                    string len;
-
-                    // Read the file and display it line by line.  
-                    System.IO.StreamReader file =
-                        new System.IO.StreamReader("UserConfig.dat");
-                    while ((len = file.ReadLine()) != null)
-                    {
-                        string[] ConfigString = len.Split('=');
-                        if (ConfigString.Length == 2)
-                        {
-                            switch (ConfigString[0])
-                            {
-                                case "UserLocation.X":
-                                    UserLocation.X = int.Parse(ConfigString[1]);
-                                    break;
-                                case "UserLocation.Y":
-                                    UserLocation.Y = int.Parse(ConfigString[1]);
-                                    break;
-                            }
-                        }
-                        
-                    }
-                    file.Close();
-                }
-                catch
-                {
-
-                }
-            }
+            
 #else
             InitWindow.SetInfo(30, "ビルド設定による機能の制限化を実行中...");
             //Point b = new Point(404, 492);
@@ -275,6 +220,7 @@ namespace MisakiEQ
             SettingTab.TabPages.Remove(TwitterSettings);
             P2P_Request_Changed();
 #endif
+
             InitWindow.SetInfo(60, "インターネットから現在の地震情報を取得中です...");
             GetEQHashs(true);
 
@@ -332,7 +278,62 @@ namespace MisakiEQ
             Tweet_checkBox.Checked = TweetWatch_CheckBox;
             Tweet_textbox.Text = TweetWatch_Address;
 
+            MiniKyoshinWindow = new Mini_Window.KyoshinEx();
+            MiniKyoshinWindow.UpdateWindow(false);
+            InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
+            KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
+            Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            KyoshinUpdateTimer = new Stopwatch();
+            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+            {
 
+                IsKyoshinInited = true;
+                Timer_KyoshinEx.Start();
+                KyoshinUpdateTimer.Reset();
+                KyoshinUpdateTimer.Start();
+                Timer_AdjustKyoshinEx.Start();
+                KyoshinTempTimer = 0;
+                Console.WriteLine("強震モニタ起動成功！");
+            }
+            else
+            {
+                Console.WriteLine("強震モニタ起動失敗...");
+            }
+
+            if (File.Exists("UserConfig.dat"))
+            {
+                try
+                {
+                    int cnt = 0;
+                    string len;
+
+                    // Read the file and display it line by line.  
+                    System.IO.StreamReader file =
+                        new System.IO.StreamReader("UserConfig.dat");
+                    while ((len = file.ReadLine()) != null)
+                    {
+                        string[] ConfigString = len.Split('=');
+                        if (ConfigString.Length == 2)
+                        {
+                            switch (ConfigString[0])
+                            {
+                                case "UserLocation.X":
+                                    UserLocation.X = int.Parse(ConfigString[1]);
+                                    break;
+                                case "UserLocation.Y":
+                                    UserLocation.Y = int.Parse(ConfigString[1]);
+                                    break;
+                            }
+                        }
+
+                    }
+                    file.Close();
+                }
+                catch
+                {
+
+                }
+            }
 #if DEBUG
             this.Text = "設定 - MisakiEQ (Debug)";
 
@@ -1046,6 +1047,7 @@ namespace MisakiEQ
         }
         private void TweetThread()
         {
+#if DEBUG || ADMIN
             try
             {
                 /*int pc = 0;
@@ -1105,6 +1107,7 @@ namespace MisakiEQ
                 isTweeting = false;
                 isTweet = false;
             }
+#endif
         }
         private void GetEQJson()
         {
@@ -1342,6 +1345,7 @@ namespace MisakiEQ
                     {
                         if (SettingKyoshinExDisplayEEW.Checked)MiniKyoshinWindow.UpdateWindow(false);
                     }
+#if DEBUG || ADMIN
                     if(cancel&& EEW_TweetMode)
                     {
                         IsTweetedEEW = true;
@@ -1356,7 +1360,8 @@ namespace MisakiEQ
                         EEW_TweetMode = false;
 
                     }
-                    //if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
+
+//if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
                     if(true)
                     {
 
@@ -1379,6 +1384,7 @@ namespace MisakiEQ
                         }
                         
                     }
+#endif
                     if (eew.Warn)
                     {
                         NotificationName = "⚠緊急地震速報(警報)";
@@ -1838,7 +1844,7 @@ namespace MisakiEQ
                 private string EEWText_Description;
                 private string EEWText_Index;
                 */
-#if  ADMIN || DEBUG
+#if ADMIN || DEBUG
                 System.Media.SoundPlayer EEW_Warning = null;
                 System.IO.Stream strm2 = Properties.Resources.Warn;
                 EEW_Warning = new System.Media.SoundPlayer(strm2);

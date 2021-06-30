@@ -13,16 +13,22 @@ namespace MisakiEQ
 {
     public partial class TwitterAuthWindow : Form
     {
+#if DEBUG || ADMIN
         Twitter twi = new Twitter();
+#endif
         public string LastError="";
         public bool isLastUpdated = false;
         public bool isTwitterUpdate = false;
         public TwitterAuthWindow()
         {
             InitializeComponent();
-            Icon= Properties.Resources.mainico; 
+#if DEBUG || ADMIN
+            Icon = Properties.Resources.mainico; 
             twi.OpenAuthURL();
             Show();
+#else
+            Close();
+#endif
         }
         private void DisplayPin_Click(object sender, EventArgs e)
         {
@@ -42,6 +48,7 @@ namespace MisakiEQ
 
         private void AuthEnter_Click(object sender, EventArgs e)
         {
+#if DEBUG || ADMIN
             twi.EnterAuth(PinBox.Text);
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
             if (twi.GetAccessToken() != null)
@@ -64,6 +71,7 @@ namespace MisakiEQ
             }            
             
             Visible = false;
+#endif
         }
 
         private void TwitterAuthWindow_FormClosing(object sender, FormClosingEventArgs e)

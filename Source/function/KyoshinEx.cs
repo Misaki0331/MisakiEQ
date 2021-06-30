@@ -142,7 +142,9 @@ namespace MisakiEQ
                 if (IsESTShindo)
                 {
                     KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/EstShindoImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
-                    EEWShindo = KImage;
+                   
+                        EEWShindo = (Image)KImage.Clone();
+                    
                     if (KImage != null)
                     {
                         graphics.DrawImage(KImage, new Point(0, 0));
@@ -190,7 +192,7 @@ namespace MisakiEQ
             try{
                 List<KyoshinShindoColor> color = JsonConvert.DeserializeObject<List<KyoshinShindoColor>>(Properties.Resources.KyoshinColor);
                 if (EEWShindo == null) return 0;
-                if (EEWShindo.Width == 0 || EEWShindo.Height == 0) return 0;
+                if (EEWShindo.Width != 352 && EEWShindo.Height != 400) return 0;
                 Color col = ((Bitmap)EEWShindo).GetPixel((int)Pos.X, (int)Pos.Y);
                 if (col.A == 0) return 0;
                 for (int i = color.Count - 1; color[i].Intensity >= 0; i--)
