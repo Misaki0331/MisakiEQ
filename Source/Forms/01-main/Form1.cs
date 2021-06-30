@@ -134,7 +134,7 @@ namespace MisakiEQ
             public double AreaScaleDetail;
         }
         _EEWDisplayData EEWDisplayData = new _EEWDisplayData();
-        
+        bool EEWKyoshinPopUp = false;
         void SoundInit()
         {
             sound.GetStream(Properties.Resources.SND_Earthquake_Break, ref SEData.SE.Earthquake_Break);
@@ -1357,10 +1357,8 @@ namespace MisakiEQ
                         EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
                         if (SettingKyoshinExDisplayEEW.Checked)
                         {
-                            MiniKyoshinWindow.UpdateWindow(false);
-                            MiniKyoshinWindow.UpdateWindow(true);
-                            MiniKyoshinWindow.Location(new Point(0, 0));
-                            MiniKyoshinWindow.Activate();
+                            EEWKyoshinPopUp=true;
+                            
                         }
 
                         EEWDisplayData.Serial = eew.Serial;
@@ -1375,7 +1373,7 @@ namespace MisakiEQ
                     }
                     if (cancel)
                     {
-                        if (SettingKyoshinExDisplayEEW.Checked)MiniKyoshinWindow.UpdateWindow(false);
+                        //if (SettingKyoshinExDisplayEEW.Checked)MiniKyoshinWindow.UpdateWindow(false);
                     }
 #if DEBUG || ADMIN
                     if(cancel&& EEW_TweetMode)
@@ -1688,6 +1686,14 @@ namespace MisakiEQ
                 EEWDisplay_TimeLeft.Text = "--.---";
                 EEWDisplay_TimeLeft.ForeColor = SystemColors.WindowText;
                 EEWDisplay_TimeLeft.BackColor = SystemColors.Control;
+            }
+
+            if (EEWKyoshinPopUp)
+            {
+                EEWKyoshinPopUp = false;
+                MiniKyoshinWindow.UpdateWindow(true);
+                MiniKyoshinWindow.Location(new Point(0, 0));
+                MiniKyoshinWindow.Activate();
             }
 #if DEBUG || ADMIN
             if (isTweet)
@@ -2124,7 +2130,7 @@ namespace MisakiEQ
 
         private void DisplayKyoshinEx_Click(object sender, EventArgs e)
         {
-            MiniKyoshinWindow.UpdateWindow(false);
+            
             MiniKyoshinWindow.UpdateWindow(true);
             MiniKyoshinWindow.Location(new Point(0, 0));
             MiniKyoshinWindow.Activate();

@@ -90,6 +90,9 @@
             this.JMAEQData_Shingen = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.KyoshinEx = new System.Windows.Forms.TabPage();
+            this.EEWDisplay_Reach = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.EEWDisplay_TimeLeft = new System.Windows.Forms.TextBox();
             this.EEWDisplay_AreaShindoLabel = new System.Windows.Forms.Label();
             this.EEWDisplay_AreaShindo = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -119,6 +122,8 @@
             this.KyoshinDateTime = new System.Windows.Forms.DateTimePicker();
             this.KyoshinImage = new System.Windows.Forms.PictureBox();
             this.MisakiEQ_Status = new System.Windows.Forms.TabPage();
+            this.ClockBox = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.MisakiEQ_Settings = new System.Windows.Forms.TabPage();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.DataUpdateSettings = new System.Windows.Forms.TabPage();
@@ -170,11 +175,7 @@
             this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.OtherPCWatchingTimer = new System.Windows.Forms.Timer(this.components);
             this.RTCReset = new System.Windows.Forms.Timer(this.components);
-            this.label35 = new System.Windows.Forms.Label();
-            this.ClockBox = new System.Windows.Forms.TextBox();
-            this.EEWDisplay_TimeLeft = new System.Windows.Forms.TextBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.EEWDisplay_Reach = new System.Windows.Forms.Label();
+            this.TestTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -881,6 +882,35 @@
             this.KyoshinEx.TabIndex = 1;
             this.KyoshinEx.Text = "強震モニタ";
             // 
+            // EEWDisplay_Reach
+            // 
+            this.EEWDisplay_Reach.AutoSize = true;
+            this.EEWDisplay_Reach.Location = new System.Drawing.Point(237, 182);
+            this.EEWDisplay_Reach.Name = "EEWDisplay_Reach";
+            this.EEWDisplay_Reach.Size = new System.Drawing.Size(48, 12);
+            this.EEWDisplay_Reach.TabIndex = 30;
+            this.EEWDisplay_Reach.Text = "到達まで";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(356, 218);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(17, 12);
+            this.label36.TabIndex = 29;
+            this.label36.Text = "秒";
+            // 
+            // EEWDisplay_TimeLeft
+            // 
+            this.EEWDisplay_TimeLeft.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_TimeLeft.Location = new System.Drawing.Point(239, 197);
+            this.EEWDisplay_TimeLeft.Name = "EEWDisplay_TimeLeft";
+            this.EEWDisplay_TimeLeft.ReadOnly = true;
+            this.EEWDisplay_TimeLeft.Size = new System.Drawing.Size(115, 39);
+            this.EEWDisplay_TimeLeft.TabIndex = 28;
+            this.EEWDisplay_TimeLeft.Text = "999.999";
+            this.EEWDisplay_TimeLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // EEWDisplay_AreaShindoLabel
             // 
             this.EEWDisplay_AreaShindoLabel.AutoSize = true;
@@ -1157,6 +1187,23 @@
             this.MisakiEQ_Status.Size = new System.Drawing.Size(792, 430);
             this.MisakiEQ_Status.TabIndex = 1;
             this.MisakiEQ_Status.Text = "ステータス";
+            // 
+            // ClockBox
+            // 
+            this.ClockBox.Location = new System.Drawing.Point(67, 84);
+            this.ClockBox.Name = "ClockBox";
+            this.ClockBox.ReadOnly = true;
+            this.ClockBox.Size = new System.Drawing.Size(145, 19);
+            this.ClockBox.TabIndex = 6;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(8, 87);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(53, 12);
+            this.label35.TabIndex = 5;
+            this.label35.Text = "現在時刻";
             // 
             // MisakiEQ_Settings
             // 
@@ -1706,51 +1753,10 @@
             this.RTCReset.Interval = 21600000;
             this.RTCReset.Tick += new System.EventHandler(this.RTCReset_Tick);
             // 
-            // label35
+            // TestTimer
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(8, 87);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(53, 12);
-            this.label35.TabIndex = 5;
-            this.label35.Text = "現在時刻";
-            // 
-            // ClockBox
-            // 
-            this.ClockBox.Location = new System.Drawing.Point(67, 84);
-            this.ClockBox.Name = "ClockBox";
-            this.ClockBox.ReadOnly = true;
-            this.ClockBox.Size = new System.Drawing.Size(145, 19);
-            this.ClockBox.TabIndex = 6;
-            // 
-            // EEWDisplay_TimeLeft
-            // 
-            this.EEWDisplay_TimeLeft.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.EEWDisplay_TimeLeft.Location = new System.Drawing.Point(239, 197);
-            this.EEWDisplay_TimeLeft.Name = "EEWDisplay_TimeLeft";
-            this.EEWDisplay_TimeLeft.ReadOnly = true;
-            this.EEWDisplay_TimeLeft.Size = new System.Drawing.Size(115, 39);
-            this.EEWDisplay_TimeLeft.TabIndex = 28;
-            this.EEWDisplay_TimeLeft.Text = "999.999";
-            this.EEWDisplay_TimeLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(356, 218);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(17, 12);
-            this.label36.TabIndex = 29;
-            this.label36.Text = "秒";
-            // 
-            // EEWDisplay_Reach
-            // 
-            this.EEWDisplay_Reach.AutoSize = true;
-            this.EEWDisplay_Reach.Location = new System.Drawing.Point(237, 182);
-            this.EEWDisplay_Reach.Name = "EEWDisplay_Reach";
-            this.EEWDisplay_Reach.Size = new System.Drawing.Size(48, 12);
-            this.EEWDisplay_Reach.TabIndex = 30;
-            this.EEWDisplay_Reach.Text = "到達まで";
+            this.TestTimer.Enabled = true;
+            this.TestTimer.Interval = 30000;
             // 
             // Form1
             // 
@@ -1963,6 +1969,7 @@
         private System.Windows.Forms.Label EEWDisplay_Reach;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox EEWDisplay_TimeLeft;
+        private System.Windows.Forms.Timer TestTimer;
     }
 }
 
