@@ -280,7 +280,7 @@ namespace MisakiEQ
 
             MiniKyoshinWindow = new Mini_Window.KyoshinEx();
             MiniKyoshinWindow.UpdateWindow(false);
-            InitWindow.SetInfo(25, "強震モニタの情報を取得中です...");
+            InitWindow.SetInfo(95, "強震モニタの情報を取得中です...");
             KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
             Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
             KyoshinUpdateTimer = new Stopwatch();

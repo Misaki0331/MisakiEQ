@@ -20,6 +20,7 @@ namespace MisakiEQ.Setting
         Bitmap canvas;
         Bitmap check;
         Bitmap Zoom;
+        DataConverter converter = new DataConverter();
         public MapSettingForm(Point* Confirming,Point WindowPos)
         {
             
@@ -54,6 +55,10 @@ namespace MisakiEQ.Setting
             pictureBox1.Image = canvas;
             g.Dispose();
             ZoomDraw(check);
+            // Pos.X = 127.21225 + Map.X * 0.05075;//-0.7
+            // Pos.Y = 46.12000 - Map.Y * 0.04;
+            System.Windows.Point LAL = converter.KyoshinMapToLAL(check);
+            label1.Text = $"{LAL.X}E\n{LAL.Y}N";
             //canvas.Dispose();
         }
         void ZoomDraw(Point check)
@@ -97,9 +102,17 @@ namespace MisakiEQ.Setting
         }
         private void Confirm_Click(object sender, EventArgs e)
         {
-            *ConfirmPos = Temp;
-            IsConfirmed = true;
-            Close();
+            if (Temp.X >= 0 && Temp.X < 352 && Temp.Y >= 0 && Temp.Y < 400)
+            {
+                *ConfirmPos = Temp;
+                IsConfirmed = true;
+                Close();
+            }
+            else
+            {
+                Hide();
+                throw new IndexOutOfRangeException("不正な座標です。");
+            }
         }
 
         private void Cancel_Click(object sender, EventArgs e)

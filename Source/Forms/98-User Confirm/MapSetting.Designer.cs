@@ -41,6 +41,7 @@ namespace MisakiEQ.Setting
             this.Button_Down = new System.Windows.Forms.Button();
             this.Button_Left = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -142,12 +143,24 @@ namespace MisakiEQ.Setting
             this.pictureBox3.TabIndex = 8;
             this.pictureBox3.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(134, 414);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 24);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "---.----E\r\n--.----N";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // MapSettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(352, 442);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Button_Left);
             this.Controls.Add(this.Button_Down);
             this.Controls.Add(this.Button_Right);
@@ -169,6 +182,7 @@ namespace MisakiEQ.Setting
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -184,5 +198,6 @@ namespace MisakiEQ.Setting
         private System.Windows.Forms.Button Button_Down;
         private System.Windows.Forms.Button Button_Left;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label1;
     }
 }

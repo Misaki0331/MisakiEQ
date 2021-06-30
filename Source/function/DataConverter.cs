@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.Windows;
+using System.Drawing;
 namespace MisakiEQ
 {
     class DataConverter
@@ -396,5 +398,31 @@ namespace MisakiEQ
             }
             return "不明";
         }
+
+        public System.Windows.Point KyoshinMapToLAL(System.Drawing.Point Map)
+        {
+            //if (Map.X < 0 || Map.Y < 0 || Map.X >= 352 || Map.Y >= 400) 
+              //  throw new IndexOutOfRangeException("地図は(0,0)から(351,399)の範囲で指定しなければなりません。");
+            bool IsExtend=false;
+            if (Map.Y > 38 && Map.Y < 208 && Map.X >= 0 && Map.X <= 110) IsExtend = true;
+            else if (Map.Y > 38 && Map.Y < 135 && Map.X >= 110 && Map.X < 172) IsExtend = true;
+            else if ((Map.X > 110 && Map.X < 172 && Map.Y >= 135 && Map.Y < 208) &&
+                (Map.X-110) * 72 / 61 < (73-(Map.Y - 135))) IsExtend = true;
+            System.Windows.Point Pos=new System.Windows.Point(0,0);
+            if (IsExtend)
+            {
+                Pos.X = 122.52675 + Map.X * 0.04930;
+                Pos.Y = 32.11100 - Map.Y * 0.04065;
+            }
+            else
+            {
+                Pos.X = 128.62400 + Map.X * 0.04930;//-0.7
+                Pos.Y = 46.19100 - Map.Y * 0.04065;
+            }
+            return Pos;
+            
+
+        }
+        
     }
 }
