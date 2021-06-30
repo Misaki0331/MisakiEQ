@@ -11,6 +11,8 @@ namespace MisakiEQ
     {
         private static int ErrorCount = 0;
         static Form1 MainForm;
+        static System.Threading.Mutex mutex;
+        static bool hasHandle = false;
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -24,6 +26,34 @@ namespace MisakiEQ
             // UnhandledExceptionイベント・ハンドラを登録する
             Thread.GetDomain().UnhandledException += new
             UnhandledExceptionEventHandler(Application_UnhandledException);
+#if ADMIN
+            string mutexName = "MisakiEQ(Admin Mode)";
+#else
+            string mutexName = "MisakiEQ";
+#endif
+            //Mutexオブジェクトを作成する
+            mutex = new System.Threading.Mutex(false, mutexName);
+
+            
+            try
+            {
+                //ミューテックスの所有権を要求する
+                hasHandle = mutex.WaitOne(0, false);
+            }
+            //.NET Framework 2.0以降の場合
+            catch (System.Threading.AbandonedMutexException)
+            {
+                //別のアプリケーションがミューテックスを解放しないで終了した時
+                hasHandle = true;
+            }
+            //ミューテックスを得られたか調べる
+            if (hasHandle == false)
+            {
+                //得られなかった場合は、すでに起動していると判断して終了
+                MessageBox.Show("多重起動はできません。","MisakiEQ",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -38,7 +68,12 @@ namespace MisakiEQ
 
             MainForm = new Form1();
             Application.Run(MainForm);
-            
+            if (hasHandle)
+            {
+                //ミューテックスを解放する
+                mutex.ReleaseMutex();
+            }
+
         }
         public static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -75,6 +110,11 @@ namespace MisakiEQ
               ex.TargetSite+"")
                ;
             //Application.Run(err);
+            if (hasHandle)
+            {
+                //ミューテックスを解放する
+                mutex.ReleaseMutex();
+            }
             err.Show();
             
         }

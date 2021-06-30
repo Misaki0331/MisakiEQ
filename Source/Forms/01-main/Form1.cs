@@ -543,9 +543,9 @@ namespace MisakiEQ
 
                 //TestString = "Time : " + JsonData[0].created_at;
                 DateTime created_at;
-                DataConverter converter = new DataConverter();
-                created_at = converter.GetTime(JsonData[0].created_at);
-                if (!converter.GetTimeError())
+                DataConverter converter2 = new DataConverter();
+                created_at = converter2.GetTime(JsonData[0].created_at);
+                if (!converter2.GetTimeError())
                 {
                     EQLastUpdated = created_at;
                     LoadEQData(JsonData[0], false);
@@ -596,6 +596,8 @@ namespace MisakiEQ
                     isFailEEWInit = false;
                     EEW_SerialCountTemp = eew.Serial;
                 }
+            DataConverter converterr = new DataConverter();
+            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converterr.GetTime(eew.OriginTime.String));
             }
             catch
             {
@@ -617,9 +619,9 @@ namespace MisakiEQ
                 }
                 List<TsunamiRoot> tsunami = JsonConvert.DeserializeObject<List<TsunamiRoot>>(TsunamiJsonFile);
                 DateTime created_at;
-                DataConverter converter = new DataConverter();
-                created_at = converter.GetTime(tsunami[0].created_at);
-                if (!converter.GetTimeError())
+                DataConverter converter2 = new DataConverter();
+                created_at = converter2.GetTime(tsunami[0].created_at);
+                if (!converter2.GetTimeError())
                 {
                     TsunamiLastUpdated = created_at;
                     LoadTsunamiData(tsunami[0],false);
@@ -1325,9 +1327,15 @@ namespace MisakiEQ
                     }
                     if (!cancel)
                     {
+                        try
+                        {
+                            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converter.GetTime(eew.OriginTime.String));
+                        }
+                        catch
+                        {
 
-                        EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converter.GetTime(eew.OriginTime.String));
-                        if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6 && eew.Hypocenter.Location.Depth.Int<80) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
+                        }
+                            if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6 && eew.Hypocenter.Location.Depth.Int<80) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
                         EEW_IndexText += eew.Hypocenter.Name + " 深さ:" + converter.DeepString(eew.Hypocenter.Location.Depth.Int) +
                             " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n"+
                             "最大震度:"+eew.MaxIntensity.String+"\n"
@@ -1644,41 +1652,42 @@ namespace MisakiEQ
                 {
                     EEWDisplay_AreaShindoLabel.Text = "推定 : " + EEWDisplayData.AreaScaleDetail.ToString("F1");
                 }
-                if (EEWDisplayData.AreaScaleDetail != 0)
+                
+            }
+            if (EEWDisplayData.AreaScaleDetail !=0)
+            {
+                TimeSpan left = ReachTime - NowClock;
+                double l = (double)left.TotalMilliseconds/1000f;
+                if (l >= 0)
                 {
-                    TimeSpan left = ReachTime - NowClock;
-                    double l = (double)left.TotalMilliseconds / 1000;
-                    if (l >= 0)
+                    EEWDisplay_Reach.Text = "到達まで";
+                    EEWDisplay_TimeLeft.Text = l.ToString("F3");
+                    if (l > 10)
                     {
-                        EEWDisplay_Reach.Text = "到達まで";
-                        EEWDisplay_TimeLeft.Text = l.ToString("F3");
-                        if (l > 10)
-                        {
-                            EEWDisplay_TimeLeft.ForeColor = Color.Black;
-                            EEWDisplay_TimeLeft.BackColor = Color.White;
-                        }
-                        else
-                        {
-                            EEWDisplay_TimeLeft.ForeColor = Color.Red;
-                            EEWDisplay_TimeLeft.BackColor = Color.White;
-                        }
+                        EEWDisplay_TimeLeft.ForeColor = Color.Black;
+                        EEWDisplay_TimeLeft.BackColor = Color.White;
                     }
                     else
                     {
-                        l = -l;
-                        EEWDisplay_Reach.Text = "到達から";
-                        EEWDisplay_TimeLeft.Text = l.ToString("F3");
-                        EEWDisplay_TimeLeft.ForeColor = Color.White;
-                        EEWDisplay_TimeLeft.BackColor = Color.Red;
+                        EEWDisplay_TimeLeft.ForeColor = Color.Red;
+                        EEWDisplay_TimeLeft.BackColor = Color.White;
                     }
                 }
                 else
                 {
-                    EEWDisplay_Reach.Text = "到達まで";
-                    EEWDisplay_TimeLeft.Text = "--.---";
-                    EEWDisplay_TimeLeft.ForeColor = SystemColors.WindowText;
-                    EEWDisplay_TimeLeft.BackColor = SystemColors.Control;
+                    l = -l;
+                    EEWDisplay_Reach.Text = "到達から";
+                    EEWDisplay_TimeLeft.Text = l.ToString("F3");
+                    EEWDisplay_TimeLeft.ForeColor = Color.White;
+                    EEWDisplay_TimeLeft.BackColor = Color.Red;
                 }
+            }
+            else
+            {
+                EEWDisplay_Reach.Text = "到達まで";
+                EEWDisplay_TimeLeft.Text = "--.---";
+                EEWDisplay_TimeLeft.ForeColor = SystemColors.WindowText;
+                EEWDisplay_TimeLeft.BackColor = SystemColors.Control;
             }
 #if DEBUG || ADMIN
             if (isTweet)
@@ -2335,10 +2344,15 @@ namespace MisakiEQ
 
         private void EEW_LeftTimeCalculation(double lat,double lon,DateTime Time)
         {
-            DataConverter converter = new DataConverter();
-            System.Windows.Point UserPos= converter.KyoshinMapToLAL(UserLocation);
-            var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.X, UserPos.Y));
-            ReachTime=Time.AddMilliseconds(distance / 4);
+            
+                DataConverter converter = new DataConverter();
+                System.Windows.Point UserPos = converter.KyoshinMapToLAL(UserLocation);
+            Console.WriteLine($"UserPos.X={UserPos.X} UserPos.Y={UserPos.Y}");
+                var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.Y, UserPos.X));
+            Console.WriteLine($"{distance}m");
+
+                ReachTime = Time.AddMilliseconds(distance / 4);
+            Console.WriteLine($"{ReachTime}");
 
         }
     }
