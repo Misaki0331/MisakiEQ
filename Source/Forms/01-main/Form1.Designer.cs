@@ -169,6 +169,12 @@
             this.Timer_KyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.Timer_AdjustKyoshinEx = new System.Windows.Forms.Timer(this.components);
             this.OtherPCWatchingTimer = new System.Windows.Forms.Timer(this.components);
+            this.RTCReset = new System.Windows.Forms.Timer(this.components);
+            this.label35 = new System.Windows.Forms.Label();
+            this.ClockBox = new System.Windows.Forms.TextBox();
+            this.EEWDisplay_TimeLeft = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.EEWDisplay_Reach = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -496,6 +502,7 @@
             // 
             // UIUpdate
             // 
+            this.UIUpdate.Interval = 10;
             this.UIUpdate.Tick += new System.EventHandler(this.Update_Tick);
             // 
             // Timer_EEW
@@ -836,6 +843,9 @@
             // KyoshinEx
             // 
             this.KyoshinEx.BackColor = System.Drawing.SystemColors.Control;
+            this.KyoshinEx.Controls.Add(this.EEWDisplay_Reach);
+            this.KyoshinEx.Controls.Add(this.label36);
+            this.KyoshinEx.Controls.Add(this.EEWDisplay_TimeLeft);
             this.KyoshinEx.Controls.Add(this.EEWDisplay_AreaShindoLabel);
             this.KyoshinEx.Controls.Add(this.EEWDisplay_AreaShindo);
             this.KyoshinEx.Controls.Add(this.label34);
@@ -874,7 +884,7 @@
             // EEWDisplay_AreaShindoLabel
             // 
             this.EEWDisplay_AreaShindoLabel.AutoSize = true;
-            this.EEWDisplay_AreaShindoLabel.Location = new System.Drawing.Point(378, 238);
+            this.EEWDisplay_AreaShindoLabel.Location = new System.Drawing.Point(375, 238);
             this.EEWDisplay_AreaShindoLabel.Name = "EEWDisplay_AreaShindoLabel";
             this.EEWDisplay_AreaShindoLabel.Size = new System.Drawing.Size(53, 12);
             this.EEWDisplay_AreaShindoLabel.TabIndex = 27;
@@ -893,7 +903,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(320, 224);
+            this.label34.Location = new System.Drawing.Point(320, 176);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(53, 12);
             this.label34.TabIndex = 25;
@@ -907,6 +917,7 @@
             this.EEWDisplay_OriginTime.ReadOnly = true;
             this.EEWDisplay_OriginTime.Size = new System.Drawing.Size(184, 26);
             this.EEWDisplay_OriginTime.TabIndex = 24;
+            this.EEWDisplay_OriginTime.Text = "20";
             // 
             // label33
             // 
@@ -1136,6 +1147,8 @@
             // 
             // MisakiEQ_Status
             // 
+            this.MisakiEQ_Status.Controls.Add(this.ClockBox);
+            this.MisakiEQ_Status.Controls.Add(this.label35);
             this.MisakiEQ_Status.Controls.Add(this.RequestedCount);
             this.MisakiEQ_Status.Controls.Add(this.label4);
             this.MisakiEQ_Status.Location = new System.Drawing.Point(4, 22);
@@ -1687,6 +1700,58 @@
             this.OtherPCWatchingTimer.Interval = 5000;
             this.OtherPCWatchingTimer.Tick += new System.EventHandler(this.OtherPCWatchingTimer_Tick);
             // 
+            // RTCReset
+            // 
+            this.RTCReset.Enabled = true;
+            this.RTCReset.Interval = 21600000;
+            this.RTCReset.Tick += new System.EventHandler(this.RTCReset_Tick);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(8, 87);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(53, 12);
+            this.label35.TabIndex = 5;
+            this.label35.Text = "現在時刻";
+            // 
+            // ClockBox
+            // 
+            this.ClockBox.Location = new System.Drawing.Point(67, 84);
+            this.ClockBox.Name = "ClockBox";
+            this.ClockBox.ReadOnly = true;
+            this.ClockBox.Size = new System.Drawing.Size(145, 19);
+            this.ClockBox.TabIndex = 6;
+            // 
+            // EEWDisplay_TimeLeft
+            // 
+            this.EEWDisplay_TimeLeft.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.EEWDisplay_TimeLeft.Location = new System.Drawing.Point(239, 197);
+            this.EEWDisplay_TimeLeft.Name = "EEWDisplay_TimeLeft";
+            this.EEWDisplay_TimeLeft.ReadOnly = true;
+            this.EEWDisplay_TimeLeft.Size = new System.Drawing.Size(115, 39);
+            this.EEWDisplay_TimeLeft.TabIndex = 28;
+            this.EEWDisplay_TimeLeft.Text = "999.999";
+            this.EEWDisplay_TimeLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(356, 218);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(17, 12);
+            this.label36.TabIndex = 29;
+            this.label36.Text = "秒";
+            // 
+            // EEWDisplay_Reach
+            // 
+            this.EEWDisplay_Reach.AutoSize = true;
+            this.EEWDisplay_Reach.Location = new System.Drawing.Point(237, 182);
+            this.EEWDisplay_Reach.Name = "EEWDisplay_Reach";
+            this.EEWDisplay_Reach.Size = new System.Drawing.Size(48, 12);
+            this.EEWDisplay_Reach.TabIndex = 30;
+            this.EEWDisplay_Reach.Text = "到達まで";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1892,6 +1957,12 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TabPage AreaSettings;
         private System.Windows.Forms.Button Setting_AreaSetup;
+        private System.Windows.Forms.Timer RTCReset;
+        private System.Windows.Forms.TextBox ClockBox;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label EEWDisplay_Reach;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox EEWDisplay_TimeLeft;
     }
 }
 

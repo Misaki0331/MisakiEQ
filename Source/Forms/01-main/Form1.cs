@@ -17,6 +17,7 @@ using MisakiEQ.Mini_Window;
 using MisakiEQ.Audio;
 using SharpDX.XAudio2;
 using SharpDX.Multimedia;
+using System.Device.Location;
 namespace MisakiEQ
 {
     
@@ -74,7 +75,7 @@ namespace MisakiEQ
         private bool IsEEWSoundFinished = true;
         Twitter TwiCliant;// = new Twitter();
         private string UserNameID;
-
+        
         private bool WillDisplayEEWNotification;
         private bool WillDisplayEEWInfomation;
         private string EEWText_Description;
@@ -110,6 +111,12 @@ namespace MisakiEQ
 
         bool CheckedStillRunPC = false;
         string CheckedPCLastError = "";
+
+        DateTime NowClock;//
+        DateTime LatestClock;
+        Stopwatch AddClock;
+
+        DateTime ReachTime=new DateTime();
         struct _EEWDisplayData
         {
             public bool Updated;
@@ -339,6 +346,18 @@ namespace MisakiEQ
 
 #endif
             sound.SetMasterVolume(1);
+            
+            KyoshinImage.Image = KyoshinEx_Image;
+            //customThumbnail = new TabbedThumbnail(this.Handle, this.Handle);
+            VersionName.Text = Properties.Resources.Version;
+            Copyright_Label.Text = Properties.Resources.Misaki_License;
+
+            InitWindow.SetInfo(98, "time.windows.comより現在時刻を取得中です...");
+            Clock.RealTimeClock clock = new Clock.RealTimeClock();
+            AddClock = new Stopwatch();
+            LatestClock = clock.GetTime();
+            AddClock.Start();
+            UIUpdate.Start();
             if (Environment.UserName == "Misaki")
             {
                 InitWindow.SetInfo(100, "おかえりなさい " + Environment.UserName + " 様");
@@ -347,12 +366,7 @@ namespace MisakiEQ
             {
                 InitWindow.SetInfo(100, "ようこそ " + Environment.UserName + " 様");
             }
-            KyoshinImage.Image = KyoshinEx_Image;
-            //customThumbnail = new TabbedThumbnail(this.Handle, this.Handle);
-            VersionName.Text = Properties.Resources.Version;
-            Copyright_Label.Text = Properties.Resources.Misaki_License;
             InitWindow.Done();
-            UIUpdate.Start();
         }
         private void P2P_Request_Changed()
         {
@@ -383,6 +397,16 @@ namespace MisakiEQ
                 this.P2P_Request_Usage.ForeColor = Color.Black;
 
             }
+        }
+        void ResetRTC()
+        {
+            Clock.RealTimeClock clock = new Clock.RealTimeClock();
+            LatestClock = clock.GetTime();
+            AddClock.Restart();
+        }
+        void UpdateRTC()
+        {
+            NowClock = LatestClock.AddMilliseconds(AddClock.ElapsedMilliseconds);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -1301,8 +1325,8 @@ namespace MisakiEQ
                     }
                     if (!cancel)
                     {
-                        
 
+                        EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converter.GetTime(eew.OriginTime.String));
                         if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6 && eew.Hypocenter.Location.Depth.Int<80) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
                         EEW_IndexText += eew.Hypocenter.Name + " 深さ:" + converter.DeepString(eew.Hypocenter.Location.Depth.Int) +
                             " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n"+
@@ -1612,7 +1636,49 @@ namespace MisakiEQ
                 EEWDisplay_WarnForecast.Lines = result;
 
                 EEWDisplay_AreaShindo.Text = EEWDisplayData.AreaScale;
-                EEWDisplay_AreaShindoLabel.Text = "推定 : "+EEWDisplayData.AreaScaleDetail.ToString("F1");
+                if (EEWDisplayData.AreaScaleDetail >= 7.0)
+                {
+                    EEWDisplay_AreaShindoLabel.Text = "推定 : >7.0";
+                }
+                else
+                {
+                    EEWDisplay_AreaShindoLabel.Text = "推定 : " + EEWDisplayData.AreaScaleDetail.ToString("F1");
+                }
+                if (EEWDisplayData.AreaScaleDetail != 0)
+                {
+                    TimeSpan left = ReachTime - NowClock;
+                    double l = (double)left.TotalMilliseconds / 1000;
+                    if (l >= 0)
+                    {
+                        EEWDisplay_Reach.Text = "到達まで";
+                        EEWDisplay_TimeLeft.Text = l.ToString("F3");
+                        if (l > 10)
+                        {
+                            EEWDisplay_TimeLeft.ForeColor = Color.Black;
+                            EEWDisplay_TimeLeft.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            EEWDisplay_TimeLeft.ForeColor = Color.Red;
+                            EEWDisplay_TimeLeft.BackColor = Color.White;
+                        }
+                    }
+                    else
+                    {
+                        l = -l;
+                        EEWDisplay_Reach.Text = "到達から";
+                        EEWDisplay_TimeLeft.Text = l.ToString("F3");
+                        EEWDisplay_TimeLeft.ForeColor = Color.White;
+                        EEWDisplay_TimeLeft.BackColor = Color.Red;
+                    }
+                }
+                else
+                {
+                    EEWDisplay_Reach.Text = "到達まで";
+                    EEWDisplay_TimeLeft.Text = "--.---";
+                    EEWDisplay_TimeLeft.ForeColor = SystemColors.WindowText;
+                    EEWDisplay_TimeLeft.BackColor = SystemColors.Control;
+                }
             }
 #if DEBUG || ADMIN
             if (isTweet)
@@ -1772,7 +1838,9 @@ namespace MisakiEQ
 
                 TestLabel.Text = "Point(" + UserLocation.X.ToString() + "," + UserLocation.Y.ToString() + ")";
             }
-
+            UpdateRTC();
+            ClockBox.Text = NowClock.ToString("yyyy/MM/dd HH:mm:ss.fff");
+            
 
         }
 
@@ -2047,6 +2115,7 @@ namespace MisakiEQ
 
         private void DisplayKyoshinEx_Click(object sender, EventArgs e)
         {
+            MiniKyoshinWindow.UpdateWindow(false);
             MiniKyoshinWindow.UpdateWindow(true);
             MiniKyoshinWindow.Location(new Point(0, 0));
             MiniKyoshinWindow.Activate();
@@ -2257,6 +2326,20 @@ namespace MisakiEQ
                     MapSet = new Setting.MapSettingForm(PosP, Location);
                 }
             }
+        }
+
+        private void RTCReset_Tick(object sender, EventArgs e)
+        {
+            ResetRTC();
+        }
+
+        private void EEW_LeftTimeCalculation(double lat,double lon,DateTime Time)
+        {
+            DataConverter converter = new DataConverter();
+            System.Windows.Point UserPos= converter.KyoshinMapToLAL(UserLocation);
+            var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.X, UserPos.Y));
+            ReachTime=Time.AddMilliseconds(distance / 4);
+
         }
     }
 }
