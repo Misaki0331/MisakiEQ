@@ -117,6 +117,9 @@ namespace MisakiEQ.Setting
 
         private void Cancel_Click(object sender, EventArgs e)
         {
+
+            PosUpdate();
+            timer1.Start();
             Close();
         }
 
@@ -129,8 +132,7 @@ namespace MisakiEQ.Setting
 
         private void Cancel_MouseDown(object sender, MouseEventArgs e)
         {
-            PosUpdate();
-            timer1.Start();
+            
         }
         void PosUpdate()
         {
@@ -147,11 +149,7 @@ namespace MisakiEQ.Setting
             PosUpdate();
         }
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            PosUpdate();
-            timer1.Stop();
-        }
+        
         void ButtonUpdate()
         {
  
@@ -201,6 +199,36 @@ namespace MisakiEQ.Setting
                 Confirm.Text = "指定不可";
             }
             ButtonUpdate();
+        }
+
+        private void MapSettingForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            
+        }
+        bool IsPressMouceButton = false;
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            IsPressMouceButton = true;
+            timer1.Start();
+            
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            IsPressMouceButton = false;
+            PosUpdate();
+            timer1.Stop();
+        }
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+
+
+        }
+
+        private void pictureBox1_DragLeave(object sender, EventArgs e)
+        {
+            
         }
     }
 }
