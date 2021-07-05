@@ -1,6 +1,6 @@
 ﻿namespace MisakiEQ
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -140,6 +140,15 @@
             this.ComputerSettings = new System.Windows.Forms.TabPage();
             this.CSettingEventlogEEW = new System.Windows.Forms.CheckBox();
             this.CSettingEventlog = new System.Windows.Forms.CheckBox();
+            this.SerialSettings = new System.Windows.Forms.TabPage();
+            this.label38 = new System.Windows.Forms.Label();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.TwitterSettings = new System.Windows.Forms.TabPage();
             this.label21 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -199,6 +208,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SettingKyoshinExUpdateTimerValue)).BeginInit();
             this.AreaSettings.SuspendLayout();
             this.ComputerSettings.SuspendLayout();
+            this.SerialSettings.SuspendLayout();
             this.TwitterSettings.SuspendLayout();
             this.SettingsAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).BeginInit();
@@ -908,7 +918,6 @@
             this.EEWDisplay_TimeLeft.ReadOnly = true;
             this.EEWDisplay_TimeLeft.Size = new System.Drawing.Size(115, 39);
             this.EEWDisplay_TimeLeft.TabIndex = 28;
-            this.EEWDisplay_TimeLeft.Text = "999.999";
             this.EEWDisplay_TimeLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // EEWDisplay_AreaShindoLabel
@@ -928,6 +937,7 @@
             this.EEWDisplay_AreaShindo.ReadOnly = true;
             this.EEWDisplay_AreaShindo.Size = new System.Drawing.Size(57, 60);
             this.EEWDisplay_AreaShindo.TabIndex = 26;
+            this.EEWDisplay_AreaShindo.Text = "-";
             this.EEWDisplay_AreaShindo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label34
@@ -947,7 +957,6 @@
             this.EEWDisplay_OriginTime.ReadOnly = true;
             this.EEWDisplay_OriginTime.Size = new System.Drawing.Size(184, 26);
             this.EEWDisplay_OriginTime.TabIndex = 24;
-            this.EEWDisplay_OriginTime.Text = "20";
             // 
             // label33
             // 
@@ -995,6 +1004,7 @@
             this.EEWDisplay_MaxScale.ReadOnly = true;
             this.EEWDisplay_MaxScale.Size = new System.Drawing.Size(57, 60);
             this.EEWDisplay_MaxScale.TabIndex = 19;
+            this.EEWDisplay_MaxScale.Text = "-";
             this.EEWDisplay_MaxScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // EEWDisplay_Depth
@@ -1219,6 +1229,7 @@
             this.SettingTab.Controls.Add(this.DataUpdateSettings);
             this.SettingTab.Controls.Add(this.AreaSettings);
             this.SettingTab.Controls.Add(this.ComputerSettings);
+            this.SettingTab.Controls.Add(this.SerialSettings);
             this.SettingTab.Controls.Add(this.TwitterSettings);
             this.SettingTab.Controls.Add(this.SettingsAbout);
             this.SettingTab.Controls.Add(this.SettingClose);
@@ -1399,6 +1410,129 @@
             this.CSettingEventlog.TabIndex = 0;
             this.CSettingEventlog.Text = "地震情報取得時、コンピューターのイベントログに記録する。";
             this.CSettingEventlog.UseVisualStyleBackColor = true;
+            // 
+            // SerialSettings
+            // 
+            this.SerialSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.SerialSettings.Controls.Add(this.label38);
+            this.SerialSettings.Controls.Add(this.checkBox5);
+            this.SerialSettings.Controls.Add(this.checkBox4);
+            this.SerialSettings.Controls.Add(this.checkBox3);
+            this.SerialSettings.Controls.Add(this.checkBox2);
+            this.SerialSettings.Controls.Add(this.checkBox1);
+            this.SerialSettings.Controls.Add(this.label37);
+            this.SerialSettings.Controls.Add(this.comboBox1);
+            this.SerialSettings.Location = new System.Drawing.Point(4, 22);
+            this.SerialSettings.Name = "SerialSettings";
+            this.SerialSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.SerialSettings.Size = new System.Drawing.Size(788, 408);
+            this.SerialSettings.TabIndex = 6;
+            this.SerialSettings.Text = "COM通信設定";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.ForeColor = System.Drawing.Color.Red;
+            this.label38.Location = new System.Drawing.Point(22, 185);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(291, 12);
+            this.label38.TabIndex = 7;
+            this.label38.Text = "[注意] この機能は現在Admin/Debugビルドのみ有効です！";
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Enabled = false;
+            this.checkBox5.Location = new System.Drawing.Point(32, 146);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(108, 16);
+            this.checkBox5.TabIndex = 6;
+            this.checkBox5.Text = "津波情報受信時";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Enabled = false;
+            this.checkBox4.Location = new System.Drawing.Point(32, 124);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(108, 16);
+            this.checkBox4.TabIndex = 5;
+            this.checkBox4.Text = "地震情報受信時";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Enabled = false;
+            this.checkBox3.Location = new System.Drawing.Point(58, 102);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(100, 16);
+            this.checkBox3.TabIndex = 4;
+            this.checkBox3.Text = "第〇報も含める";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(32, 80);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(132, 16);
+            this.checkBox2.TabIndex = 3;
+            this.checkBox2.Text = "緊急地震速報受信時";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Location = new System.Drawing.Point(6, 6);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(109, 16);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "COM通信有効化";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(6, 46);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(57, 12);
+            this.label37.TabIndex = 1;
+            this.label37.Text = "ポート番号";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+            this.comboBox1.Location = new System.Drawing.Point(69, 43);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(70, 20);
+            this.comboBox1.TabIndex = 0;
             // 
             // TwitterSettings
             // 
@@ -1758,7 +1892,7 @@
             this.TestTimer.Enabled = true;
             this.TestTimer.Interval = 30000;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1767,7 +1901,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Test_Label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "設定 - MisakiEQ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -1805,6 +1939,8 @@
             this.AreaSettings.ResumeLayout(false);
             this.ComputerSettings.ResumeLayout(false);
             this.ComputerSettings.PerformLayout();
+            this.SerialSettings.ResumeLayout(false);
+            this.SerialSettings.PerformLayout();
             this.TwitterSettings.ResumeLayout(false);
             this.TwitterSettings.PerformLayout();
             this.SettingsAbout.ResumeLayout(false);
@@ -1970,6 +2106,15 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox EEWDisplay_TimeLeft;
         private System.Windows.Forms.Timer TestTimer;
+        private System.Windows.Forms.TabPage SerialSettings;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

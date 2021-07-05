@@ -21,7 +21,7 @@ using System.Device.Location;
 namespace MisakiEQ
 {
     
-    public partial class Form1 : Form //このフォームは設定画面です。
+    public partial class MainForm : Form //このフォームは設定画面です。
     {
         
         public static int P2P_MaxRequest = 20;
@@ -145,7 +145,7 @@ namespace MisakiEQ
             sound.GetStream(Properties.Resources.SND_Tsunami_Alert, ref SEData.SE.Tsunami_Alert);
             sound.GetStream(Properties.Resources.SND_Tsunami_Update, ref SEData.SE.Tsunami_Update);
         }
-        public Form1()
+        public MainForm()
         {
             //throw null;
             InitWindow = new Init();

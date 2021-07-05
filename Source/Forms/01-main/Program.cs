@@ -10,7 +10,7 @@ namespace MisakiEQ
     static class Program
     {
         private static int ErrorCount = 0;
-        static Form1 MainForm;
+        static MainForm MainForm;
         static System.Threading.Mutex mutex;
         static bool hasHandle = false;
         /// <summary>
@@ -50,7 +50,7 @@ namespace MisakiEQ
             if (hasHandle == false)
             {
                 //得られなかった場合は、すでに起動していると判断して終了
-                MessageBox.Show("多重起動はできません。","MisakiEQ",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("MisakiEQは多重起動できません。\nもし表示されない場合はタスクトレイをチェックしてください。","MisakiEQ",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace MisakiEQ
                 }
             }
 
-            MainForm = new Form1();
+            MainForm = new MainForm();
             Application.Run(MainForm);
             if (hasHandle)
             {
