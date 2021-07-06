@@ -126,19 +126,38 @@ namespace MisakiEQ
         }
         public string KyoshinShindoToString(double value)
         {
-            if (value >= 7)return "7";
-            if (value >= 6.5)return "6+";
-            if (value >= 6)return "6-";
-            if (value >= 5.5) return "5+";
-            if (value >= 5) return "5-";
-            if (value >= 4) return "4";
-            if (value >= 3) return "3";
-            if (value >= 2) return "2";
-            if (value >= 1) return "1";
+            if (value >= 6.5)return "7";
+            if (value >= 6.0)return "6+";
+            if (value >= 5.5)return "6-";
+            if (value >= 5.0) return "5+";
+            if (value >= 4.5) return "5-";
+            if (value >= 3.5) return "4";
+            if (value >= 2.5) return "3";
+            if (value >= 1.5) return "2";
+            if (value >= 0.5) return "1";
             if (value >= 0.1) return "0";
             return "-";
 
         }
+        public string ShindoJpnToEasy(string value)
+        {
+            switch (value)
+            {
+                case "5弱":
+                    return "5-";
+                case "5強":
+                    return "5+";
+                case "6弱":
+                    return "6-";
+                case "6強":
+                    return "6+";
+                case "不明":
+                    return "-";
+                default:
+                    return value;
+            }
+        }
+
         public int ScaleValue(string name)
         {
             if (name == "1") return 1;

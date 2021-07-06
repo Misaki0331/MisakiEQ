@@ -15,8 +15,6 @@ using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Diagnostics;
 using MisakiEQ.Mini_Window;
 using MisakiEQ.Audio;
-using SharpDX.XAudio2;
-using SharpDX.Multimedia;
 using System.Device.Location;
 namespace MisakiEQ
 {
@@ -27,11 +25,8 @@ namespace MisakiEQ
         public static int P2P_MaxRequest = 20;
         private static int IntervalEQ = 5;
         private static int IntervalTsunami = 10;
-        private static long Tweet_LastID=0;
         //private static bool IsGettingID = false;
-        string TweetText = "";
         string EQJsonFile = "";
-        string TestString = "Test Label";
         private DateTime EQLastUpdated;
         private DateTime TsunamiLastUpdated;
         private string NotificationName;
@@ -101,7 +96,8 @@ namespace MisakiEQ
 
         Sound sound=new Sound();
         MisakiEQSound SEData = new MisakiEQSound();
-
+        Stopwatch UpdateTime=new Stopwatch();
+        long FailUpdate = 0;
         
         bool IsDisconnectedHost = true; //ホストが切断時、もしくは自分がホストの時にtrue
         bool IsDiconnectedTmp = true;
@@ -349,7 +345,7 @@ namespace MisakiEQ
             
             KyoshinImage.Image = KyoshinEx_Image;
             //customThumbnail = new TabbedThumbnail(this.Handle, this.Handle);
-            VersionName.Text = Properties.Resources.Version;
+            VersionName.Text = $"{ Properties.Resources.Version}\nRelease Date : {Properties.Resources.BuildDate}";
             Copyright_Label.Text = Properties.Resources.Misaki_License;
 
             InitWindow.SetInfo(98, "time.windows.comより現在時刻を取得中です...");
@@ -367,6 +363,7 @@ namespace MisakiEQ
                 InitWindow.SetInfo(100, "ようこそ " + Environment.UserName + " 様");
             }
             InitWindow.Done();
+            UpdateTime.Start();
         }
         private void P2P_Request_Changed()
         {
@@ -521,7 +518,6 @@ namespace MisakiEQ
         }
         private void GetEQHashs(bool getFromWeb)
         {
-            TestString = "";
             GetJsonFile NetFile;
             NetFile = new GetJsonFile();
             try
@@ -539,17 +535,25 @@ namespace MisakiEQ
                     ///EQJsonFile = await NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
                     InitWindow.SetInfo(67, "地震情報を解析中...");
                 }
-                List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
-
-                //TestString = "Time : " + JsonData[0].created_at;
-                DateTime created_at;
-                DataConverter converter2 = new DataConverter();
-                created_at = converter2.GetTime(JsonData[0].created_at);
-                if (!converter2.GetTimeError())
+                
+                    List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
+                if (JsonData != null)
                 {
-                    EQLastUpdated = created_at;
-                    LoadEQData(JsonData[0], false);
-                    isFailEQInit = false;
+                    //TestString = "Time : " + JsonData[0].created_at;
+                    DateTime created_at;
+                    DataConverter converter2 = new DataConverter();
+                
+                    created_at = converter2.GetTime(JsonData[0].created_at);
+                    if (!converter2.GetTimeError())
+                    {
+                        EQLastUpdated = created_at;
+                        LoadEQData(JsonData[0], false);
+                        isFailEQInit = false;
+                    }
+                }
+                else
+                {
+                    isFailEQInit = true;
                 }
             }
             catch
@@ -561,6 +565,7 @@ namespace MisakiEQ
                 if (getFromWeb || EEWJsonFile == "")
                 {
                     InitWindow.SetInfo(70, "緊急地震速報を取得中...");
+                    //NetFile.GetStartThreadJson("https://api.iedred7584.com/eew/Samples/Warn.json");
                     NetFile.GetStartThreadJson("https://api.iedred7584.com/eew/json/");
                     while (NetFile.GetThreadStillRunning())
                     {
@@ -571,33 +576,79 @@ namespace MisakiEQ
                     InitWindow.SetInfo(72, "緊急地震速報を解析中...");
                 }
                 DataConverter converter = new DataConverter();
+                
                 EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
-                EEWDisplayData.Serial = eew.Serial;
-                EEWDisplayData.IsFinal = eew.Type.Code == 9;
-                EEWDisplayData.HypoCenter = eew.Hypocenter.Name;
-                EEWDisplayData.AnnounceTime = converter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
-                EEWDisplayData.OriginTime = converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
-                EEWDisplayData.MaxScale = eew.MaxIntensity.To;
-                EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
-                EEWDisplayData.Index = "---\n";
-                EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
-                if (eew.Warn)
+                if (eew != null)
                 {
-                    EEWDisplayData.Type = "警報";
+                    EEWDisplayData.Serial = eew.Serial;
+                    EEWDisplayData.IsFinal = eew.Type.Code == 9;
+                    EEWDisplayData.HypoCenter = eew.Hypocenter.Name;
+                    EEWDisplayData.AnnounceTime = converter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                    EEWDisplayData.OriginTime = converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                    EEWDisplayData.MaxScale = eew.MaxIntensity.To;
+                    EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
+                    EEWDisplayData.Index = "---\n";
+                    EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
+                    string EEWIndex = "";
+                    if (eew.Warn)
+                    {
+                        for (int i = 0; i < eew.Forecast.Count; i++)
+                        {
+                            if (eew.Forecast[i].Warn)
+                            {
+                                EEWIndex += "[警報] ";
+                            }
+                            else
+                            {
+                                EEWIndex += "       ";
+                            }
+                            if (eew.Forecast[i].Arrival.Flag)
+                            {
+                                EEWIndex += "[到達済と予想]";
+                            }
+                            else
+                            {
+                                int hikaku1 = KyoshinLatest.Hour * 3600 + KyoshinLatest.Minute * 60 + KyoshinLatest.Second;
+                                DateTime ret;
+                                DateTime.TryParseExact(eew.Forecast[i].Arrival.Time, "H:mm:ss", null, DateTimeStyles.AssumeLocal, out ret);
+                                int hikaku2 = ret.Hour * 3600 + ret.Minute * 60 + ret.Second;
+                                int left = hikaku2 - hikaku1;
+                                if (left >= 43200) left -= 86400;
+                                if (left <= -43200) left += 86400;
+                                if (left < -99) left = -99;
+                                if (left > 999) left = 999;
+                                EEWIndex += "" + eew.Forecast[i].Arrival.Time.PadLeft(8) + "(" + left.ToString().PadLeft(3) + "s)";
+                            }
+
+                            EEWIndex += " 震度" + converter.ShindoJpnToEasy(eew.Forecast[i].Intensity.To).PadRight(2) + " ";
+                            EEWIndex += eew.Forecast[i].Intensity.Name;
+                            EEWIndex += "\n";
+                        }
+                        EEWDisplayData.Index = EEWIndex;
+                    }
+                    
+                    if (eew.Warn)
+                    {
+                        EEWDisplayData.Type = "警報";
+                    }
+                    else
+                    {
+                        EEWDisplayData.Type = "予報";
+                    }
+                    EEWDisplayData.Updated = true;
+                    EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
+                    if (EEWLatestUNIXTime != 0)
+                    {
+                        isFailEEWInit = false;
+                        EEW_SerialCountTemp = eew.Serial;
+                    }
+                    DataConverter converterr = new DataConverter();
+                    EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converterr.GetTime(eew.OriginTime.String));
                 }
                 else
                 {
-                    EEWDisplayData.Type = "予報";
+                    isFailEEWInit = true;
                 }
-                EEWDisplayData.Updated = true;
-                EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
-                if (EEWLatestUNIXTime != 0)
-                {
-                    isFailEEWInit = false;
-                    EEW_SerialCountTemp = eew.Serial;
-                }
-            DataConverter converterr = new DataConverter();
-            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converterr.GetTime(eew.OriginTime.String));
             }
             catch
             {
@@ -618,14 +669,21 @@ namespace MisakiEQ
                     InitWindow.SetInfo(77, "津波情報を解析中...");
                 }
                 List<TsunamiRoot> tsunami = JsonConvert.DeserializeObject<List<TsunamiRoot>>(TsunamiJsonFile);
-                DateTime created_at;
-                DataConverter converter2 = new DataConverter();
-                created_at = converter2.GetTime(tsunami[0].created_at);
-                if (!converter2.GetTimeError())
+                if (tsunami != null)
                 {
-                    TsunamiLastUpdated = created_at;
-                    LoadTsunamiData(tsunami[0],false);
-                    IsFailTsunamiInit = false;
+                    DateTime created_at;
+                    DataConverter converter2 = new DataConverter();
+                    created_at = converter2.GetTime(tsunami[0].created_at);
+                    if (!converter2.GetTimeError())
+                    {
+                        TsunamiLastUpdated = created_at;
+                        LoadTsunamiData(tsunami[0], false);
+                        IsFailTsunamiInit = false;
+                    }
+                }
+                else
+                {
+                    IsFailTsunamiInit = true;
                 }
 
             }
@@ -1251,11 +1309,11 @@ namespace MisakiEQ
                         {
                             if (eew.Forecast[i].Warn)
                             {
-                                EEWIndex += "[警報]";
+                                EEWIndex += "[警報] ";
                             }
                             else
                             {
-                                EEWIndex += "      ";
+                                EEWIndex += "       ";
                             }
                             if (eew.Forecast[i].Arrival.Flag)
                             {
@@ -1274,7 +1332,7 @@ namespace MisakiEQ
                                 if (left > 999) left = 999;
                                 EEWIndex += ""+eew.Forecast[i].Arrival.Time.PadLeft(8)+"("+left.ToString().PadLeft(3)+"s)";
                             }
-                            EEWIndex += " 震度" +　eew.Forecast[i].Intensity.To.PadLeft(2)+" ";
+                            EEWIndex += " 震度" + converter.ShindoJpnToEasy(eew.Forecast[i].Intensity.To).PadRight(2)+" ";
                             EEWIndex += eew.Forecast[i].Intensity.Name;
                             EEWIndex += "\n";
                         }
@@ -1568,15 +1626,7 @@ namespace MisakiEQ
                     TsunamiInitOKLabel.Text = "取得 : 失敗";
                 }
             }
-            if (!IsKyoshinInited)
-            {
-                KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
-                if (KyoshinLatest!=new DateTime(2000,1,1,0,0,0))
-                {
-                    IsKyoshinInited = true;
-                    Timer_KyoshinEx.Start();
-                }
-            }
+            
             RequestedCount.Text = "累計リクエスト数 : " + Count_Request.ToString();
             if (IsDisplayNotification)
             {
@@ -1747,49 +1797,69 @@ namespace MisakiEQ
                 }
             }
 #endif
-            if (isFailEEWInit)
+            if (UpdateTime.ElapsedMilliseconds / 1000 != FailUpdate)
             {
-                
-                try
+                FailUpdate = UpdateTime.ElapsedMilliseconds / 1000;
+                if (!IsKyoshinInited)
                 {
-                    Count_Request++;
-                    GetJsonFile NetFile;
-                    NetFile = new GetJsonFile();
-                    EQJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
-
-                    List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
-
-                    //TestString = "Time : " + JsonData[0].created_at;
-                    DateTime created_at;
-                    DataConverter converter = new DataConverter();
-                    created_at = converter.GetTime(JsonData[0].created_at);
-                    if (!converter.GetTimeError())
+                    try
                     {
-                        EQLastUpdated = created_at;
-                        isFailEQInit = false;
+                        KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
+                        if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+                        {
+                            IsKyoshinInited = true;
+                            Timer_KyoshinEx.Start();
+                        }
+                    }
+                    catch
+                    {
+
                     }
                 }
-                catch
+                if (isFailEEWInit)
                 {
-                    isFailEQInit = true;
-                }
 
-            }
-            if (isFailEQInit)
-            {
-                try
-                {
-                    Count_Request++;
-                    GetJsonFile NetFile;
-                    NetFile = new GetJsonFile();
-                    EEWJsonFile = NetFile.GetJson("https://api.iedred7584.com/eew/json/");
-                    EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
-                    EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
-                    if (EEWLatestUNIXTime != 0) isFailEEWInit = false;
+                    try
+                    {
+                        Count_Request++;
+                        GetJsonFile NetFile;
+                        NetFile = new GetJsonFile();
+                        EQJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
+
+                        List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
+
+                        //TestString = "Time : " + JsonData[0].created_at;
+                        DateTime created_at;
+                        DataConverter converter = new DataConverter();
+                        created_at = converter.GetTime(JsonData[0].created_at);
+                        if (!converter.GetTimeError())
+                        {
+                            EQLastUpdated = created_at;
+                            isFailEQInit = false;
+                        }
+                    }
+                    catch
+                    {
+                        isFailEQInit = true;
+                    }
+
                 }
-                catch
+                if (isFailEQInit)
                 {
-                    isFailEEWInit = true;
+                    try
+                    {
+                        Count_Request++;
+                        GetJsonFile NetFile;
+                        NetFile = new GetJsonFile();
+                        EEWJsonFile = NetFile.GetJson("https://api.iedred7584.com/eew/json/");
+                        EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
+                        EEWLatestUNIXTime = eew.AnnouncedTime.UnixTime;
+                        if (EEWLatestUNIXTime != 0) isFailEEWInit = false;
+                    }
+                    catch
+                    {
+                        isFailEEWInit = true;
+                    }
                 }
             }
             if (EEWInfomationWindow == null)

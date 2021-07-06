@@ -27,7 +27,7 @@ namespace MisakiEQ
         public Init()
         {
             InitializeComponent();
-            
+            this.Icon = Properties.Resources.mainico;
             this.StartPosition = FormStartPosition.CenterScreen;
             ControlBox = false;
             Thread t = new Thread(new ThreadStart(thread));

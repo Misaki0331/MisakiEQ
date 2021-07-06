@@ -1146,6 +1146,7 @@
             this.EEWDisplay_Type.Size = new System.Drawing.Size(114, 34);
             this.EEWDisplay_Type.TabIndex = 4;
             this.EEWDisplay_Type.Text = "発表なし";
+            this.EEWDisplay_Type.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // DisplayKyoshinEx
             // 

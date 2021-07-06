@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
 namespace MisakiEQ.Clock
 {
@@ -43,5 +45,18 @@ namespace MisakiEQ.Clock
             }
         }
         
+    }
+    class BuildDate
+    {
+        public DateTime GetBuildDate()
+        {
+
+
+            var dt = File.GetLastWriteTimeUtc(Assembly.GetExecutingAssembly().Location);
+            dt = dt + new TimeSpan(9, 0, 0);
+
+            return dt;
+
+        }
     }
 }
