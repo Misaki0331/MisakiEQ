@@ -198,6 +198,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\function\Audio.cs" />
+    <Compile Include="Source\function\Config.cs" />
     <Compile Include="Source\function\Crash.cs" />
     <Compile Include="Source\function\DataConverter.cs" />
     <Compile Include="Source\Forms\02-overlay\EarthQuakeInfoForm.cs">
@@ -262,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\01-main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\02-overlay\EarthQuakeInfoForm.resx">
+      <DependentUpon>EarthQuakeInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\03-taskbar\Desk.resx">
       <DependentUpon>Desk.cs</DependentUpon>

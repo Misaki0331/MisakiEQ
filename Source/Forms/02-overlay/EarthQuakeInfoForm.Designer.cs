@@ -417,7 +417,7 @@
             this.Controls.Add(this.InfomationText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EarthQuakeInfoForm";
-            this.Text = "EarthQuakeInfoForm";
+            this.Text = "緊急地震速報 - MisakiEQ　";
             this.Load += new System.EventHandler(this.EarthQuakeInfoForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

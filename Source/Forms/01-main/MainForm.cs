@@ -111,7 +111,9 @@ namespace MisakiEQ
         DateTime NowClock;//
         DateTime LatestClock;
         Stopwatch AddClock;
-
+        bool IsEnabledSerial;
+        long Tweet_LastID=0;
+        string TweetText="";
         DateTime ReachTime=new DateTime();
         struct _EEWDisplayData
         {
@@ -1193,6 +1195,7 @@ namespace MisakiEQ
             }
 #endif
         }
+        string SendText="";
         private void GetEQJson()
         {
             try
@@ -1428,6 +1431,51 @@ namespace MisakiEQ
                         EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
                         EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
                         EEWDisplayData.Updated = true;
+
+
+
+                        if (IsEnabledSerial)
+                        {
+                            /*  FFFFF 日付 2年1月2日         3-7
+                                FFFFF 時刻                  8-12
+                                FF 上位ビット1 最終報 他nn報  13-14
+                                FFF 震源地ID                15-17
+                                FF マグニチュード            18-19
+                                FFF 震源の深さ              20-22
+                                FFF 東経                   23-25
+                                FFF 北緯                   26-28
+                                F 最大震度                  29
+                                F 地域震度                  30
+                                FFFFFFFF カウントダウン(ミリ秒)31-38
+
+   * */
+                            SendText = "/Q ";
+                            DateTime origin = converter.GetTime(eew.OriginTime.String);
+                            SendText +=(origin.Year - 2000).ToString("X").PadLeft(2,'0');
+                            SendText+=(origin.Month).ToString("X");
+                            SendText+=(origin.Day).ToString("X").PadLeft(2, '0');
+                            SendText+=(origin.Hour*3600+origin.Minute*60+origin.Second).ToString("X").PadLeft(5, '0');
+                            int ser = eew.Serial;
+                            if (ser > 99) ser = 99;
+                            if (eew.Type.Code == 9) ser += 128;
+                            SendText += ser.ToString("X").PadLeft(2, '0');
+                            SendText += converter.HypoCenterIDtoCOMPointer(eew.Hypocenter.Code).ToString("X").PadLeft(3, '0');
+                            int m = (int)((double)eew.Hypocenter.Magnitude.Float * 10);
+                            SendText += m.ToString("X").PadLeft(2, '0');
+                            SendText += eew.Hypocenter.Location.Depth.Int.ToString("X").PadLeft(3, '0');
+                            int x = (int)((double)eew.Hypocenter.Location.Long * 10);
+                            int y = (int)((double)eew.Hypocenter.Location.Lat * 10);
+                            SendText += x.ToString("X").PadLeft(3, '0');
+                            SendText += y.ToString("X").PadLeft(3, '0');
+                            SendText += converter.ScaleValue(EEWDisplayData.MaxScale).ToString("X");
+                            SendText += converter.ScaleValue(EEWDisplayData.AreaScale).ToString("X");
+                            TimeSpan left = ReachTime - NowClock;
+                            int t = (int)left.TotalMilliseconds;
+                            if (t < 0) t = 0;
+                            SendText += t.ToString("X").PadLeft(8, '0');
+                            
+
+                        }
                     }
                     if (cancel)
                     {
@@ -1925,7 +1973,21 @@ namespace MisakiEQ
             }
             UpdateRTC();
             ClockBox.Text = NowClock.ToString("yyyy/MM/dd HH:mm:ss.fff");
-            
+            if (SendText != "")
+            {
+                try
+                {
+                    SerialPort1.Open();
+                    Thread.Sleep(10);
+                    SerialPort1.WriteLine(SendText);
+                    SerialPort1.Close();
+                }
+                catch (Exception ex)
+                {
+                    StatusMassage.Text = ex.Message;
+                }
+                SendText = "";
+            }
 
         }
 
@@ -2427,9 +2489,109 @@ namespace MisakiEQ
                 var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.Y, UserPos.X));
             Console.WriteLine($"{distance}m");
 
-                ReachTime = Time.AddMilliseconds(distance / 4);
+                ReachTime = Time.AddMilliseconds(distance / 4.5);
             Console.WriteLine($"{ReachTime}");
 
+        }
+
+        private void SerialSpeedBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (SerialSpeedBox.Text)
+            {
+                case "300 bps":
+                    SerialPort1.BaudRate = 300;
+                    break;
+                case "1,200 bps":
+                    SerialPort1.BaudRate = 1200;
+                    break;
+                case "2,400 bps":
+                    SerialPort1.BaudRate = 2400;
+                    break;
+                case "4,800 bps":
+                    SerialPort1.BaudRate = 4800;
+                    break;
+                case "9,600 bps":
+                    SerialPort1.BaudRate = 9600;
+                    break;
+                case "19,200 bps":
+                    SerialPort1.BaudRate = 19200;
+                    break;
+                case "38,400 bps":
+                    SerialPort1.BaudRate = 38400;
+                    break;
+                case "57,600 bps":
+                    SerialPort1.BaudRate = 57600;
+                    break;
+                case "74,880 bps":
+                    SerialPort1.BaudRate = 74880;
+                    break;
+                case "115,200 bps":
+                    SerialPort1.BaudRate = 115200;
+                    break;
+                case "230,400 bps":
+                    SerialPort1.BaudRate = 230400;
+                    break;
+                case "250,000 bps":
+                    SerialPort1.BaudRate = 250000;
+                    break;
+                case "500,000 bps":
+                    SerialPort1.BaudRate = 500000;
+                    break;
+                case "1,000,000 bps":
+                    SerialPort1.BaudRate = 1000000;
+                    break;
+                case "2,000,000 bps":
+                    SerialPort1.BaudRate = 2000000;
+                    break;
+                default:
+                    SerialPort1.BaudRate = 19200;
+                    break;
+            }
+        }
+
+        private void SerialPortBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SerialPort1.PortName = $"COM{SerialPortBox.Text}";
+        }
+
+        private void EnableSerial_CheckedChanged(object sender, EventArgs e)
+        {
+            if (EnableSerial.Checked)
+            {
+                try
+                {
+                    SerialPort1.Open();
+                    Thread.Sleep(10);
+                    SerialPort1.WriteLine(Properties.Resources.Version);
+                    Thread.Sleep(10);
+                    SerialPort1.WriteLine(NowClock.ToString("yyyy/MM/dd(ddd) HH:mm:ss:fff") + " |*aConnected|*f.");
+                    SerialPort1.Close();
+                }
+                catch (Exception error)
+                {
+                    StatusMassage.Text = error.Message;
+                    EnableSerial.Checked = false;
+                }
+                
+            }
+            SerialPortBox.Enabled = !EnableSerial.Checked;
+            SerialSpeedBox.Enabled = !EnableSerial.Checked;
+            IsEnabledSerial = EnableSerial.Checked;
+        }
+        bool SendSerialString(string str)
+        {
+            try
+            {
+                SerialPort1.Open();
+                SerialPort1.Write(str);
+                SerialPort1.Close();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                StatusMassage.Text = $"{exception.InnerException} : {exception.Message}";
+                return false;
+            }
         }
     }
 }

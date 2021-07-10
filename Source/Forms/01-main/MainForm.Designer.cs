@@ -141,14 +141,16 @@
             this.CSettingEventlogEEW = new System.Windows.Forms.CheckBox();
             this.CSettingEventlog = new System.Windows.Forms.CheckBox();
             this.SerialSettings = new System.Windows.Forms.TabPage();
+            this.label39 = new System.Windows.Forms.Label();
+            this.SerialSpeedBox = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.SerialCheckEveryEEW = new System.Windows.Forms.CheckBox();
+            this.SerialCheckGotEEW = new System.Windows.Forms.CheckBox();
+            this.EnableSerial = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.SerialPortBox = new System.Windows.Forms.ComboBox();
             this.TwitterSettings = new System.Windows.Forms.TabPage();
             this.label21 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -185,6 +187,7 @@
             this.OtherPCWatchingTimer = new System.Windows.Forms.Timer(this.components);
             this.RTCReset = new System.Windows.Forms.Timer(this.components);
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
+            this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -1415,20 +1418,57 @@
             // SerialSettings
             // 
             this.SerialSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.SerialSettings.Controls.Add(this.label39);
+            this.SerialSettings.Controls.Add(this.SerialSpeedBox);
             this.SerialSettings.Controls.Add(this.label38);
             this.SerialSettings.Controls.Add(this.checkBox5);
             this.SerialSettings.Controls.Add(this.checkBox4);
-            this.SerialSettings.Controls.Add(this.checkBox3);
-            this.SerialSettings.Controls.Add(this.checkBox2);
-            this.SerialSettings.Controls.Add(this.checkBox1);
+            this.SerialSettings.Controls.Add(this.SerialCheckEveryEEW);
+            this.SerialSettings.Controls.Add(this.SerialCheckGotEEW);
+            this.SerialSettings.Controls.Add(this.EnableSerial);
             this.SerialSettings.Controls.Add(this.label37);
-            this.SerialSettings.Controls.Add(this.comboBox1);
+            this.SerialSettings.Controls.Add(this.SerialPortBox);
             this.SerialSettings.Location = new System.Drawing.Point(4, 22);
             this.SerialSettings.Name = "SerialSettings";
             this.SerialSettings.Padding = new System.Windows.Forms.Padding(3);
             this.SerialSettings.Size = new System.Drawing.Size(788, 408);
             this.SerialSettings.TabIndex = 6;
             this.SerialSettings.Text = "COM通信設定";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(145, 46);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(53, 12);
+            this.label39.TabIndex = 9;
+            this.label39.Text = "通信速度";
+            // 
+            // SerialSpeedBox
+            // 
+            this.SerialSpeedBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SerialSpeedBox.FormattingEnabled = true;
+            this.SerialSpeedBox.Items.AddRange(new object[] {
+            "300 bps",
+            "1,200 bps",
+            "2,400 bps",
+            "4,800 bps",
+            "9,600 bps",
+            "19,200 bps",
+            "38,400 bps",
+            "57,600 bps",
+            "74,880 bps",
+            "115,200 bps",
+            "230,400 bps",
+            "250,000 bps",
+            "500,000 bps",
+            "1,000,000 bps",
+            "2,000,000 bps"});
+            this.SerialSpeedBox.Location = new System.Drawing.Point(204, 43);
+            this.SerialSpeedBox.Name = "SerialSpeedBox";
+            this.SerialSpeedBox.Size = new System.Drawing.Size(83, 20);
+            this.SerialSpeedBox.TabIndex = 8;
+            this.SerialSpeedBox.SelectedIndexChanged += new System.EventHandler(this.SerialSpeedBox_SelectedIndexChanged);
             // 
             // label38
             // 
@@ -1462,38 +1502,42 @@
             this.checkBox4.Text = "地震情報受信時";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // SerialCheckEveryEEW
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Enabled = false;
-            this.checkBox3.Location = new System.Drawing.Point(58, 102);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(100, 16);
-            this.checkBox3.TabIndex = 4;
-            this.checkBox3.Text = "第〇報も含める";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.SerialCheckEveryEEW.AutoSize = true;
+            this.SerialCheckEveryEEW.Checked = true;
+            this.SerialCheckEveryEEW.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SerialCheckEveryEEW.Enabled = false;
+            this.SerialCheckEveryEEW.Location = new System.Drawing.Point(58, 102);
+            this.SerialCheckEveryEEW.Name = "SerialCheckEveryEEW";
+            this.SerialCheckEveryEEW.Size = new System.Drawing.Size(100, 16);
+            this.SerialCheckEveryEEW.TabIndex = 4;
+            this.SerialCheckEveryEEW.Text = "第〇報も含める";
+            this.SerialCheckEveryEEW.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // SerialCheckGotEEW
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(32, 80);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(132, 16);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.Text = "緊急地震速報受信時";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.SerialCheckGotEEW.AutoSize = true;
+            this.SerialCheckGotEEW.Checked = true;
+            this.SerialCheckGotEEW.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SerialCheckGotEEW.Enabled = false;
+            this.SerialCheckGotEEW.Location = new System.Drawing.Point(32, 80);
+            this.SerialCheckGotEEW.Name = "SerialCheckGotEEW";
+            this.SerialCheckGotEEW.Size = new System.Drawing.Size(132, 16);
+            this.SerialCheckGotEEW.TabIndex = 3;
+            this.SerialCheckGotEEW.Text = "緊急地震速報受信時";
+            this.SerialCheckGotEEW.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // EnableSerial
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(6, 6);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(109, 16);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "COM通信有効化";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.EnableSerial.AutoSize = true;
+            this.EnableSerial.Location = new System.Drawing.Point(6, 6);
+            this.EnableSerial.Name = "EnableSerial";
+            this.EnableSerial.Size = new System.Drawing.Size(109, 16);
+            this.EnableSerial.TabIndex = 2;
+            this.EnableSerial.Text = "COM通信有効化";
+            this.EnableSerial.UseVisualStyleBackColor = true;
+            this.EnableSerial.CheckedChanged += new System.EventHandler(this.EnableSerial_CheckedChanged);
             // 
             // label37
             // 
@@ -1504,12 +1548,11 @@
             this.label37.TabIndex = 1;
             this.label37.Text = "ポート番号";
             // 
-            // comboBox1
+            // SerialPortBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.SerialPortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SerialPortBox.FormattingEnabled = true;
+            this.SerialPortBox.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
@@ -1530,10 +1573,11 @@
             "18",
             "19",
             "20"});
-            this.comboBox1.Location = new System.Drawing.Point(69, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(70, 20);
-            this.comboBox1.TabIndex = 0;
+            this.SerialPortBox.Location = new System.Drawing.Point(69, 43);
+            this.SerialPortBox.Name = "SerialPortBox";
+            this.SerialPortBox.Size = new System.Drawing.Size(70, 20);
+            this.SerialPortBox.TabIndex = 0;
+            this.SerialPortBox.SelectedIndexChanged += new System.EventHandler(this.SerialPortBox_SelectedIndexChanged);
             // 
             // TwitterSettings
             // 
@@ -2111,11 +2155,14 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox SerialCheckEveryEEW;
+        private System.Windows.Forms.CheckBox SerialCheckGotEEW;
+        private System.Windows.Forms.CheckBox EnableSerial;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox SerialPortBox;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.ComboBox SerialSpeedBox;
+        private System.IO.Ports.SerialPort SerialPort1;
     }
 }
 
