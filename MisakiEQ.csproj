@@ -194,6 +194,12 @@
     <Compile Include="Source\Forms\Mini Window\EEW.Designer.cs">
       <DependentUpon>EEW.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Forms\Mini Window\EEWDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\Mini Window\EEWDetail.Designer.cs">
+      <DependentUpon>EEWDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Forms\Mini Window\Kyoshin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\Mini Window\EEW.resx">
       <DependentUpon>EEW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\Mini Window\EEWDetail.resx">
+      <DependentUpon>EEWDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\Mini Window\Kyoshin.resx">
       <DependentUpon>Kyoshin.cs</DependentUpon>

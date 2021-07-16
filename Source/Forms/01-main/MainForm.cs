@@ -115,6 +115,9 @@ namespace MisakiEQ
         long Tweet_LastID=0;
         string TweetText="";
         DateTime ReachTime=new DateTime();
+        EEWDetails details=new EEWDetails();
+        EEWDetail eewdetail;
+        Stopwatch LatestEEW = new Stopwatch();
         struct _EEWDisplayData
         {
             public bool Updated;
@@ -152,6 +155,25 @@ namespace MisakiEQ
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             
             InitializeComponent();
+            eewdetail = new EEWDetail();
+            //eewdetail.Show();
+            //EEWDetails details = new EEWDetails();
+            eewdetail.reset();
+            /*DataConverter d = new DataConverter();
+            int cnt2 = 0;
+            while (eewdetail.Visible)
+            {
+                details.MaxIntensity = d.ValueScaleString(cnt2%11);
+                details.AreaIntensity = d.ValueScaleString(10-cnt2%11);
+                details.SignalType = "";
+                if(cnt2%4==0)details.SignalType = "警報";
+                if (cnt2 % 4 == 1) details.SignalType = "予報";
+                if (cnt2 % 4 == 2) details.SignalType = "キャンセル";
+                eewdetail.SetStatus(details);
+                cnt2++;
+                Application.DoEvents();
+                Thread.Sleep(500);
+            }*/
 #if !DEBUG
             TestButton.Visible = false;
             TestLabel.Visible = false;
@@ -351,11 +373,14 @@ namespace MisakiEQ
             Copyright_Label.Text = Properties.Resources.Misaki_License;
 
             InitWindow.SetInfo(98, "time.windows.comより現在時刻を取得中です...");
+            
             Clock.RealTimeClock clock = new Clock.RealTimeClock();
             AddClock = new Stopwatch();
+            
             LatestClock = clock.GetTime();
             AddClock.Start();
             UIUpdate.Start();
+            
             if (Environment.UserName == "Misaki")
             {
                 InitWindow.SetInfo(100, "おかえりなさい " + Environment.UserName + " 様");
@@ -1599,6 +1624,27 @@ namespace MisakiEQ
                 IsTsunamiRun = false;
             }
         }
+        bool EEWResetFlg = false;
+        void DetailDisplayStatusChange(bool Active)
+        {
+            if (Active)
+            {
+                if (eewdetail.Visible)
+                {
+                    eewdetail.Activate();
+                }
+                else
+                {
+                    eewdetail.Show();
+                    eewdetail.Location = new Point(0, 0);
+                    eewdetail.Activate();
+                }
+            }
+            else
+            {
+                eewdetail.Hide();
+            }
+        }
         private void Update_Tick(object sender, EventArgs e)
         {
 
@@ -1703,20 +1749,31 @@ namespace MisakiEQ
             }
             if (EEWDisplayData.Updated)
             {
+                LatestEEW.Restart();
+                EEWResetFlg = false;
                 EEWDisplayData.Updated = false;
                 EEWDisplay_Type.Text = EEWDisplayData.Type;
                 if (EEWDisplayData.Type == "予報")
                 {
+                    details.SignalType = "予報";
                     EEWDisplay_Type.BackColor = Color.Blue;
                     EEWDisplay_Type.ForeColor = Color.White;
+                    DetailDisplayStatusChange(true);
                 }
                 else if(EEWDisplayData.Type=="警報")
                 {
+                    details.SignalType = "警報";
                     EEWDisplay_Type.BackColor = Color.Red;
                     EEWDisplay_Type.ForeColor = Color.White;
+                    DetailDisplayStatusChange(true);
                 }
                 else
                 {
+                    
+                    if (EEWDisplayData.Type == "キャンセル")
+                    {
+                        details.SignalType = "キャンセル";
+                    }
                     EEWDisplay_Type.BackColor = SystemColors.Control;
                     EEWDisplay_Type.ForeColor = SystemColors.WindowText;
                 }
@@ -1725,9 +1782,26 @@ namespace MisakiEQ
                 EEWDisplay_Serial.Text = EEWDisplayData.Serial.ToString();
                 EEWDisplay_IsFinalSerial.Checked = EEWDisplayData.IsFinal;
                 EEWDisplay_Hypocenter.Text = EEWDisplayData.HypoCenter;
+                try
+                {
+                    details.SignalCount = EEWDisplayData.Serial;
+                    details.IsFinal = EEWDisplayData.IsFinal;
+                    details.Magnitude = $"M {EEWDisplayData.Magnitude}";
+                    details.Hypocenter = EEWDisplayData.HypoCenter;
+                    details.OriginTime = EEWDisplayData.OriginTime;
+                    details.Depth = EEWDisplayData.Depth;
+                    details.MaxIntensity = EEWDisplayData.MaxScale;
+                    details.AreaIntensity = EEWDisplayData.AreaScale;
+                }
+                catch
+                {
+
+                }
                 if (EEWDisplayData.MaxScale == "不明")
                 {
                     EEWDisplay_MaxScale.Text = "-";
+                    details.MaxIntensity = "-";
+                    details.AreaIntensity = "-";
                 }
                 else
                 {
@@ -1748,12 +1822,30 @@ namespace MisakiEQ
                 {
                     EEWDisplay_AreaShindoLabel.Text = "推定 : " + EEWDisplayData.AreaScaleDetail.ToString("F1");
                 }
+
+                eewdetail.SetStatus(details);
                 
+            }
+            TimeSpan left = ReachTime - NowClock;
+            if (LatestEEW.ElapsedMilliseconds>180000)
+            {
+                if (!EEWResetFlg)
+                {
+                    LatestEEW.Stop();
+                    LatestEEW.Reset();
+                    EEWResetFlg = true;
+                    eewdetail.reset();
+                    EEWDisplay_Type.BackColor = SystemColors.Control;
+                    EEWDisplay_Type.ForeColor = SystemColors.WindowText;
+                    EEWDisplay_Type.Text = "発表なし";
+                    eewdetail.Hide();
+                }
             }
             if (EEWDisplayData.AreaScaleDetail !=0)
             {
-                TimeSpan left = ReachTime - NowClock;
+                
                 double l = (double)left.TotalMilliseconds/1000f;
+                
                 if (l >= 0)
                 {
                     EEWDisplay_Reach.Text = "到達まで";
@@ -1790,7 +1882,7 @@ namespace MisakiEQ
             {
                 EEWKyoshinPopUp = false;
                 MiniKyoshinWindow.UpdateWindow(true);
-                MiniKyoshinWindow.Location(new Point(0, 0));
+                MiniKyoshinWindow.Location(new Point(0, 190));
                 MiniKyoshinWindow.Activate();
             }
 #if DEBUG || ADMIN
@@ -2263,8 +2355,8 @@ namespace MisakiEQ
         private void DisplayKyoshinEx_Click(object sender, EventArgs e)
         {
             
-            MiniKyoshinWindow.UpdateWindow(true);
-            MiniKyoshinWindow.Location(new Point(0, 0));
+            MiniKyoshinWindow.UpdateWindow(true); 
+            MiniKyoshinWindow.Location(new Point(0, 190));
             MiniKyoshinWindow.Activate();
         }
 
@@ -2591,6 +2683,18 @@ namespace MisakiEQ
             {
                 StatusMassage.Text = $"{exception.InnerException} : {exception.Message}";
                 return false;
+            }
+        }
+
+        private void DisplayEEWDetail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                eewdetail.Show();
+            }
+            catch
+            {
+
             }
         }
     }

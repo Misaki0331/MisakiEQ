@@ -188,6 +188,7 @@
             this.RTCReset = new System.Windows.Forms.Timer(this.components);
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
             this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.DisplayEEWDetail = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -1383,6 +1384,7 @@
             // 
             // ComputerSettings
             // 
+            this.ComputerSettings.Controls.Add(this.DisplayEEWDetail);
             this.ComputerSettings.Controls.Add(this.CSettingEventlogEEW);
             this.ComputerSettings.Controls.Add(this.CSettingEventlog);
             this.ComputerSettings.Location = new System.Drawing.Point(4, 22);
@@ -1937,6 +1939,16 @@
             this.TestTimer.Enabled = true;
             this.TestTimer.Interval = 30000;
             // 
+            // DisplayEEWDetail
+            // 
+            this.DisplayEEWDetail.Location = new System.Drawing.Point(6, 379);
+            this.DisplayEEWDetail.Name = "DisplayEEWDetail";
+            this.DisplayEEWDetail.Size = new System.Drawing.Size(87, 23);
+            this.DisplayEEWDetail.TabIndex = 1;
+            this.DisplayEEWDetail.Text = "EEW情報表示";
+            this.DisplayEEWDetail.UseVisualStyleBackColor = true;
+            this.DisplayEEWDetail.Click += new System.EventHandler(this.DisplayEEWDetail_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2163,6 +2175,7 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.ComboBox SerialSpeedBox;
         private System.IO.Ports.SerialPort SerialPort1;
+        private System.Windows.Forms.Button DisplayEEWDetail;
     }
 }
 
