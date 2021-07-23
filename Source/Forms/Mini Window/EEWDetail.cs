@@ -55,9 +55,10 @@ namespace MisakiEQ.Mini_Window
                     DepthLabel.Text = "深さ";
                     break;
                 case "キャンセル":
-                    SignalType.Text = "キャンセルされました";
+                    SignalType.Text = "この緊急地震速報はキャンセルされました。";
                     SignalType.BackColor = Color.Gray;
                     SignalCount.BackColor = Color.Gray;
+                    SignalType.Size = new Size(610, 40);
                     DepthLabel.Text = "深さ";
                     break;
                 default:
@@ -74,6 +75,7 @@ namespace MisakiEQ.Mini_Window
             Hypocenter.Text = details.Hypocenter;
             Magnitude.Text = details.Magnitude;
             OriginTime.Text = details.OriginTime;
+            if (details.AreaIntensity == "") details.AreaIntensity = "-";
             switch (details.MaxIntensity)
             {
                 case "0":
