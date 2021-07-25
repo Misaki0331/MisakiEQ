@@ -166,6 +166,21 @@
   <data name="main_big" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon\main_big.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="map_land" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ne_10m_land_scale_rank.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="map_landc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ne_10m_land_scale_rank.cpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="map_landd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ne_10m_land_scale_rank.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="map_landx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ne_10m_land_scale_rank.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="map_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ne_10m_coastline.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="MisakiEQTwitterLink" xml:space="preserve">
     <value>https://twitter.com/MisakiEQ</value>
     <comment>公式botです。</comment>

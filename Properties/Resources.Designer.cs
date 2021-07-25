@@ -105,7 +105,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/07/06 10:05:07.67 
+        ///   2021/07/25 18:47:38.77 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BuildDate {
@@ -221,6 +221,56 @@ namespace MisakiEQ.Properties {
             get {
                 object obj = ResourceManager.GetObject("mainico", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] map_land {
+            get {
+                object obj = ResourceManager.GetObject("map_land", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] map_landc {
+            get {
+                object obj = ResourceManager.GetObject("map_landc", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] map_landd {
+            get {
+                object obj = ResourceManager.GetObject("map_landd", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] map_landx {
+            get {
+                object obj = ResourceManager.GetObject("map_landx", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] map_line {
+            get {
+                object obj = ResourceManager.GetObject("map_line", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -343,7 +393,10 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/07/06 - 0.5.5 Updated
+        ///   2021/07/16 - 0.6.0 Updated
+        ///別ウィンドウで詳細情報を表示できるようになりました。
+        ///
+        ///2021/07/06 - 0.5.5 Updated
         ///震度値を修正しました。
         ///
         ///2021/07/03 - 0.5.4 Updated
@@ -367,9 +420,7 @@ namespace MisakiEQ.Properties {
         ///起動時に応答なしになる不具合を修正。
         ///
         ///2021/06/26 - 0.3.2 Updated
-        ///強震モニタが一定確率で出現しない不具合を修正(→できてませんでした)
-        ///
-        ///2021/06/26 - 0.3.1 Upda [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///強震モ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -378,7 +429,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.5.5 に類似しているローカライズされた文字列を検索します。
+        ///   MisakiEQ For Windows Version 0.6.0 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {
             get {

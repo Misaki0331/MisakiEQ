@@ -156,6 +156,17 @@ namespace MisakiEQ
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             
             InitializeComponent();
+
+            /*MapForm map = new MapForm();
+            map.Show();
+            while (map.Visible)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+            }
+
+            throw null;
+            */
             eewdetail = new EEWDetail();
             //eewdetail.Show();
             //EEWDetails details = new EEWDetails();
