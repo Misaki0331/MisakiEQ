@@ -1672,7 +1672,8 @@ namespace MisakiEQ
             if (KyoshinEx_Image != null)
             {
 
-                
+                if(KyoshinImage.Image!=null)KyoshinImage.Image.Dispose();
+                KyoshinImage.Image = null;
                 KyoshinImage.Image = KyoshinEx_Image;
                 MiniKyoshinWindow.UpdateKyoshin(ref KyoshinEx_Image);
                 //if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(customThumbnail))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(customThumbnail);
@@ -1687,8 +1688,9 @@ namespace MisakiEQ
                 preview.ClippingRectangle = new Rectangle(new Point(0, 0), new Size(200, 108));
                 preview.SetImage((Bitmap)KyoshinEx_Image);
                 */
-                //KyoshinEx_Image.Dispose();
-                KyoshinEx_Image = null;
+                //if(KyoshinEx_Image!=null)KyoshinEx_Image.Dispose();
+                KyoshinEx_Image = null;// new Bitmap(1,1);
+                
 
             }
             

@@ -146,6 +146,8 @@ namespace MisakiEQ.Mini_Window
             Temp = Data;
             if (window != null)
             {
+                window.pictureBox1.Image.Dispose();
+                window.pictureBox1.Image = null;
                 window.pictureBox1.Image = Data;
             }
         }
