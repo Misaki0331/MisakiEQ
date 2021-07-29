@@ -156,8 +156,8 @@ namespace MisakiEQ
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
             
             InitializeComponent();
-
-            /*MapForm map = new MapForm();
+            /*
+            MapForm map = new MapForm();
             map.Show();
             while (map.Visible)
             {

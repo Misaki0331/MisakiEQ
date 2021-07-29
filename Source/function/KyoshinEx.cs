@@ -27,9 +27,11 @@ namespace MisakiEQ
             Response_1000,              //1Hz応答
             Response_2000,              //2Hz応答
             Response_4000,              //4Hz応答
+            EEW_EST,
+            EEW_Circle,
             none
         };
-        public Image byteArrayToImage(byte[] bytesArr)//インターネットからダウンロードするときに必要
+        public static Image byteArrayToImage(byte[] bytesArr)//インターネットからダウンロードするときに必要
         {
             try
             {
@@ -45,7 +47,7 @@ namespace MisakiEQ
             }
         
         }
-        private string GetTypeToURL(KyoshinType type,bool IsBour)
+        private static string GetTypeToURL(KyoshinType type, bool IsBour)
         {
             string TypeName = "";
             switch (type)
@@ -80,13 +82,80 @@ namespace MisakiEQ
                 case KyoshinType.Response_4000:
                     TypeName = "rsp4000";
                     break;
+                case KyoshinType.EEW_EST:
+                    TypeName = "eew";
+                    break;
+                case KyoshinType.EEW_Circle:
+                    TypeName = "eew";
+                    break;
+                default:
+                    TypeName = "";
+                    break;
+
+            }
+
+            if (TypeName != "" && TypeName != "eew")
+            {
+                if (IsBour)
+                {
+                    TypeName += "_b";
+                }
+                else
+                {
+                    TypeName += "_s";
+                }
+
+            }
+            return TypeName;
+        }//これは表示種類と地中か地表かをURLにすぐに出してくれる関数
+        private static string GetTypeToLURL(KyoshinType type,bool IsBour)
+        {
+            string TypeName = "";
+            switch (type)
+            {
+                case KyoshinType.RealTime_Shindo:
+                    TypeName = "RealTimeImg/jma";
+                    break;
+                case KyoshinType.PGA:
+                    TypeName = "RealTimeImg/acmap";
+                    break;
+                case KyoshinType.PGV:
+                    TypeName = "RealTimeImg/vcmap";
+                    break;
+                case KyoshinType.PGD:
+                    TypeName = "RealTimeImg/dcmap";
+                    break;
+                case KyoshinType.Response_0125:
+                    TypeName = "RealTimeImg/rsp0125";
+                    break;
+                case KyoshinType.Response_0250:
+                    TypeName = "RealTimeImg/rsp0250";
+                    break;
+                case KyoshinType.Response_0500:
+                    TypeName = "RealTimeImg/rsp0500";
+                    break;
+                case KyoshinType.Response_1000:
+                    TypeName = "RealTimeImg/rsp1000";
+                    break;
+                case KyoshinType.Response_2000:
+                    TypeName = "RealTimeImg/rsp2000";
+                    break;
+                case KyoshinType.Response_4000:
+                    TypeName = "RealTimeImg/rsp4000";
+                    break;
+                case KyoshinType.EEW_EST:
+                    TypeName = "EstShindoImg/eew";
+                    break;
+                case KyoshinType.EEW_Circle:
+                    TypeName = "PSWaveImg/eew";
+                    break;
                 default:
                     TypeName = "";
                     break;
 
             }
             
-            if (TypeName != "")
+            if (TypeName != ""&&TypeName!= "EstShindoImg/eew"&&TypeName!= "PSWaveImg/eew")
             {
                 if (IsBour)
                 {
@@ -100,6 +169,17 @@ namespace MisakiEQ
             }
             return TypeName;
         }//これは表示種類と地中か地表かをURLにすぐに出してくれる関数
+        static bool IsEEW(KyoshinType type)
+        {
+            if (type == KyoshinType.EEW_EST || type == KyoshinType.EEW_Circle)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public Image CompImageEx(Image[] CompImages)//地図付きで強震モニタの画像を合成
         {
             Image BG = new Bitmap(352, 400);
@@ -116,6 +196,37 @@ namespace MisakiEQ
             return BG;
             
         }
+        async Task<Image> GetKyoshinImage(DateTime time, KyoshinType type)
+        {
+            try { 
+            GetJsonFile Network = new GetJsonFile();
+            string a = "";
+            if (IsEEW(type)) a = ".eew";
+            Image Result = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/" + GetTypeToLURL(type, false) + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + "."+ GetTypeToURL(type, false) + ".gif"));
+            return Result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"強震モニタのデータをダウンロードする際に例外エラー\n理由 : {e.Message}");
+            }
+            return null;
+}
+        async Task<Image> GetKyoshinImage(DateTime time,KyoshinType type,bool isbool)
+        {
+            try
+            {
+                GetJsonFile Network = new GetJsonFile();
+                string a = "";
+                if (IsEEW(type)) a = ".eew";
+                return byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/" + GetTypeToLURL(type, isbool) + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") +"." +GetTypeToURL(type, isbool) + ".gif"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"強震モニタのデータをダウンロードする際に例外エラー\n理由 : {e.Message}");
+            }
+            return null;
+        }
+
         public Image GetFastImage(DateTime time, KyoshinType type, bool IsBour,bool IsESTShindo,bool IsPSV,bool NoneBG=false)//直接データが欲しい場合 (時間,表示タイプ,地中フラグ,予測震度表示,予測円表示)
         {
             try
@@ -128,7 +239,18 @@ namespace MisakiEQ
                 Image BG = new Bitmap(352, 400);
                 Graphics graphics;
                 graphics = Graphics.FromImage(BG);
-            
+                Task<Image> ESTImg = null;
+                Task<Image> RealTimeImg =null;
+                Task<Image> CircleImg =null;
+
+
+
+                if(IsESTShindo)ESTImg = Task.Run<Image>(() => { return GetKyoshinImage(time, KyoshinType.EEW_EST); });
+                RealTimeImg = Task.Run<Image>(() => { return GetKyoshinImage(time, type,IsBour); });
+                if(IsPSV)CircleImg = Task.Run<Image>(() => { return GetKyoshinImage(time, KyoshinType.EEW_Circle); });
+                
+                
+                
                 if (!NoneBG)
                 {
                     graphics.DrawImage(Properties.Resources.Kyoshin_Basemap,new Point(0,0));
@@ -141,9 +263,14 @@ namespace MisakiEQ
                 Image KImage = null;
                 if (IsESTShindo)
                 {
-                    KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/EstShindoImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
-                   
-                        EEWShindo = (Image)KImage.Clone();
+                    ESTImg.Wait();
+                    KImage = ESTImg.Result;
+
+                    if (KImage != null) { EEWShindo = (Image)KImage.Clone(); } else
+                    {
+                        
+                        EEWShindo = null;
+                    }
                     
                     if (KImage != null)
                     {
@@ -154,7 +281,9 @@ namespace MisakiEQ
                 KImage = null;
                 if (TypeName != "")
                 {
-                    KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/RealTimeImg/" + TypeName + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + "." + TypeName + ".gif"));
+                    RealTimeImg.Wait();
+                    KImage = RealTimeImg.Result;
+                    //KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/RealTimeImg/" + TypeName + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + "." + TypeName + ".gif"));
                     
                     if (KImage != null)
                     {
@@ -165,8 +294,9 @@ namespace MisakiEQ
                 KImage = null;
                 if (IsPSV)
                 {
-
-                    KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/PSWaveImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
+                    CircleImg.Wait();
+                    KImage = CircleImg.Result;
+                    //KImage = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/PSWaveImg/eew/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + ".eew.gif"));
                     EEWCircle = KImage;
                     if (KImage != null)
                     {

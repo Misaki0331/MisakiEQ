@@ -352,6 +352,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\coastl_jpn.dbf" />
+    <None Include="Resources\coastl_jpn.shp" />
+    <None Include="Resources\coastl_jpn.shx" />
     <None Include="Resources\font\7barSPBd.TTF" />
     <None Include="Resources\img\basemap_new_black.png" />
     <None Include="Resources\img\help.png" />

@@ -55,9 +55,6 @@ namespace MisakiEQ.Map
             var writer = new BinaryWriter(new FileStream($"{fileName}.shp", FileMode.Create));
             writer.Write(Properties.Resources.map_land);
             writer.Close();
-            writer = new BinaryWriter(new FileStream($"{fileName}.cpg", FileMode.Create));
-            writer.Write(Properties.Resources.map_landc);
-            writer.Close();
             writer = new BinaryWriter(new FileStream($"{fileName}.dbf", FileMode.Create));
             writer.Write(Properties.Resources.map_landd);
             writer.Close();

@@ -1,1 +1,1 @@
-MisakiEQ For Windows Version 0.6.0
+MisakiEQ For Windows Version 0.6.2

@@ -105,7 +105,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/07/25 18:47:38.77 
+        ///   2021/07/26 15:43:23.84 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BuildDate {
@@ -166,6 +166,36 @@ namespace MisakiEQ.Properties {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] Jmap_dbf {
+            get {
+                object obj = ResourceManager.GetObject("Jmap.dbf", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] Jmap_shp {
+            get {
+                object obj = ResourceManager.GetObject("Jmap.shp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] Jmap_shx {
+            get {
+                object obj = ResourceManager.GetObject("Jmap.shx", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

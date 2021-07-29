@@ -101,6 +101,7 @@ namespace MisakiEQ
             }
             catch(WebException e)
             {
+                Console.WriteLine($"Web例外エラー:{e.Message}\nリクエストしたURL:{URL}");
                 Error = e.Message;
                 return null;
             }
