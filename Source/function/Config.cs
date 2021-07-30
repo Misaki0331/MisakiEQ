@@ -7,9 +7,42 @@ using System.Drawing;
 
 namespace MisakiEQ.Config
 {
+    class StringToValue
+    {
+        public static int ToInt(string str)
+        {
+            return int.Parse(str);
+        }
+        public static bool ToBool(string str)
+        {
+            switch (str)
+            {
+                case "true":
+                    return true;
+                case "false":
+                    return false;
+                case "True":
+                    return true;
+                case "False":
+                    return false;
+                case "TRUE":
+                    return true;
+                case "FALSE":
+                    return false;
+                default:
+                    throw new ArgumentException($"Bool値の取得に失敗しました。渡された値 : {str}");
+            }
+        }
+        public static double Todouble(string str)
+        {
+            return double.Parse(str);
+        }
+    }
     class Data
     {
         Variation _var;
+        
+
         void LoadString(string str)
         {
             string[] args;
@@ -21,8 +54,21 @@ namespace MisakiEQ.Config
                     switch (args[0])
                     {
                         case "UserPos.X":
-                            _var.UserPos.X = int.Parse(args[1]);
+                            _var.UserPos.X = StringToValue.ToInt(args[1]);
                             break;
+                        case "UserPos.Y":
+                            _var.UserPos.Y = StringToValue.ToInt(args[1]);
+                            break;
+                        case "SerialEnabled":
+                            _var.EnableSerial = StringToValue.ToBool(args[1]);
+                            break;
+                        case "SerialSpeed":
+                            _var.SerialSpeed = StringToValue.ToInt(args[1]);
+                            break;
+                        case "SerialPort":
+                            _var.SerialPort = StringToValue.ToInt(args[1]);
+                            break;
+                            
                     }
                 }catch (Exception what)
                 {
@@ -40,6 +86,6 @@ namespace MisakiEQ.Config
         public Point UserPos;
         public bool EnableSerial;
         public int SerialPort;
-        public string SerialSpeed;
+        public int SerialSpeed;
     }
 }

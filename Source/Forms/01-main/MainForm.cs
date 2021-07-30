@@ -118,7 +118,6 @@ namespace MisakiEQ
         EEWDetails details=new EEWDetails();
         EEWDetail eewdetail;
         Stopwatch LatestEEW = new Stopwatch();
-        DataConverter converter = new DataConverter();
         struct _EEWDisplayData
         {
             public bool Updated;
@@ -581,10 +580,9 @@ namespace MisakiEQ
                 {
                     //TestString = "Time : " + JsonData[0].created_at;
                     DateTime created_at;
-                    DataConverter converter2 = new DataConverter();
                 
-                    created_at = converter2.GetTime(JsonData[0].created_at);
-                    if (!converter2.GetTimeError())
+                    created_at = DataConverter.GetTime(JsonData[0].created_at);
+                    if (!DataConverter.IsTimeFail(created_at))
                     {
                         EQLastUpdated = created_at;
                         LoadEQData(JsonData[0], false);
@@ -628,14 +626,14 @@ namespace MisakiEQ
                         EEWDisplayData.MaxScale = eew.MaxIntensity.To;
                         EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
                         
-                        EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
+                        EEWDisplayData.Depth = DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int);
                     }
                     
                     
                     EEWDisplayData.Serial = eew.Serial;
                     EEWDisplayData.IsFinal = eew.Type.Code == 9;
-                    EEWDisplayData.AnnounceTime = converter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
-                    EEWDisplayData.OriginTime = converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                    EEWDisplayData.AnnounceTime = DataConverter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                    EEWDisplayData.OriginTime = DataConverter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
                     EEWDisplayData.Index = "---\n";
                     EEWDisplayData.AreaScale = "-";
                     string EEWIndex = "";
@@ -669,7 +667,7 @@ namespace MisakiEQ
                                 EEWIndex += "" + eew.Forecast[i].Arrival.Time.PadLeft(8) + "(" + left.ToString().PadLeft(3) + "s)";
                             }
 
-                            EEWIndex += " 震度" + converter.ShindoJpnToEasy(eew.Forecast[i].Intensity.To).PadRight(2) + " ";
+                            EEWIndex += " 震度" + DataConverter.ShindoJpnToEasy(eew.Forecast[i].Intensity.To).PadRight(2) + " ";
                             EEWIndex += eew.Forecast[i].Intensity.Name;
                             EEWIndex += "\n";
                         }
@@ -699,8 +697,7 @@ namespace MisakiEQ
                         isFailEEWInit = false;
                         EEW_SerialCountTemp = eew.Serial;
                     }
-                    DataConverter converterr = new DataConverter();
-                    if(eew.Status.Code!="10")EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converterr.GetTime(eew.OriginTime.String));
+                    if(eew.Status.Code!="10")EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, DataConverter.GetTime(eew.OriginTime.String));
                 }
                 else
                 {
@@ -729,9 +726,8 @@ namespace MisakiEQ
                 if (tsunami != null)
                 {
                     DateTime created_at;
-                    DataConverter converter2 = new DataConverter();
-                    created_at = converter2.GetTime(tsunami[0].created_at);
-                    if (!converter2.GetTimeError())
+                    created_at = DataConverter.GetTime(tsunami[0].created_at);
+                    if (!DataConverter.IsTimeFail(created_at))
                     {
                         TsunamiLastUpdated = created_at;
                         LoadTsunamiData(tsunami[0], false);
@@ -760,7 +756,7 @@ namespace MisakiEQ
             string[] AreaData = new string[20];
             int StringCount = 0;
             String ShindoText = "";
-            switch ( converter.GetEQInfomationType(data.issue.type))
+            switch ( DataConverter.GetEQInfomationType(data.issue.type))
             {
                 case 1://震度速報
                     
@@ -772,14 +768,14 @@ namespace MisakiEQ
                         bool IsNew = false;
                         for (int c = 0; c < data.points.Count; c++)
                         {
-                            if (converter.ScaleToValue(data.points[c].scale) == shindo)
+                            if (DataConverter.ScaleToValue(data.points[c].scale) == shindo)
                             {
-                                if (Area[converter.AreaToValue(data.points[c].pref)] == false)
+                                if (Area[DataConverter.AreaToValue(data.points[c].pref)] == false)
                                 {
-                                    Area[converter.AreaToValue(data.points[c].pref)] = true;
+                                    Area[DataConverter.AreaToValue(data.points[c].pref)] = true;
                                     if (!IsNew)
                                     {
-                                        AreaData[StringCount] = "震度" + converter.EasyScaleToString(shindo) + "：" + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                        AreaData[StringCount] = "震度" + DataConverter.EasyScaleToString(shindo) + "：" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         tc++;
                                         IsNew = true;
                                     }
@@ -789,17 +785,17 @@ namespace MisakiEQ
                                         StringCount++;
                                         if (shindo >= 5 && shindo < 9)
                                         {
-                                            AreaData[StringCount] = "　　　　　" + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                            AreaData[StringCount] = "　　　　　" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         }
                                         else
                                         {
-                                            AreaData[StringCount] = "　　　　" + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                            AreaData[StringCount] = "　　　　" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         }
                                         tc++;
                                     }
                                     else
                                     {
-                                        AreaData[StringCount] += " " + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                        AreaData[StringCount] += " " + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         tc++;
                                     }
                                 }
@@ -816,15 +812,15 @@ namespace MisakiEQ
                         ShindoText += AreaData[i] + "\n";
                     }
                     //if (AreaData[0] == null) ;
-                    time = converter.GetTime(data.earthquake.time);
-                    if (converter.GetTimeError()) return;
-                    EQ_IndexText = "震度速報\n"+time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + converter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
-                        "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami)) + "\n観測した地域は以下の通りです。\n\n" + ShindoText;
+                    time = DataConverter.GetTime(data.earthquake.time);
+                    if (DataConverter.IsTimeFail(time)) return;
+                    EQ_IndexText = "震度速報\n"+time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + DataConverter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
+                        "この地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami)) + "\n観測した地域は以下の通りです。\n\n" + ShindoText;
                     sound.Play(ref SEData.SE.Earthquake_Mid);
                     if (tweet)
                     {
-                        TweetData[0] = "震度速報\n" + time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + converter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
-                        "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                        TweetData[0] = "震度速報\n" + time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + DataConverter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
+                        "この地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami));
                         if (AreaData[0] !=null)
                         {
                             TweetData[0] += "\n観測した地域は以下の通りです。\n\n";
@@ -857,7 +853,7 @@ namespace MisakiEQ
 
                         NotificationName = "震度速報(" + time.ToString("yyyy/MM/dd H:mm") + ")";
                         NotificationIndex =  AreaData[0] + 
-                            "\n" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                            "\n" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami));
                         DisplayingNotificationTime = 2147483647;
                         NotificationIcon = 2;
                         IsDisplayNotification = true;
@@ -878,13 +874,13 @@ namespace MisakiEQ
                         bool IsNew = false;
                         for(int c = 0; c < data.points.Count; c++)
                         {
-                            if (converter.ScaleToValue(data.points[c].scale) == shindo)
+                            if (DataConverter.ScaleToValue(data.points[c].scale) == shindo)
                             {
-                                if (Area[converter.AreaToValue(data.points[c].pref)] == false)
+                                if (Area[DataConverter.AreaToValue(data.points[c].pref)] == false)
                                 {
-                                    Area[converter.AreaToValue(data.points[c].pref)] = true;
+                                    Area[DataConverter.AreaToValue(data.points[c].pref)] = true;
                                     if (!IsNew) {
-                                        AreaData[StringCount] = "震度" + converter.EasyScaleToString(shindo) + "：" + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                        AreaData[StringCount] = "震度" + DataConverter.EasyScaleToString(shindo) + "：" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         tc++;
                                         IsNew = true;
                                     }
@@ -894,17 +890,17 @@ namespace MisakiEQ
                                         StringCount++;
                                         if (shindo >= 5 && shindo < 9)
                                         {
-                                            AreaData[StringCount] = "　　　　　" + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                            AreaData[StringCount] = "　　　　　" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         }
                                         else
                                         {
-                                            AreaData[StringCount] = "　　　　" + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                            AreaData[StringCount] = "　　　　" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         }
                                         tc++;
                                     }
                                     else
                                     {
-                                        AreaData[StringCount] += " " + converter.ValueToAreaShort(converter.AreaToValue(data.points[c].pref));
+                                        AreaData[StringCount] += " " + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
                                         tc++;
                                     }
                                 }
@@ -921,26 +917,26 @@ namespace MisakiEQ
                         ShindoText += AreaData[i]+"\n";
                     }
                     //if (AreaData[0] == null) ;
-                    time = converter.GetTime(data.earthquake.time);
-                    if (converter.GetTimeError()) return;
+                    time = DataConverter.GetTime(data.earthquake.time);
+                    if (DataConverter.IsTimeFail(time)) return;
                     EQ_IndexText = time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n\n" + data.earthquake.hypocenter.name + "で地震が発生しました。\n" +
                         "地震の規模：M" + data.earthquake.hypocenter.magnitude.ToString("F1") + "\n" +
-                        "震源の深さ：" + converter.DeepString(data.earthquake.hypocenter.depth) + "\n" +
-                        "最大震度：" + converter.ScaleString(data.earthquake.maxScale) + "\n" +
-                        "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami))+"\n\n"+ShindoText;
+                        "震源の深さ：" + DataConverter.DeepString(data.earthquake.hypocenter.depth) + "\n" +
+                        "最大震度：" + DataConverter.ScaleString(data.earthquake.maxScale) + "\n" +
+                        "この地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami))+"\n\n"+ShindoText;
                     JMAEQData_Shingen.Text = data.earthquake.hypocenter.name;
                     JMAEQData_Time.Text = time.ToString("yyyy/MM/dd H:mm頃");
-                    JMAEQData_km.Text = converter.DeepString(data.earthquake.hypocenter.depth);
-                    JMAEQData_Tsunami.Text = converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                    JMAEQData_km.Text = DataConverter.DeepString(data.earthquake.hypocenter.depth);
+                    JMAEQData_Tsunami.Text = DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami));
                     JMAEQData_M.Text = data.earthquake.hypocenter.magnitude.ToString("F1");
-                    JMAEQData_Max.Text = converter.ASCIIScaleString(data.earthquake.maxScale);
+                    JMAEQData_Max.Text = DataConverter.ASCIIScaleString(data.earthquake.maxScale);
                     string[] result = ShindoText.Split(new char[] { '\n' });
                     
                         sound.Play(ref SEData.SE.Earthquake_Small);
                     
                     
                     JMAEQData_ShindoInfo.Lines = result;
-                    //if ((data.earthquake.hypocenter.magnitude >= 0.0||converter.ScaleToValue(data.earthquake.maxScale)>=1)||IsTweetedEEW)
+                    //if ((data.earthquake.hypocenter.magnitude >= 0.0||DataConverter.ScaleToValue(data.earthquake.maxScale)>=1)||IsTweetedEEW)
                     if (true)
                     {
                         
@@ -949,9 +945,9 @@ namespace MisakiEQ
 
                             TweetData[0] = time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n\n" + data.earthquake.hypocenter.name + "で地震が発生しました。\n" +
                             "地震の規模：M " + data.earthquake.hypocenter.magnitude.ToString("F1") + "\n" +
-                            "震源の深さ：" + converter.DeepString(data.earthquake.hypocenter.depth) + "\n" +
-                            "最大震度：" + converter.ScaleString(data.earthquake.maxScale) + "\n" +
-                            "この地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami)) + "\n";
+                            "震源の深さ：" + DataConverter.DeepString(data.earthquake.hypocenter.depth) + "\n" +
+                            "最大震度：" + DataConverter.ScaleString(data.earthquake.maxScale) + "\n" +
+                            "この地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami)) + "\n";
                             if (AreaData[0] == null)
                             {
                                 TweetData[0] += "震度情報はありません。\n#MisakiEQ #地震";
@@ -989,8 +985,8 @@ namespace MisakiEQ
                     {
                         NotificationName = "地震情報(" + time.ToString("yyyy/MM/dd H:mm") + ")";
                         NotificationIndex = data.earthquake.hypocenter.name + " M " + data.earthquake.hypocenter.magnitude.ToString("F1") +
-                            " " + converter.DeepString(data.earthquake.hypocenter.depth) + " 最大:" + converter.ScaleString(data.earthquake.maxScale) +
-                            "\nこの地震による" + converter.EQTsunamiTextJP(converter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                            " " + DataConverter.DeepString(data.earthquake.hypocenter.depth) + " 最大:" + DataConverter.ScaleString(data.earthquake.maxScale) +
+                            "\nこの地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami));
                         DisplayingNotificationTime = 2147483647;
                         NotificationIcon = 1;
                         IsDisplayNotification = true;
@@ -1008,9 +1004,9 @@ namespace MisakiEQ
             string[] vs=new string[30];
             int maxType = 0;
             DateTime time;
-            time = converter.GetTime(tsunami.time);
+            time = DataConverter.GetTime(tsunami.time);
             vs[0] = "🟡🟡⚠津波情報";
-            if (converter.GetTimeError())
+            if (DataConverter.IsTimeFail(time))
             {
                 vs[1] = "時刻取得エラー\n";
             }
@@ -1040,14 +1036,14 @@ namespace MisakiEQ
                 {
                     for(int i = 0; i < tsunami.areas.Count; i++)
                     {
-                        if (type == converter.TsunamiTypeStringToValue(tsunami.areas[i].grade)&&tsunami.areas[i].immediate){
+                        if (type == DataConverter.TsunamiTypeStringToValue(tsunami.areas[i].grade)&&tsunami.areas[i].immediate){
                             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
                             int num = sjisEnc.GetByteCount(tsunami.areas[i].name) + 1;
                             if (maxType < type) maxType = type;
                             if (!IsFirst)
                             {
                                 IsFirst = true;
-                                vs[line] = converter.TsunamiTypeStringJP(type, true);
+                                vs[line] = DataConverter.TsunamiTypeStringJP(type, true);
                                 line++;
                                 vs[line] += tsunami.areas[i].name;
                                 len += num - 1;
@@ -1084,7 +1080,7 @@ namespace MisakiEQ
                     len = 0;
                     for (int i = 0; i < tsunami.areas.Count; i++)
                     {
-                        if (type == converter.TsunamiTypeStringToValue(tsunami.areas[i].grade) && !(tsunami.areas[i].immediate))
+                        if (type == DataConverter.TsunamiTypeStringToValue(tsunami.areas[i].grade) && !(tsunami.areas[i].immediate))
                         {
                             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
                             int num = sjisEnc.GetByteCount(tsunami.areas[i].name) + 1;
@@ -1092,7 +1088,7 @@ namespace MisakiEQ
                             if (!IsFirst)
                             {
                                 IsFirst = true;
-                                vs[line] = converter.TsunamiTypeStringJP(type, false);
+                                vs[line] = DataConverter.TsunamiTypeStringJP(type, false);
                                 line++;
                                 vs[line] += tsunami.areas[i].name;
                                 len += num-1;
@@ -1162,10 +1158,10 @@ namespace MisakiEQ
                 else
                 {
                     bool isFirst = false;
-                    NotificationIndex = "以下の地域で"+converter.TsunamiTypeStringJP(maxType, false)+"発令中\n";
+                    NotificationIndex = "以下の地域で"+DataConverter.TsunamiTypeStringJP(maxType, false)+"発令中\n";
                     for(int i=0; i < tsunami.areas.Count; i++)
                     {
-                        if(maxType == converter.TsunamiTypeStringToValue(tsunami.areas[i].grade))
+                        if(maxType == DataConverter.TsunamiTypeStringToValue(tsunami.areas[i].grade))
                         {
                             if (!isFirst)
                             {
@@ -1272,9 +1268,9 @@ namespace MisakiEQ
 
                 for (int i = JsonData.Count-1; i >= 0; i--)
                 {
-                    created_at = converter.GetTime(JsonData[i].created_at);
+                    created_at = DataConverter.GetTime(JsonData[i].created_at);
 
-                    if (!converter.GetTimeError())
+                    if (!DataConverter.IsTimeFail(created_at))
                     {
                         if (created_at > EQLastUpdated)
                         {
@@ -1387,7 +1383,7 @@ namespace MisakiEQ
                                 if (left > 999) left = 999;
                                 EEWIndex += ""+eew.Forecast[i].Arrival.Time.PadLeft(8)+"("+left.ToString().PadLeft(3)+"s)";
                             }
-                            EEWIndex += " 震度" + converter.ShindoJpnToEasy(eew.Forecast[i].Intensity.To).PadRight(2)+" ";
+                            EEWIndex += " 震度" + DataConverter.ShindoJpnToEasy(eew.Forecast[i].Intensity.To).PadRight(2)+" ";
                             EEWIndex += eew.Forecast[i].Intensity.Name;
                             EEWIndex += "\n";
                         }
@@ -1395,12 +1391,12 @@ namespace MisakiEQ
                         EEWDisplayData.Index = EEWText_Index;
                         EEWText_Description = eew.Hypocenter.Name + "で地震 強い揺れに警戒";
                         EEWText_Graph ="規模 : M"+ eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
-                            "深さ : " + converter.DeepString(eew.Hypocenter.Location.Depth.Int)+ "\n" +
+                            "深さ : " + DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int)+ "\n" +
                             "最大震度:" + eew.MaxIntensity.String + "\n"+
-                            converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd\nH:mm:ss発生") + "\n\n"+
+                            DataConverter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd\nH:mm:ss発生") + "\n\n"+
                             "第"+ eew.Serial.ToString() + "報";
                         if (eew.Type.Code == 9) EEWText_Graph += "(最終)";
-                        EEWText_Graph += "\n\n"+ converter.GetTime(eew.AnnouncedTime.String).ToString("H:mm:ss発表");
+                        EEWText_Graph += "\n\n"+ DataConverter.GetTime(eew.AnnouncedTime.String).ToString("H:mm:ss発表");
 
                         EEWDisplayData.Type = "警報";
                     }
@@ -1446,17 +1442,17 @@ namespace MisakiEQ
                     {
                         try
                         {
-                            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, converter.GetTime(eew.OriginTime.String));
+                            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, DataConverter.GetTime(eew.OriginTime.String));
                         }
                         catch
                         {
 
                         }
                             if (eew.Hypocenter.isSea && eew.Hypocenter.Magnitude.Float >= 6 && eew.Hypocenter.Location.Depth.Int<80) EEW_IndexText += "🔴⚠津波発生の恐れがあります。\n";
-                        EEW_IndexText += eew.Hypocenter.Name + " 深さ:" + converter.DeepString(eew.Hypocenter.Location.Depth.Int) +
+                        EEW_IndexText += eew.Hypocenter.Name + " 深さ:" + DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int) +
                             " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n"+
                             "最大震度:"+eew.MaxIntensity.String+"\n"
-                            +"発生時刻:"+ converter.GetTime(eew.OriginTime.String).ToString("M/dd H:mm:ss") + "\n";
+                            +"発生時刻:"+ DataConverter.GetTime(eew.OriginTime.String).ToString("M/dd H:mm:ss") + "\n";
                        
                         
                         if (eew.Warn)
@@ -1471,7 +1467,7 @@ namespace MisakiEQ
 
                         }
                         EEW_IndexText += "\n";
-                        EEW_IndexText += converter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
+                        EEW_IndexText += DataConverter.GetTime(eew.AnnouncedTime.String).ToString("M/dd H:mm:ss発表") + "\n";
                         if (SettingKyoshinExDisplayEEW.Checked)
                         {
                             EEWKyoshinPopUp=true;
@@ -1481,11 +1477,11 @@ namespace MisakiEQ
                         EEWDisplayData.Serial = eew.Serial;
                         EEWDisplayData.IsFinal = eew.Type.Code == 9;
                         EEWDisplayData.HypoCenter = eew.Hypocenter.Name;
-                        EEWDisplayData.AnnounceTime = converter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
-                        EEWDisplayData.OriginTime = converter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                        EEWDisplayData.AnnounceTime = DataConverter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
+                        EEWDisplayData.OriginTime = DataConverter.GetTime(eew.OriginTime.String).ToString("yyyy/MM/dd HH:mm:ss");
                         EEWDisplayData.MaxScale = eew.MaxIntensity.To;
                         EEWDisplayData.Magnitude = eew.Hypocenter.Magnitude.Float.ToString("F1");
-                        EEWDisplayData.Depth = converter.DeepString(eew.Hypocenter.Location.Depth.Int);
+                        EEWDisplayData.Depth = DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int);
                         EEWDisplayData.Updated = true;
 
 
@@ -1506,7 +1502,7 @@ namespace MisakiEQ
 
    * */
                             SendText = "/Q ";
-                            DateTime origin = converter.GetTime(eew.OriginTime.String);
+                            DateTime origin = DataConverter.GetTime(eew.OriginTime.String);
                             SendText +=(origin.Year - 2000).ToString("X").PadLeft(2,'0');
                             SendText+=(origin.Month).ToString("X");
                             SendText+=(origin.Day).ToString("X").PadLeft(2, '0');
@@ -1515,7 +1511,7 @@ namespace MisakiEQ
                             if (ser > 99) ser = 99;
                             if (eew.Type.Code == 9) ser += 128;
                             SendText += ser.ToString("X").PadLeft(2, '0');
-                            SendText += converter.HypoCenterIDtoCOMPointer(eew.Hypocenter.Code).ToString("X").PadLeft(3, '0');
+                            SendText += DataConverter.HypoCenterIDtoCOMPointer(eew.Hypocenter.Code).ToString("X").PadLeft(3, '0');
                             int m = (int)((double)eew.Hypocenter.Magnitude.Float * 10);
                             SendText += m.ToString("X").PadLeft(2, '0');
                             SendText += eew.Hypocenter.Location.Depth.Int.ToString("X").PadLeft(3, '0');
@@ -1523,8 +1519,8 @@ namespace MisakiEQ
                             int y = (int)((double)eew.Hypocenter.Location.Lat * 10);
                             SendText += x.ToString("X").PadLeft(3, '0');
                             SendText += y.ToString("X").PadLeft(3, '0');
-                            SendText += converter.ScaleValue(EEWDisplayData.MaxScale).ToString("X");
-                            SendText += converter.ScaleValue(EEWDisplayData.AreaScale).ToString("X");
+                            SendText += DataConverter.ScaleValue(EEWDisplayData.MaxScale).ToString("X");
+                            SendText += DataConverter.ScaleValue(EEWDisplayData.AreaScale).ToString("X");
                             TimeSpan left = ReachTime - NowClock;
                             int t = (int)left.TotalMilliseconds;
                             if (t < 0) t = 0;
@@ -1540,7 +1536,7 @@ namespace MisakiEQ
 #if DEBUG || ADMIN
                     
 
-//if(eew.Hypocenter.Magnitude.Float >= 4 ||converter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
+//if(eew.Hypocenter.Magnitude.Float >= 4 ||DataConverter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
                     
 
                         IsTweetedEEW = true;
@@ -1580,7 +1576,7 @@ namespace MisakiEQ
                     if (eew.Type.Code == 9) NotificationName += "(最終報)";
                     if (!cancel)
                     {
-                        NotificationIndex = eew.Hypocenter.Name + " 深さ:" + converter.DeepString(eew.Hypocenter.Location.Depth.Int) +
+                        NotificationIndex = eew.Hypocenter.Name + " 深さ:" + DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int) +
                                 " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
                                 "最大震度:" + eew.MaxIntensity.String;
                         DisplayingNotificationTime = 2147483647;
@@ -1621,9 +1617,9 @@ namespace MisakiEQ
                 DateTime t;
                 for (int i = tsunami.Count - 1; i >= 0; i--)
                 {
-                    t = converter.GetTime(tsunami[i].created_at);
+                    t = DataConverter.GetTime(tsunami[i].created_at);
 
-                    if (!converter.GetTimeError())
+                    if (!DataConverter.IsTimeFail(t))
                     {
                         if (t > TsunamiLastUpdated)
                         {
@@ -1851,7 +1847,7 @@ namespace MisakiEQ
             }
             TimeSpan left = ReachTime - NowClock;
             
-            TimeSpan Outdated = NowClock - converter.GetTime(EEWDisplayData.OriginTime);
+            TimeSpan Outdated = NowClock - DataConverter.GetTime(EEWDisplayData.OriginTime);
             if (LatestEEW.ElapsedMilliseconds>180000||left.TotalSeconds>1200)
             {
                 if (!EEWResetFlg)
@@ -1995,8 +1991,8 @@ namespace MisakiEQ
 
                         //TestString = "Time : " + JsonData[0].created_at;
                         DateTime created_at;
-                        created_at = converter.GetTime(JsonData[0].created_at);
-                        if (!converter.GetTimeError())
+                        created_at = DataConverter.GetTime(JsonData[0].created_at);
+                        if (!DataConverter.IsTimeFail(created_at))
                         {
                             EQLastUpdated = created_at;
                             isFailEQInit = false;
@@ -2324,8 +2320,8 @@ namespace MisakiEQ
             {
                 EEWDisplayData.AreaScaleDetail = detail;
                 EEWDisplayData.Updated = true;
-                DataConverter d = new DataConverter();
-                EEWDisplayData.AreaScale=d.KyoshinShindoToString(detail);
+                
+                EEWDisplayData.AreaScale=DataConverter.KyoshinShindoToString(detail);
             }
             if(KyoshinEx_Image==null) Console.WriteLine("Error!画像を入手できませんでした 理由:"+KyoshinMonitor.GetLastError());
             IsKyoshinWorking = false;
@@ -2599,7 +2595,7 @@ namespace MisakiEQ
         private void EEW_LeftTimeCalculation(double lat,double lon,DateTime Time)
         {
             
-                System.Windows.Point UserPos = converter.KyoshinMapToLAL(UserLocation);
+                System.Windows.Point UserPos = DataConverter.KyoshinMapToLAL(UserLocation);
             Console.WriteLine($"UserPos.X={UserPos.X} UserPos.Y={UserPos.Y}");
                 var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.Y, UserPos.X));
             Console.WriteLine($"{distance}m");

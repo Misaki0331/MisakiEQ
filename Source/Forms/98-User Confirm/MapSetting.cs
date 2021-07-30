@@ -57,7 +57,7 @@ namespace MisakiEQ.Setting
             ZoomDraw(check);
             // Pos.X = 127.21225 + Map.X * 0.05075;//-0.7
             // Pos.Y = 46.12000 - Map.Y * 0.04;
-            System.Windows.Point LAL = converter.KyoshinMapToLAL(check);
+            System.Windows.Point LAL = DataConverter.KyoshinMapToLAL(check);
             label1.Text = $"{LAL.X}E\n{LAL.Y}N";
             //canvas.Dispose();
         }

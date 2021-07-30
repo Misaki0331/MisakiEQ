@@ -31,7 +31,7 @@ namespace MisakiEQ
             Warning=6,
             
         }
-        public int GetEQInfomationType(string name)
+        public static int GetEQInfomationType(string name)
         {
             if (name == "ScalePrompt") return 1;
             if (name == "Destination") return 2;
@@ -43,7 +43,7 @@ namespace MisakiEQ
         }
         //None(なし), Unknown(不明), Checking(調査中), NonEffective(若干の海面変動が予想されるが、被害の心配なし), 
         //Watch(津波注意報), Warning(津波予報(種類不明))
-        public int GetDomesticTsunami(string name)
+        public static int GetDomesticTsunami(string name)
         {
             if (name =="None")return 1 ;
             if (name =="Unknown")return 2 ;
@@ -53,7 +53,7 @@ namespace MisakiEQ
             if (name =="Warning") return 6 ;
             return 0;
         }
-        public string EQTsunamiTextJP(int type)
+        public static string EQTsunamiTextJP(int type)
         {
             switch (type)
             {
@@ -73,28 +73,33 @@ namespace MisakiEQ
                     return "津波情報を取得できませんでした。";
             }
         }
-        public DateTime GetTime(string name)
+        public static DateTime GetTime(string name)
         {
-            GetTimeErrorException = false;
             DateTime ret = new DateTime(2000, 1, 1, 0, 0, 0, 0);
             String format = "yyyy/MM/dd HH:mm:ss.fff";
             if (DateTime.TryParseExact(name, format, null, DateTimeStyles.AssumeLocal, out ret))return ret;
             format = "yyyy/MM/dd HH:mm:ss";
             if (DateTime.TryParseExact(name, format, null, DateTimeStyles.AssumeLocal, out ret))return ret;
-            GetTimeErrorException = true;
             return ret;//エラーの場合0年1月1日 0:00:00.000が返される。
         }
-        public bool GetTimeError()
+        public static bool IsTimeFail(DateTime dt)
         {
-            return GetTimeErrorException;
+            if (dt == new DateTime(0, 1, 1, 0, 0, 0, 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public string DeepString(int value)
+        public static string DeepString(int value)
         {
             if (value == -1) return "不明";
             if (value == 0) return "ごく浅い";
             return value.ToString() + " km";
         }
-        public string ScaleString(int value)
+        public static string ScaleString(int value)
         {
             switch (value)
             {
@@ -124,7 +129,7 @@ namespace MisakiEQ
                     return "不明";
             }
         }
-        public string KyoshinShindoToString(double value)
+        public static string KyoshinShindoToString(double value)
         {
             if (value >= 6.5)return "7";
             if (value >= 6.0)return "6+";
@@ -139,7 +144,7 @@ namespace MisakiEQ
             return "-";
 
         }
-        public string ShindoJpnToEasy(string value)
+        public static string ShindoJpnToEasy(string value)
         {
             switch (value)
             {
@@ -158,7 +163,7 @@ namespace MisakiEQ
             }
         }
 
-        public int ScaleValue(string name)
+        public static int ScaleValue(string name)
         {
             if (name == "1") return 1;
             if (name == "2") return 2;
@@ -172,7 +177,7 @@ namespace MisakiEQ
             return 0;
 
         }
-        public string EasyScaleToString(int value)
+        public static string EasyScaleToString(int value)
         {
             switch (value)
             {
@@ -200,7 +205,7 @@ namespace MisakiEQ
                     return "不明";
             }
         }
-        public string ValueScaleString(int value)
+        public static string ValueScaleString(int value)
         {
             switch (value)
             {
@@ -228,7 +233,7 @@ namespace MisakiEQ
                     return "-";
             }
         }
-        public string ASCIIScaleString(int value)
+        public static string ASCIIScaleString(int value)
         {
             switch (value)
             {
@@ -258,7 +263,7 @@ namespace MisakiEQ
                     return "-";
             }
         }
-        public int ScaleToValue(int value)
+        public static int ScaleToValue(int value)
         {
             switch (value)
             {
@@ -286,7 +291,7 @@ namespace MisakiEQ
                     return -1;
             }
         }
-        public int AreaToValue(string name)
+        public static int AreaToValue(string name)
         {
             if(name=="北海道")return 1;
             if(name=="青森県")return 2;
@@ -337,7 +342,7 @@ namespace MisakiEQ
             if (name == "沖縄県")return 47;
             return 0;
         }
-        public string ValueToAreaShort(int value)
+        public static string ValueToAreaShort(int value)
         {
             if (value == 1) return "北海道";
             if (value == 2) return "青森";
@@ -388,7 +393,7 @@ namespace MisakiEQ
             if (value == 47) return "沖縄";
             return "不明";
         }
-        public string TsunamiTypeValueToString(int a)
+        public static string TsunamiTypeValueToString(int a)
         {
             switch (a)
             {
@@ -405,7 +410,7 @@ namespace MisakiEQ
 
             }
         }
-        public int TsunamiTypeStringToValue(string a)
+        public static int TsunamiTypeStringToValue(string a)
         {
             if (a == "Unknown") return 0;
             if (a == "Watch") return 1;
@@ -413,7 +418,7 @@ namespace MisakiEQ
             if (a == "MajorWarning") return 3;
             return -1;
         }
-        public string TsunamiTypeStringJP(int type,bool immediate)
+        public static string TsunamiTypeStringJP(int type,bool immediate)
         {
             if (immediate)
             {
@@ -446,7 +451,7 @@ namespace MisakiEQ
             return "不明";
         }
 
-        public System.Windows.Point KyoshinMapToLAL(System.Drawing.Point Map)
+        public static System.Windows.Point KyoshinMapToLAL(System.Drawing.Point Map)
         {
             //if (Map.X < 0 || Map.Y < 0 || Map.X >= 352 || Map.Y >= 400) 
               //  throw new IndexOutOfRangeException("地図は(0,0)から(351,399)の範囲で指定しなければなりません。");
@@ -470,7 +475,7 @@ namespace MisakiEQ
             
 
         }
-        public int HypoCenterIDtoCOMPointer(int origin)
+        public static int HypoCenterIDtoCOMPointer(int origin)
         {
             switch (origin)
             {

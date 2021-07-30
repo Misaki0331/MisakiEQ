@@ -7,6 +7,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using System.IO;
 using System.Globalization;
+
 namespace MisakiEQ
 {
     class KyoshinEx
