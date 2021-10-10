@@ -9,7 +9,7 @@ namespace MisakiEQ.DiscordRPC
     class Main
     {
         private static DiscordRpcClient client;
-        private string clientID = "843881865634250752";
+        private string clientID = Properties.Resources.DiscordClientID;
         public void Init()
         {
             try

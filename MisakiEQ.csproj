@@ -428,6 +428,7 @@
   <ItemGroup>
     <Content Include="main.ico" />
     <None Include="Resources\json\KyoshinColor.json" />
+    <Content Include="Resources\Private\API\Discord\ClientID.txt" />
     <Content Include="Resources\Text\BuildDate.txt" />
     <Content Include="Resources\Text\MisakiEQ_License_JP.txt" />
     <None Include="Resources\img\bassmap_shadow.PNG" />

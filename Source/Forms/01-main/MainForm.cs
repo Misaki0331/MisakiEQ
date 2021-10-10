@@ -1521,7 +1521,7 @@ namespace MisakiEQ
                             "最大震度:" + eew.MaxIntensity.String + "\n"
                             + "発生時刻:" + DataConverter.GetTime(eew.OriginTime.String).ToString("M/dd H:mm:ss") + "\n";
 
-                        string discordImage = $"eew_{eew.Warn}_{eew.MaxIntensity.To}".Replace('+', '_');
+                        string discordImage = $"eew_{eew.Warn}_{eew.MaxIntensity.To}".Replace('+', '_').Replace("不明","-");
                         discordState = $"震源地 : {eew.Hypocenter.Name}";
                         string discordImageText = $"M{eew.Hypocenter.Magnitude.Float.ToString("F1")} 深さ:{DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int)}";
                         try
@@ -1548,7 +1548,7 @@ namespace MisakiEQ
                         if (SettingKyoshinExDisplayEEW.Checked)
                         {
                             EEWKyoshinPopUp = true;
-
+                            
                         }
 
                         EEWDisplayData.Serial = eew.Serial;

@@ -105,12 +105,21 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/10/06  3:10:42.30 
+        ///   2021/10/10 18:22:48.25 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BuildDate {
             get {
                 return ResourceManager.GetString("BuildDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DiscordClientID {
+            get {
+                return ResourceManager.GetString("DiscordClientID", resourceCulture);
             }
         }
         
@@ -432,7 +441,20 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/07/29 - 0.6.2 Updated
+        ///   2021/10/10 - 0.7.0 Updated
+        ///Discord Rich Presenceと接続できるようになりました。
+        ///緊急地震速報の情報がDiscordのステータスに表示されます。
+        ///
+        ///2021/10/07 - 0.6.5 Updated
+        ///緊急地震速報の取得中は取得速度を上げるようにしました。
+        ///
+        ///2021/10/06 - 0.6.4 Updated
+        ///緊急地震速報(警報)にて「主要動の到達予想なし(PLUM法による予想)」の場合強制終了する不具合を修正
+        ///
+        ///2021/10/03 - 0.6.3 Updated
+        ///緊急地震速報受信時データ取得の頻度を上げるよう調整
+        ///
+        ///2021/07/29 - 0.6.2 Updated
         ///強震モニタの表示パフォーマンスを改善
         ///エラー発生時にレポートを出力するようにしました。
         ///
@@ -443,25 +465,7 @@ namespace MisakiEQ.Properties {
         ///2021/07/16 - 0.6.0 Updated
         ///別ウィンドウで詳細情報を表示できるようになりました。
         ///
-        ///2021/07/06 - 0.5.5 Updated
-        ///震度値を修正しました。
-        ///
-        ///2021/07/03 - 0.5.4 Updated
-        ///地域設定のマップ機能の挙動を修正
-        ///
-        ///2021/06/30 - 0.5.3 Updated
-        ///強震モニタが出現しない不具合を完璧に修正
-        ///
-        ///2021/06/30 - 0.5.2 Updated
-        ///多重起動を阻止する機能を追加しました。
-        ///
-        ///2021/06/30 - 0.5.1 Updated
-        ///緊急地震速報が表示されない不具合を直しました。
-        ///
-        ///2021/06/30 - 0.5.0 Updated
-        ///緊急地震速報発令時にエリアまでの到達時間を表示されるようになりました。
-        ///
-        ///20 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///2021/07/06 - 0.5.5 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -470,7 +474,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.6.2 に類似しているローカライズされた文字列を検索します。
+        ///   MisakiEQ For Windows Version 0.7.0 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {
             get {
