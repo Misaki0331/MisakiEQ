@@ -143,6 +143,7 @@ namespace MisakiEQ.Mini_Window
         }
         public void UpdateKyoshin(ref Image Data)
         {
+            if (Data == null) return;
             Temp = Data;
             if (window != null)
             {
@@ -153,6 +154,7 @@ namespace MisakiEQ.Mini_Window
         }
         public void UpdateWindow(bool status)
         {
+            //if (window.pictureBox1.Image == null) return;
             if (status)
             {
                 Show();

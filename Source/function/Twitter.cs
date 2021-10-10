@@ -9,7 +9,7 @@ using System.IO;
 using CoreTweet;
 using static CoreTweet.OAuth;
 
-namespace MisakiEQ
+namespace MisakiEQ.TwiClient
 {
     public class Twitter
     {
@@ -22,7 +22,6 @@ namespace MisakiEQ
         private string aToken;
         private string aSec;
         private static Tokens tokens;
-        string userName;
         long LatestTweetID=0;
         public Twitter()
 

@@ -138,9 +138,12 @@
             this.AreaSettings = new System.Windows.Forms.TabPage();
             this.Setting_AreaSetup = new System.Windows.Forms.Button();
             this.ComputerSettings = new System.Windows.Forms.TabPage();
+            this.DisplayEEWDetail = new System.Windows.Forms.Button();
             this.CSettingEventlogEEW = new System.Windows.Forms.CheckBox();
             this.CSettingEventlog = new System.Windows.Forms.CheckBox();
             this.SerialSettings = new System.Windows.Forms.TabPage();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.label39 = new System.Windows.Forms.Label();
             this.SerialSpeedBox = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
@@ -188,7 +191,6 @@
             this.RTCReset = new System.Windows.Forms.Timer(this.components);
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
             this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.DisplayEEWDetail = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -522,7 +524,6 @@
             // 
             // Timer_EEW
             // 
-            this.Timer_EEW.Interval = 1000;
             this.Timer_EEW.Tick += new System.EventHandler(this.Timer_EEW_Tick);
             // 
             // Test_Label
@@ -1395,6 +1396,16 @@
             this.ComputerSettings.Text = "コンピューターの設定";
             this.ComputerSettings.UseVisualStyleBackColor = true;
             // 
+            // DisplayEEWDetail
+            // 
+            this.DisplayEEWDetail.Location = new System.Drawing.Point(6, 379);
+            this.DisplayEEWDetail.Name = "DisplayEEWDetail";
+            this.DisplayEEWDetail.Size = new System.Drawing.Size(87, 23);
+            this.DisplayEEWDetail.TabIndex = 1;
+            this.DisplayEEWDetail.Text = "EEW情報表示";
+            this.DisplayEEWDetail.UseVisualStyleBackColor = true;
+            this.DisplayEEWDetail.Click += new System.EventHandler(this.DisplayEEWDetail_Click);
+            // 
             // CSettingEventlogEEW
             // 
             this.CSettingEventlogEEW.AutoSize = true;
@@ -1420,6 +1431,8 @@
             // SerialSettings
             // 
             this.SerialSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.SerialSettings.Controls.Add(this.button7);
+            this.SerialSettings.Controls.Add(this.button6);
             this.SerialSettings.Controls.Add(this.label39);
             this.SerialSettings.Controls.Add(this.SerialSpeedBox);
             this.SerialSettings.Controls.Add(this.label38);
@@ -1436,6 +1449,26 @@
             this.SerialSettings.Size = new System.Drawing.Size(788, 408);
             this.SerialSettings.TabIndex = 6;
             this.SerialSettings.Text = "COM通信設定";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(397, 75);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 11;
+            this.button7.Text = "リセット";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(397, 46);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 10;
+            this.button6.Text = "テスト";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label39
             // 
@@ -1939,16 +1972,6 @@
             this.TestTimer.Enabled = true;
             this.TestTimer.Interval = 30000;
             // 
-            // DisplayEEWDetail
-            // 
-            this.DisplayEEWDetail.Location = new System.Drawing.Point(6, 379);
-            this.DisplayEEWDetail.Name = "DisplayEEWDetail";
-            this.DisplayEEWDetail.Size = new System.Drawing.Size(87, 23);
-            this.DisplayEEWDetail.TabIndex = 1;
-            this.DisplayEEWDetail.Text = "EEW情報表示";
-            this.DisplayEEWDetail.UseVisualStyleBackColor = true;
-            this.DisplayEEWDetail.Click += new System.EventHandler(this.DisplayEEWDetail_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2176,6 +2199,8 @@
         private System.Windows.Forms.ComboBox SerialSpeedBox;
         private System.IO.Ports.SerialPort SerialPort1;
         private System.Windows.Forms.Button DisplayEEWDetail;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
 

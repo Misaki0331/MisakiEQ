@@ -10,7 +10,6 @@ namespace MisakiEQ
 {
     class DataConverter
     {
-        private bool GetTimeErrorException=false;
         public enum EQType{
             ScalePrompt = 1,
             Destination = 2,
@@ -76,7 +75,7 @@ namespace MisakiEQ
         public static DateTime GetTime(string name)
         {
             DateTime ret = new DateTime(2000, 1, 1, 0, 0, 0, 0);
-            String format = "yyyy/MM/dd HH:mm:ss.fff";
+            string format = "yyyy/MM/dd HH:mm:ss.fff";
             if (DateTime.TryParseExact(name, format, null, DateTimeStyles.AssumeLocal, out ret))return ret;
             format = "yyyy/MM/dd HH:mm:ss";
             if (DateTime.TryParseExact(name, format, null, DateTimeStyles.AssumeLocal, out ret))return ret;
@@ -84,7 +83,7 @@ namespace MisakiEQ
         }
         public static bool IsTimeFail(DateTime dt)
         {
-            if (dt == new DateTime(0, 1, 1, 0, 0, 0, 0))
+            if (dt == new DateTime(2000, 1, 1, 0, 0, 0, 0))
             {
                 return true;
             }

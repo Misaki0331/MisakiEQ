@@ -108,6 +108,9 @@
     <Reference Include="CSDeskBand.Win, Version=2.0.0.0, Culture=neutral, PublicKeyToken=66d19cfc65a1cc19, processorArchitecture=MSIL">
       <HintPath>..\packages\CSDeskBand.Win.2.1.0\lib\net461\CSDeskBand.Win.dll</HintPath>
     </Reference>
+    <Reference Include="DiscordRPC, Version=1.0.175.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiscordRichPresence.1.0.175\lib\net35\DiscordRPC.dll</HintPath>
+    </Reference>
     <Reference Include="GeoAPI, Version=1.7.5.0, Culture=neutral, PublicKeyToken=a1a0da7def465678, processorArchitecture=MSIL">
       <HintPath>..\packages\GeoAPI.Core.1.7.5\lib\net45\GeoAPI.dll</HintPath>
     </Reference>
@@ -272,6 +275,7 @@
     <Compile Include="Source\Forms\02-overlay\Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\function\Discord_rpc.cs" />
     <Compile Include="Source\function\KyoshinEx.cs" />
     <Compile Include="Source\Forms\99-others\TwitterAuth.cs">
       <SubType>Form</SubType>

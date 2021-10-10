@@ -11,7 +11,9 @@ namespace MisakiEQ
     {
         private static int ErrorCount = 0;
         static MainForm MainForm;
+#if !DEBUG
         static System.Threading.Mutex mutex;
+#endif
         static bool hasHandle = false;
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
@@ -68,16 +70,19 @@ namespace MisakiEQ
 
             MainForm = new MainForm();
             Application.Run(MainForm);
+#if !DEBUG
             if (hasHandle)
             {
                 //ミューテックスを解放する
                 mutex.ReleaseMutex();
             }
+#endif
 
         }
         public static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            ShowErrorMessage(e.Exception, "スレッドによる例外エラー");
+            ShowErrorMessage(e.Exception, "スレッドによる例外エラー")
+                ;
         }
 
         // 未処理例外をキャッチするイベント・ハンドラ
@@ -102,6 +107,7 @@ namespace MisakiEQ
             } 
             string ErrorString = "";
             ErrorString += extraMessage + " \n";
+            ErrorString += "【例外エラー名】\n" + ex.GetType().ToString() + "\n\n";
             ErrorString += "【例外が発生したメゾット】\n" + ex.TargetSite + "\n\n";
             ErrorString += "【例外が発生したソース】\n" + ex.Source + "\n\n";
             ErrorString += "【エラー内容】\n" + ex.Message + "\n\n";
@@ -110,11 +116,13 @@ namespace MisakiEQ
               ex.TargetSite+"")
                ;
             //Application.Run(err);
+#if !DEBUG
             if (hasHandle)
             {
                 //ミューテックスを解放する
                 mutex.ReleaseMutex();
             }
+#endif
             err.Show();
             
         }

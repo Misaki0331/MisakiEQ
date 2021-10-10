@@ -100,7 +100,7 @@ namespace MisakiEQ
              }
         private void CrashReport()
         {
-            string save = $"ErrorLog\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss-fff")}.txt";
+            string save = $"ErrorLog\\{DateTime.Now.ToString("yyyyMMdd-HHmmssfff")}.txt";
             var dir = Path.GetDirectoryName(save);
             if (!Directory.Exists(dir))
             {

@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.IO;
 using System.Threading;
-namespace MisakiEQ
+namespace MisakiEQ.Net
 {
     class GetJsonFile
     {

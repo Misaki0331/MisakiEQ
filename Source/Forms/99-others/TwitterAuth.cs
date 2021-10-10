@@ -14,7 +14,7 @@ namespace MisakiEQ
     public partial class TwitterAuthWindow : Form
     {
 #if DEBUG || ADMIN
-        Twitter twi = new Twitter();
+        TwiClient.Twitter twi = new TwiClient.Twitter();
 #endif
         public string LastError="";
         public bool isLastUpdated = false;

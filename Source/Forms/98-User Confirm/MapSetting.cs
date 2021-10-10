@@ -205,17 +205,14 @@ namespace MisakiEQ.Setting
         {
             
         }
-        bool IsPressMouceButton = false;
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            IsPressMouceButton = true;
             timer1.Start();
             
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            IsPressMouceButton = false;
             PosUpdate();
             timer1.Stop();
         }

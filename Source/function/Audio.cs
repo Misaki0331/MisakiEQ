@@ -35,9 +35,15 @@ namespace MisakiEQ.Audio
         }
         public void Play(ref SoundBuffer voice)
         {
-            voice.Reader.CurrentTime = TimeSpan.FromSeconds(0);
-            voice.Wave.Init(voice.Reader);
-            voice.Wave.Play();
+            try
+            {
+                voice.Reader.CurrentTime = TimeSpan.FromSeconds(0);
+                voice.Wave.Init(voice.Reader);
+                voice.Wave.Play();
+            }catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
         public void Stop(ref SoundBuffer voice)
         {

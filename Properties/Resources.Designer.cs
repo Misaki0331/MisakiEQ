@@ -105,7 +105,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/07/26 15:43:23.84 
+        ///   2021/10/06  3:10:42.30 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BuildDate {
@@ -396,6 +396,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
+        ///   {&quot;ParseStatus&quot;:&quot;Success&quot;,&quot;Title&quot;:{&quot;Code&quot;:37,&quot;String&quot;:&quot;緊急地震速報（警報）&quot;,&quot;Detail&quot;:&quot;マグニチュード、最大予測震度及び主要動到達予測時刻の緊急地震速報（発表パターン3： グリッドサーチ法、EPOS自動処理手法）&quot;},&quot;Source&quot;:{&quot;Code&quot;:3,&quot;String&quot;:&quot;気象庁本庁&quot;},&quot;Status&quot;:{&quot;Code&quot;:&quot;00&quot;,&quot;String&quot;:&quot;通常&quot;,&quot;Detail&quot;:&quot;通常&quot;},&quot;AnnouncedTime&quot;:{&quot;String&quot;:&quot;2021/10/06 02:47:27&quot;,&quot;UnixTime&quot;:1633456047,&quot;RFC1123&quot;:&quot;Tue, 05 Oct 2021 17:47:27 UTC&quot;},&quot;OriginTime&quot;:{&quot;String&quot;:&quot;2021/10/06 02:46:02&quot;,&quot;UnixTime&quot;:1633455962,&quot;RFC1123&quot;:&quot;Tue, 05 Oct 2021 17:46:02 UTC&quot;},&quot;EventID&quot;:&quot;20211006024611&quot;,&quot;Type&quot;:{&quot;Code&quot;:9,&quot;String&quot;:&quot;発表&quot;,&quot;D [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string test {
+            get {
+                return ResourceManager.GetString("test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   LsJ5tDiMeLhg0pczmv9SNzUcE に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Twitter_ConsumerKey {
@@ -423,7 +432,15 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/07/16 - 0.6.0 Updated
+        ///   2021/07/29 - 0.6.2 Updated
+        ///強震モニタの表示パフォーマンスを改善
+        ///エラー発生時にレポートを出力するようにしました。
+        ///
+        ///2021/07/23 - 0.6.1 Updated
+        ///強震モニタのメモリリークを修正
+        ///地図の描画の概念を導入
+        ///
+        ///2021/07/16 - 0.6.0 Updated
         ///別ウィンドウで詳細情報を表示できるようになりました。
         ///
         ///2021/07/06 - 0.5.5 Updated
@@ -444,13 +461,7 @@ namespace MisakiEQ.Properties {
         ///2021/06/30 - 0.5.0 Updated
         ///緊急地震速報発令時にエリアまでの到達時間を表示されるようになりました。
         ///
-        ///2021/06/27 - 0.4.0 Updated
-        ///緊急地震速報発令時にエリアの推定震度を表示できるようになりました。
-        ///強震モニタ不具合を微調整(直ってほしい)
-        ///起動時に応答なしになる不具合を修正。
-        ///
-        ///2021/06/26 - 0.3.2 Updated
-        ///強震モ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///20 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -459,7 +470,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.6.0 に類似しているローカライズされた文字列を検索します。
+        ///   MisakiEQ For Windows Version 0.6.2 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {
             get {

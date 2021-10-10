@@ -7,8 +7,8 @@ using System.Drawing;
 using Newtonsoft.Json;
 using System.IO;
 using System.Globalization;
-
-namespace MisakiEQ
+#pragma warning disable CS1998
+namespace MisakiEQ.Kyoshin
 {
     class KyoshinEx
     {
@@ -199,10 +199,8 @@ namespace MisakiEQ
         }
         async Task<Image> GetKyoshinImage(DateTime time, KyoshinType type)
         {
-            try { 
-            GetJsonFile Network = new GetJsonFile();
-            string a = "";
-            if (IsEEW(type)) a = ".eew";
+            try {
+                Net.GetJsonFile Network = new Net.GetJsonFile();
             Image Result = byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/" + GetTypeToLURL(type, false) + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") + "."+ GetTypeToURL(type, false) + ".gif"));
             return Result;
             }
@@ -216,9 +214,7 @@ namespace MisakiEQ
         {
             try
             {
-                GetJsonFile Network = new GetJsonFile();
-                string a = "";
-                if (IsEEW(type)) a = ".eew";
+                Net.GetJsonFile Network = new Net.GetJsonFile();
                 return byteArrayToImage(Network.GetData("http://www.kmoni.bosai.go.jp/data/map_img/" + GetTypeToLURL(type, isbool) + "/" + time.ToString("yyyyMMdd") + "/" + time.ToString("yyyyMMddHHmmss") +"." +GetTypeToURL(type, isbool) + ".gif"));
             }
             catch (Exception e)
@@ -232,7 +228,7 @@ namespace MisakiEQ
         {
             try
             {
-                GetJsonFile Network = new GetJsonFile();
+                Net.GetJsonFile Network = new Net.GetJsonFile();
                 string TypeName = GetTypeToURL(type, IsBour);
 
                 //ImageオブジェクトのGraphicsオブジェクトを作成する
@@ -320,6 +316,7 @@ namespace MisakiEQ
         }
         public double GetEEWAreaShindo(Point Pos)
         {
+            
             try{
                 List<KyoshinShindoColor> color = JsonConvert.DeserializeObject<List<KyoshinShindoColor>>(Properties.Resources.KyoshinColor);
                 if (EEWShindo == null) return 0;
@@ -354,7 +351,7 @@ namespace MisakiEQ
         public DateTime GetLatestUpdateTime()//強震モニタの最新更新時間を取得
         {
             try {
-                GetJsonFile NetworkFile = new GetJsonFile();
+                Net.GetJsonFile NetworkFile = new Net.GetJsonFile();
                 LatestKyoshinRoot latest = JsonConvert.DeserializeObject<LatestKyoshinRoot>(NetworkFile.GetJson("http://www.kmoni.bosai.go.jp/webservice/server/pros/latest.json"));
                 DateTime ret = new DateTime(2000, 1, 1, 0, 0, 0);
                 IsLastError = true;

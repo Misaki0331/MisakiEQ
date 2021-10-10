@@ -7,8 +7,18 @@ using System.Drawing;
 
 namespace MisakiEQ.Config
 {
+    public class IndexConfig
+    {
+
+        public Index._COM SerialPort=new Index._COM();
+        public Index._TimeStamp TimeStamp=new Index._TimeStamp();
+        public Index._Notification Notification=new Index._Notification();
+        public Index._AreaSetting AreaSetting = new Index._AreaSetting();
+
+    }
     class StringToValue
     {
+        
         public static int ToInt(string str)
         {
             return int.Parse(str);
@@ -38,11 +48,11 @@ namespace MisakiEQ.Config
             return double.Parse(str);
         }
     }
+    
     class Data
     {
-        Variation _var;
-        
 
+        IndexConfig config=new IndexConfig();
         void LoadString(string str)
         {
             string[] args;
@@ -54,19 +64,19 @@ namespace MisakiEQ.Config
                     switch (args[0])
                     {
                         case "UserPos.X":
-                            _var.UserPos.X = StringToValue.ToInt(args[1]);
+                            config.AreaSetting.AreaPosX = StringToValue.ToInt(args[1]);
                             break;
                         case "UserPos.Y":
-                            _var.UserPos.Y = StringToValue.ToInt(args[1]);
+                            config.AreaSetting.AreaPosY = StringToValue.ToInt(args[1]);
                             break;
                         case "SerialEnabled":
-                            _var.EnableSerial = StringToValue.ToBool(args[1]);
+                            config.SerialPort.SerialEnabled = StringToValue.ToBool(args[1]);
                             break;
                         case "SerialSpeed":
-                            _var.SerialSpeed = StringToValue.ToInt(args[1]);
+                            config.SerialPort.SerialSpeed = StringToValue.ToInt(args[1]);
                             break;
                         case "SerialPort":
-                            _var.SerialPort = StringToValue.ToInt(args[1]);
+                            config.SerialPort.SerialPort = StringToValue.ToInt(args[1]);
                             break;
                             
                     }
@@ -81,11 +91,40 @@ namespace MisakiEQ.Config
             }
         }
     }
-    public struct Variation
+   
+}
+namespace MisakiEQ.Config.Index
+{
+    
+    public class _COM
     {
-        public Point UserPos;
-        public bool EnableSerial;
-        public int SerialPort;
-        public int SerialSpeed;
+        public bool SerialEnabled { get; set; }
+        public int SerialPort { get; set; }
+        public int SerialSpeed { get; set; }
+
+        public bool IsEnabledEEW { get; set; } 
+        public bool IsEnabledEEWAny { get; set; }
+        
+    }
+    public class _TimeStamp
+    {
+        public bool EnabledEventLog { get; set; }
+
+    }
+    public class _Notification
+    {
+        public int MinLevel { get; set; }
+        public double MinMagnitude { get; set; }
+        public bool IsOnlyEEWWarn { get; set; }
+
+    }
+
+    public class _AreaSetting
+    {
+        public double longitude { get; set; }
+        public double latitude { get; set; }
+
+        public int AreaPosX { get; set; }
+        public int AreaPosY { get; set; }
     }
 }
