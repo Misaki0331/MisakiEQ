@@ -191,6 +191,7 @@
             this.RTCReset = new System.Windows.Forms.Timer(this.components);
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
             this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -220,6 +221,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).BeginInit();
             this.SettingClose.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -1722,6 +1724,7 @@
             // 
             // SettingsAbout
             // 
+            this.SettingsAbout.Controls.Add(this.pictureBox1);
             this.SettingsAbout.Controls.Add(this.MisakiEQTwitterLink);
             this.SettingsAbout.Controls.Add(this.label5);
             this.SettingsAbout.Controls.Add(this.MisakiEQIcon);
@@ -1833,10 +1836,10 @@
             // VersionName
             // 
             this.VersionName.AutoSize = true;
-            this.VersionName.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.VersionName.Location = new System.Drawing.Point(262, 3);
+            this.VersionName.Font = new System.Drawing.Font("Meiryo UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.VersionName.Location = new System.Drawing.Point(262, 122);
             this.VersionName.Name = "VersionName";
-            this.VersionName.Size = new System.Drawing.Size(275, 19);
+            this.VersionName.Size = new System.Drawing.Size(285, 24);
             this.VersionName.TabIndex = 0;
             this.VersionName.Text = "MisakiEQの不明なバージョンです！";
             // 
@@ -1972,6 +1975,16 @@
             this.TestTimer.Enabled = true;
             this.TestTimer.Interval = 30000;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MisakiEQ.Properties.Resources.header_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(266, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(516, 116);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2030,6 +2043,7 @@
             this.SettingClose.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2201,6 +2215,7 @@
         private System.Windows.Forms.Button DisplayEEWDetail;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

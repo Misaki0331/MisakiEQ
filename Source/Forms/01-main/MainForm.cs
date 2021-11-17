@@ -23,8 +23,8 @@ namespace MisakiEQ
     {
 
         public static int P2P_MaxRequest = 20;
-        private static int IntervalEQ = 5;
-        private static int IntervalTsunami = 10;
+        private static int IntervalEQ = 10;
+        private static int IntervalTsunami = 45;
         //private static bool IsGettingID = false;
         string EQJsonFile = "";
         private DateTime EQLastUpdated;
@@ -64,9 +64,11 @@ namespace MisakiEQ
         private bool IsTweetedEEW = false;
         private bool IsKyoshinInited = false;
         private DateTime KyoshinLatest;
+#if DEBUG || ADMIN
         private Form2 EEWNotificationWindow;
 
         private EEW_Infomation EEWInfomationWindow;
+#endif
         private bool IsEEWSoundFinished = true;
         TwiClient.Twitter TwiCliant;// = new Twitter();
         private string UserNameID;
@@ -196,7 +198,6 @@ namespace MisakiEQ
             InitWindow.SetInfo(10, "音声ファイル読み込み中です...");
             sound.SetMasterVolume(0);
             SoundInit();
-            VersionName.Text = "MisakiEQ For Windows Version 0.2.0\n非公開ベータ版\n\n";
             InitWindow.SetInfo(20, "Discord Rich Presence関連を取得中です...");
             discord.Init();
             discord.SetStatus("現在起動中です...", "初期化完了するまでお待ちください。");
@@ -260,6 +261,8 @@ namespace MisakiEQ
             Twitter_Update.Visible=false;
             Twitter_isReply.Visible=false;
             SettingTab.TabPages.Remove(TwitterSettings);
+            SettingTab.TabPages.Remove(SerialSettings);
+            SettingTab.TabPages.Remove(ComputerSettings);
             P2P_Request_Changed();
 #endif
 
@@ -1520,8 +1523,9 @@ namespace MisakiEQ
                             " M" + eew.Hypocenter.Magnitude.Float.ToString("F1") + "\n" +
                             "最大震度:" + eew.MaxIntensity.String + "\n"
                             + "発生時刻:" + DataConverter.GetTime(eew.OriginTime.String).ToString("M/dd H:mm:ss") + "\n";
-
-                        string discordImage = $"eew_{eew.Warn}_{eew.MaxIntensity.To}".Replace('+', '_').Replace("不明","-");
+                        string imaget = "n";
+                        if (eew.Warn) imaget = "w";
+                        string discordImage = $"eew_{imaget}_{eew.MaxIntensity.To}".Replace('+', '_').Replace("不明","-");
                         discordState = $"震源地 : {eew.Hypocenter.Name}";
                         string discordImageText = $"M{eew.Hypocenter.Magnitude.Float.ToString("F1")} 深さ:{DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int)}";
                         try
@@ -2109,6 +2113,7 @@ namespace MisakiEQ
                     }
                 }
             }
+#if DEBUG || ADMIN
             if (EEWInfomationWindow == null)
             {
                 EEWInfomationWindow = new EEW_Infomation();
@@ -2121,6 +2126,7 @@ namespace MisakiEQ
                 EEWNotificationWindow.Show();
                 EEWNotificationWindow.SetVisible(false);
             }
+
             if (WillDisplayEEWInfomation != EEWInfomationWindow.GetVisible())
             {
                 EEWInfomationWindow.SetVisible(WillDisplayEEWInfomation);
@@ -2151,6 +2157,7 @@ namespace MisakiEQ
                 IsFirstEEW = false;
                 EEWAreaCount = 0;
             }
+#endif
             if (TextBoxWindow != null && !TextBoxWindow.Visible)
             {
                 TextBoxWindow.Close();
@@ -2250,6 +2257,7 @@ namespace MisakiEQ
 
         private void EEW_SEND()
         {
+#if DEBUG || ADMIN
             if (IsEEWSoundFinished)
             {
                 if (EEWInfomationWindow.GetVisible())
@@ -2266,9 +2274,12 @@ namespace MisakiEQ
                     Task t = Task.Run(() => EEW_Display(false));
                 }
             }
+#endif 
+
         }
         private void EEW_Display(bool sndonly)
         {
+#if DEBUG || ADMIN
             try
             {
                 /*private bool WillDisplayEEWNotification;
@@ -2276,7 +2287,7 @@ namespace MisakiEQ
                 private string EEWText_Description;
                 private string EEWText_Index;
                 */
-#if ADMIN || DEBUG
+
                 System.Media.SoundPlayer EEW_Warning = null;
                 System.IO.Stream strm2 = Properties.Resources.Warn;
                 EEW_Warning = new System.Media.SoundPlayer(strm2);
@@ -2293,11 +2304,11 @@ namespace MisakiEQ
                     WillDisplayEEWNotification = false;
                     Thread.Sleep(100);
                 }
-                EEWDisplayTimer = 600;
+                EEWDisplayTimer = 6000;
                 WillDisplayEEWInfomation = true;
                 EEW_Warning.PlaySync();
                 EEW_Warning.PlaySync();
-#endif
+
             }
             catch
             {
@@ -2307,6 +2318,7 @@ namespace MisakiEQ
             {
                 IsEEWSoundFinished = true;
             }
+#endif
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -2346,11 +2358,7 @@ namespace MisakiEQ
 
         private void LinkDonate_Click(object sender, EventArgs e)
         {
-            if (TextBoxWindow == null)
-            {
-                TextBoxWindow = new index("寄付 - Donate", Properties.Resources.Donate);
-                TextBoxWindow.Show();
-            }
+            System.Diagnostics.Process.Start(Properties.Resources.PatreonLink);
         }
 
         private void CloseApplication_Click(object sender, EventArgs e)
@@ -2456,7 +2464,7 @@ namespace MisakiEQ
         {
             if (TextBoxWindow == null)
             {
-                TextBoxWindow = new index("更新履歴 - Update History", Properties.Resources.Update_History);
+                TextBoxWindow = new index("更新履歴 - Changelog", Properties.Resources.Update_History);
                 TextBoxWindow.Show();
             }
         }

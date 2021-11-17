@@ -313,6 +313,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\01-main\Init.resx">
+      <DependentUpon>Init.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\01-main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -428,6 +431,10 @@
   <ItemGroup>
     <Content Include="main.ico" />
     <None Include="Resources\json\KyoshinColor.json" />
+    <None Include="Resources\logo\header_logo.png" />
+    <None Include="Resources\logo\header_logo2.png" />
+    <None Include="Resources\logo\long_logo.png" />
+    <None Include="Resources\logo\app_logo.png" />
     <Content Include="Resources\Private\API\Discord\ClientID.txt" />
     <Content Include="Resources\Text\BuildDate.txt" />
     <Content Include="Resources\Text\MisakiEQ_License_JP.txt" />

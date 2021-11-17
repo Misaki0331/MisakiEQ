@@ -122,6 +122,9 @@
     <value>..\Resources\Text\About.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
     <comment>MisakiEQについて</comment>
   </data>
+  <data name="app_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo\app_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="basemap_Alpha" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\basemap_Alpha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -149,6 +152,12 @@
     <value>..\Resources\font\7barSPBd.TTF;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>7セグのフォント</comment>
   </data>
+  <data name="header_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo\header_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="header_logo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo\header_logo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -171,6 +180,9 @@
   <data name="License" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Text\License.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
     <comment>ライセンスファイル</comment>
+  </data>
+  <data name="long_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo\long_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mainico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon\main.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,6 +211,10 @@
   </data>
   <data name="Misaki_License" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Text\Misaki License.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="PatreonLink" xml:space="preserve">
+    <value>https://www.buymeacoffee.com/misaki</value>
+    <comment>coffee</comment>
   </data>
   <data name="ReportUserID" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Private\ReportUserID.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>

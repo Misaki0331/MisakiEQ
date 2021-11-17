@@ -87,6 +87,16 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap app_logo {
+            get {
+                object obj = ResourceManager.GetObject("app_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap basemap_Alpha {
             get {
                 object obj = ResourceManager.GetObject("basemap_Alpha", resourceCulture);
@@ -105,7 +115,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/10/10 18:22:48.25 
+        ///   2021/10/21 22:29:25.90 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BuildDate {
@@ -115,7 +125,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   843881865634250752 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DiscordClientID {
             get {
@@ -165,6 +175,26 @@ namespace MisakiEQ.Properties {
             get {
                 object obj = ResourceManager.GetObject("Font_7barSPBd", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap header_logo {
+            get {
+                object obj = ResourceManager.GetObject("header_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap header_logo2 {
+            get {
+                object obj = ResourceManager.GetObject("header_logo2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -240,6 +270,16 @@ namespace MisakiEQ.Properties {
         internal static string License {
             get {
                 return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap long_logo {
+            get {
+                object obj = ResourceManager.GetObject("long_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -329,6 +369,15 @@ namespace MisakiEQ.Properties {
         internal static string MisakiEQTwitterLink {
             get {
                 return ResourceManager.GetString("MisakiEQTwitterLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   https://www.buymeacoffee.com/misaki に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string PatreonLink {
+            get {
+                return ResourceManager.GetString("PatreonLink", resourceCulture);
             }
         }
         
@@ -441,7 +490,10 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/10/10 - 0.7.0 Updated
+        ///   2021/10/21 - 0.7.1 Updated
+        ///起動画面の見た目を変えました。
+        ///
+        ///2021/10/10 - 0.7.0 Updated
         ///Discord Rich Presenceと接続できるようになりました。
         ///緊急地震速報の情報がDiscordのステータスに表示されます。
         ///
@@ -463,9 +515,7 @@ namespace MisakiEQ.Properties {
         ///地図の描画の概念を導入
         ///
         ///2021/07/16 - 0.6.0 Updated
-        ///別ウィンドウで詳細情報を表示できるようになりました。
-        ///
-        ///2021/07/06 - 0.5.5 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///別 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -474,7 +524,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.7.0 に類似しているローカライズされた文字列を検索します。
+        ///   MisakiEQ For Windows Version 0.7.1 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {
             get {

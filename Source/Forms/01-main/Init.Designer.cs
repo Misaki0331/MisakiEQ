@@ -33,44 +33,60 @@
             this.progress = new System.Windows.Forms.ProgressBar();
             this.Index = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.logo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
             // 
             // InitText
             // 
-            this.InitText.AutoSize = true;
-            this.InitText.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.InitText.Location = new System.Drawing.Point(0, 0);
+            this.InitText.Font = new System.Drawing.Font("Meiryo UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.InitText.Location = new System.Drawing.Point(1, 104);
             this.InitText.Name = "InitText";
-            this.InitText.Size = new System.Drawing.Size(275, 19);
+            this.InitText.Size = new System.Drawing.Size(453, 27);
             this.InitText.TabIndex = 0;
             this.InitText.Text = "MisakiEQは起動処理をしています...";
+            this.InitText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // progress
             // 
-            this.progress.Location = new System.Drawing.Point(0, 44);
+            this.progress.Location = new System.Drawing.Point(1, 160);
             this.progress.Name = "progress";
-            this.progress.Size = new System.Drawing.Size(282, 20);
+            this.progress.Size = new System.Drawing.Size(453, 24);
             this.progress.TabIndex = 1;
             // 
             // Index
             // 
-            this.Index.AutoSize = true;
-            this.Index.Location = new System.Drawing.Point(2, 29);
+            this.Index.Font = new System.Drawing.Font("Meiryo UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Index.Location = new System.Drawing.Point(-1, 131);
             this.Index.Name = "Index";
-            this.Index.Size = new System.Drawing.Size(53, 12);
+            this.Index.Size = new System.Drawing.Size(455, 26);
             this.Index.TabIndex = 2;
             this.Index.Text = "詳細情報";
+            this.Index.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timer1
             // 
             this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // logo
+            // 
+            this.logo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.logo.Image = global::MisakiEQ.Properties.Resources.header_logo;
+            this.logo.Location = new System.Drawing.Point(-9, -1);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(475, 102);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logo.TabIndex = 3;
+            this.logo.TabStop = false;
+            // 
             // Init
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 64);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(455, 185);
+            this.Controls.Add(this.logo);
             this.Controls.Add(this.Index);
             this.Controls.Add(this.progress);
             this.Controls.Add(this.InitText);
@@ -81,8 +97,8 @@
             this.Text = "Please wait...";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Init_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -92,5 +108,6 @@
         public System.Windows.Forms.ProgressBar progress;
         public System.Windows.Forms.Label Index;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox logo;
     }
 }
