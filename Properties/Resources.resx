@@ -213,7 +213,7 @@
     <value>..\Resources\Text\Misaki License.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="PatreonLink" xml:space="preserve">
-    <value>https://www.buymeacoffee.com/misaki</value>
+    <value>https://ko-fi.com/misaki0331</value>
     <comment>coffee</comment>
   </data>
   <data name="ReportUserID" type="System.Resources.ResXFileRef, System.Windows.Forms">

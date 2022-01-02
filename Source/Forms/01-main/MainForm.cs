@@ -409,7 +409,7 @@ namespace MisakiEQ
                 InitWindow.SetInfo(100, "ようこそ " + Environment.UserName + " 様");
             }
             //sound.Play(ref SEData.SE.Tsunami_Update);
-            discord.SetDefault();
+            //discord.SetDefault();
             InitWindow.Done();
             UpdateTime.Start();
         }
@@ -889,6 +889,7 @@ namespace MisakiEQ
                         DisplayingNotificationTime = 2147483647;
                         NotificationIcon = 2;
                         IsDisplayNotification = true;
+                        discord.SetAll($"速報 最大:{DataConverter.ScaleString(data.earthquake.maxScale)}", AreaData[0], "", time.ToString("yyyy/MM/dd H:mm"),"","");
                     }
                     break;
                 case 2://震源に関する情報
@@ -967,7 +968,7 @@ namespace MisakiEQ
 
                     sound.Play(ref SEData.SE.Earthquake_Small);
 
-
+                    discord.SetAll($"{time.ToString("yyyy/MM/dd H:mm")} 最大:{DataConverter.ScaleString(data.earthquake.maxScale)}", "震源地 : "+data.earthquake.hypocenter.name, "", AreaData[0], "", "");
                     JMAEQData_ShindoInfo.Lines = result;
                     //if ((data.earthquake.hypocenter.magnitude >= 0.0||DataConverter.ScaleToValue(data.earthquake.maxScale)>=1)||IsTweetedEEW)
                     if (true)

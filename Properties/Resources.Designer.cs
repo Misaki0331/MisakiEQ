@@ -115,7 +115,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/10/21 22:29:25.90 
+        ///   2022/01/03  1:07:23.06 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BuildDate {
@@ -373,7 +373,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   https://www.buymeacoffee.com/misaki に類似しているローカライズされた文字列を検索します。
+        ///   https://ko-fi.com/misaki0331 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string PatreonLink {
             get {
@@ -490,7 +490,14 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2021/10/21 - 0.7.1 Updated
+        ///   2021/01/03 - 0.7.3 Updated
+        ///寄付ボタンのリンク先を変えました。
+        ///DiscordのRPCに地震情報が表示されるようになりました。
+        ///
+        ///2021/10/23 - 0.7.2 Updated
+        ///寄付ボタンのリンク先を変えました。
+        ///
+        ///2021/10/21 - 0.7.1 Updated
         ///起動画面の見た目を変えました。
         ///
         ///2021/10/10 - 0.7.0 Updated
@@ -507,15 +514,7 @@ namespace MisakiEQ.Properties {
         ///緊急地震速報受信時データ取得の頻度を上げるよう調整
         ///
         ///2021/07/29 - 0.6.2 Updated
-        ///強震モニタの表示パフォーマンスを改善
-        ///エラー発生時にレポートを出力するようにしました。
-        ///
-        ///2021/07/23 - 0.6.1 Updated
-        ///強震モニタのメモリリークを修正
-        ///地図の描画の概念を導入
-        ///
-        ///2021/07/16 - 0.6.0 Updated
-        ///別 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///強震モニタの [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Update_History {
             get {
@@ -524,7 +523,7 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.7.1 に類似しているローカライズされた文字列を検索します。
+        ///   MisakiEQ For Windows Version 0.7.2 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {
             get {

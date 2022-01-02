@@ -116,6 +116,17 @@ namespace MisakiEQ.DiscordRPC
             Update();
 
         }
+        public void SetDefault(string LImageText)
+        {
+            DiscordDetail = "現在地震監視中";
+            DiscordState = "地震発生次第表示されます。";
+            DiscordLImagePath = "";
+            DiscordLImageText =LImageText;
+            DiscordSImagePath = "";
+            DiscordSImageText = "";
+            Update();
+
+        }
         string DiscordDetail { get; set; }
         string DiscordState { get; set; }
         string DiscordLImagePath { get; set; }
