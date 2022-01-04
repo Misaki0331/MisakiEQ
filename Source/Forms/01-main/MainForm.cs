@@ -402,11 +402,11 @@ namespace MisakiEQ
 
             if (Environment.UserName == "Misaki")
             {
-                InitWindow.SetInfo(100, "おかえりなさい " + Environment.UserName + " 様");
+                InitWindow.SetInfo(100, $"おかえりなさい {Environment.UserName} 様");
             }
             else
             {
-                InitWindow.SetInfo(100, "ようこそ " + Environment.UserName + " 様");
+                InitWindow.SetInfo(100, $"ようこそ {Environment.UserName} 様");
             }
             //sound.Play(ref SEData.SE.Tsunami_Update);
             //discord.SetDefault();
@@ -511,7 +511,7 @@ namespace MisakiEQ
                 TwiCliant.Tweet(TweetText);
             }
             List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
-            Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+            Twitter_Author.Text = $"投稿 : {TwiCliant.GetStringName()}";
             this.UserName.Text = TwiCliant.GetScreenName();
             if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
             Tweet_LastID = TwiCliant.GetLatestTweetID();
@@ -534,7 +534,7 @@ namespace MisakiEQ
             {
                 this.UserName.Text = TwiCliant.GetScreenName();
                 this.Tweet_Index.Text = TwiList[0].Text;
-                Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
+                Twitter_Author.Text = $"投稿 : {TwiCliant.GetStringName()}";
                 Tweet_LastID = TwiCliant.GetLatestTweetID();
             }
 #endif
@@ -807,7 +807,7 @@ namespace MisakiEQ
                                     Area[DataConverter.AreaToValue(data.points[c].pref)] = true;
                                     if (!IsNew)
                                     {
-                                        AreaData[StringCount] = "震度" + DataConverter.EasyScaleToString(shindo) + "：" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
+                                        AreaData[StringCount] = $"震度{DataConverter.EasyScaleToString(shindo)}：{DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref))}";
                                         tc++;
                                         IsNew = true;
                                     }
@@ -817,17 +817,17 @@ namespace MisakiEQ
                                         StringCount++;
                                         if (shindo >= 5 && shindo < 9)
                                         {
-                                            AreaData[StringCount] = "　　　　　" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
+                                            AreaData[StringCount] = $"　　　　　{DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref))}";
                                         }
                                         else
                                         {
-                                            AreaData[StringCount] = "　　　　" + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
+                                            AreaData[StringCount] = $"　　　　{DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref))}";
                                         }
                                         tc++;
                                     }
                                     else
                                     {
-                                        AreaData[StringCount] += " " + DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref));
+                                        AreaData[StringCount] += $" {DataConverter.ValueToAreaShort(DataConverter.AreaToValue(data.points[c].pref))}";
                                         tc++;
                                     }
                                 }
@@ -846,13 +846,22 @@ namespace MisakiEQ
                     //if (AreaData[0] == null) ;
                     time = DataConverter.GetTime(data.earthquake.time);
                     if (DataConverter.IsTimeFail(time)) return;
-                    EQ_IndexText = "震度速報\n" + time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + DataConverter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
-                        "この地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami)) + "\n観測した地域は以下の通りです。\n\n" + ShindoText;
+                    EQ_IndexText = 
+                          $"震度速報\n" 
+                        + $"{time.ToString("yyyy年MM月dd日 H時mm分頃")}\n"
+                        + $"震度{DataConverter.ScaleString(data.earthquake.maxScale)}を観測する地震がありました。\n" 
+                        + $"この地震による{DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami))}\n"
+                        + $"観測した地域は以下の通りです。\n"
+                        + $"\n" 
+                        + $"{ShindoText}";
                     sound.Play(ref SEData.SE.Earthquake_Mid);
                     if (tweet)
                     {
-                        TweetData[0] = "震度速報\n" + time.ToString("yyyy年MM月dd日 H時mm分頃") + "\n震度" + DataConverter.ScaleString(data.earthquake.maxScale) + "を観測する地震がありました。\n" +
-                        "この地震による" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                        TweetData[0] = 
+                              $"震度速報\n" 
+                            + $"{time.ToString("yyyy年MM月dd日 H時mm分頃")}\n"
+                            + $"震度{DataConverter.ScaleString(data.earthquake.maxScale)}を観測する地震がありました。\n" 
+                            + $"この地震による{DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami))}";
                         if (AreaData[0] != null)
                         {
                             TweetData[0] += "\n観測した地域は以下の通りです。\n\n";
@@ -883,13 +892,13 @@ namespace MisakiEQ
                         IsEQProtoGetTweetID = true;
                         isTweet = true;
 
-                        NotificationName = "震度速報(" + time.ToString("yyyy/MM/dd H:mm") + ")";
-                        NotificationIndex = AreaData[0] +
-                            "\n" + DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami));
+                        NotificationName = $"震度速報({time.ToString("yyyy/MM/dd H:mm")})";
+                        NotificationIndex = $"{AreaData[0]}\n" 
+                                          + $"{DataConverter.EQTsunamiTextJP(DataConverter.GetDomesticTsunami(data.earthquake.domesticTsunami))}";
                         DisplayingNotificationTime = 2147483647;
                         NotificationIcon = 2;
                         IsDisplayNotification = true;
-                        discord.SetAll($"速報 最大:{DataConverter.ScaleString(data.earthquake.maxScale)}", AreaData[0], "", time.ToString("yyyy/MM/dd H:mm"),"","");
+                        discord.SetAll($"速報 最大:{DataConverter.ScaleString(data.earthquake.maxScale)}", AreaData[0], "", time.ToString("dd日HH:mm"),"","");
                     }
                     break;
                 case 2://震源に関する情報
