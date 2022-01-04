@@ -22,7 +22,7 @@ namespace MisakiEQ.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MisakiEQ.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MisakiEQ.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MisakiEQ.Properties {
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -78,7 +78,7 @@ namespace MisakiEQ.Properties {
         ///公式サイト : https://www.bosai.go.jp/
         ///強震モニタ  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string About {
+        public static string About {
             get {
                 return ResourceManager.GetString("About", resourceCulture);
             }
@@ -87,7 +87,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap app_logo {
+        public static System.Drawing.Bitmap app_logo {
             get {
                 object obj = ResourceManager.GetObject("app_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -97,7 +97,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap basemap_Alpha {
+        public static System.Drawing.Bitmap basemap_Alpha {
             get {
                 object obj = ResourceManager.GetObject("basemap_Alpha", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -107,7 +107,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap basemap_shadow {
+        public static System.Drawing.Bitmap basemap_shadow {
             get {
                 object obj = ResourceManager.GetObject("basemap_shadow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -115,10 +115,10 @@ namespace MisakiEQ.Properties {
         }
         
         /// <summary>
-        ///   2022/01/03  1:07:23.06 
+        ///   2022/01/04 22:30:50.04 
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string BuildDate {
+        public static string BuildDate {
             get {
                 return ResourceManager.GetString("BuildDate", resourceCulture);
             }
@@ -127,7 +127,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   843881865634250752 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DiscordClientID {
+        public static string DiscordClientID {
             get {
                 return ResourceManager.GetString("DiscordClientID", resourceCulture);
             }
@@ -143,7 +143,7 @@ namespace MisakiEQ.Properties {
         ///1HLG5Ac1FZvxZm8zZn2X2eYexnz3hnE7sT
         /// に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Donate {
+        public static string Donate {
             get {
                 return ResourceManager.GetString("Donate", resourceCulture);
             }
@@ -152,7 +152,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap EEW {
+        public static System.Drawing.Bitmap EEW {
             get {
                 object obj = ResourceManager.GetObject("EEW", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -162,7 +162,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream First {
+        public static System.IO.UnmanagedMemoryStream First {
             get {
                 return ResourceManager.GetStream("First", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] Font_7barSPBd {
+        public static byte[] Font_7barSPBd {
             get {
                 object obj = ResourceManager.GetObject("Font_7barSPBd", resourceCulture);
                 return ((byte[])(obj));
@@ -181,7 +181,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap header_logo {
+        public static System.Drawing.Bitmap header_logo {
             get {
                 object obj = ResourceManager.GetObject("header_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -191,7 +191,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap header_logo2 {
+        public static System.Drawing.Bitmap header_logo2 {
             get {
                 object obj = ResourceManager.GetObject("header_logo2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -201,7 +201,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap help {
+        public static System.Drawing.Bitmap help {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -211,7 +211,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] Jmap_dbf {
+        public static byte[] Jmap_dbf {
             get {
                 object obj = ResourceManager.GetObject("Jmap.dbf", resourceCulture);
                 return ((byte[])(obj));
@@ -221,7 +221,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] Jmap_shp {
+        public static byte[] Jmap_shp {
             get {
                 object obj = ResourceManager.GetObject("Jmap.shp", resourceCulture);
                 return ((byte[])(obj));
@@ -231,7 +231,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] Jmap_shx {
+        public static byte[] Jmap_shx {
             get {
                 object obj = ResourceManager.GetObject("Jmap.shx", resourceCulture);
                 return ((byte[])(obj));
@@ -241,7 +241,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap Kyoshin_Basemap {
+        public static System.Drawing.Bitmap Kyoshin_Basemap {
             get {
                 object obj = ResourceManager.GetObject("Kyoshin_Basemap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -251,7 +251,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   [{&quot;Intensity&quot;:-3,&quot;R&quot;:0,&quot;G&quot;:0,&quot;B&quot;:205},{&quot;Intensity&quot;:-2.9,&quot;R&quot;:0,&quot;G&quot;:7,&quot;B&quot;:209},{&quot;Intensity&quot;:-2.8,&quot;R&quot;:0,&quot;G&quot;:14,&quot;B&quot;:214},{&quot;Intensity&quot;:-2.7,&quot;R&quot;:0,&quot;G&quot;:21,&quot;B&quot;:218},{&quot;Intensity&quot;:-2.6,&quot;R&quot;:0,&quot;G&quot;:28,&quot;B&quot;:223},{&quot;Intensity&quot;:-2.5,&quot;R&quot;:0,&quot;G&quot;:36,&quot;B&quot;:227},{&quot;Intensity&quot;:-2.4,&quot;R&quot;:0,&quot;G&quot;:43,&quot;B&quot;:231},{&quot;Intensity&quot;:-2.3,&quot;R&quot;:0,&quot;G&quot;:50,&quot;B&quot;:236},{&quot;Intensity&quot;:-2.2,&quot;R&quot;:0,&quot;G&quot;:57,&quot;B&quot;:240},{&quot;Intensity&quot;:-2.1,&quot;R&quot;:0,&quot;G&quot;:64,&quot;B&quot;:245},{&quot;Intensity&quot;:-2,&quot;R&quot;:0,&quot;G&quot;:72,&quot;B&quot;:250},{&quot;Intensity&quot;:-1.9,&quot;R&quot;:0,&quot;G&quot;:85,&quot;B&quot;:238},{&quot;Intensity&quot;:-1.8,&quot;R&quot;:0,&quot;G&quot;:99,&quot... に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string KyoshinColor {
+        public static string KyoshinColor {
             get {
                 return ResourceManager.GetString("KyoshinColor", resourceCulture);
             }
@@ -267,7 +267,7 @@ namespace MisakiEQ.Properties {
         ///
         ///Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit perso [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string License {
+        public static string License {
             get {
                 return ResourceManager.GetString("License", resourceCulture);
             }
@@ -276,7 +276,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap long_logo {
+        public static System.Drawing.Bitmap long_logo {
             get {
                 object obj = ResourceManager.GetObject("long_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -286,7 +286,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap main_big {
+        public static System.Drawing.Bitmap main_big {
             get {
                 object obj = ResourceManager.GetObject("main_big", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -296,7 +296,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Icon mainico {
+        public static System.Drawing.Icon mainico {
             get {
                 object obj = ResourceManager.GetObject("mainico", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -306,7 +306,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] map_land {
+        public static byte[] map_land {
             get {
                 object obj = ResourceManager.GetObject("map_land", resourceCulture);
                 return ((byte[])(obj));
@@ -316,7 +316,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] map_landc {
+        public static byte[] map_landc {
             get {
                 object obj = ResourceManager.GetObject("map_landc", resourceCulture);
                 return ((byte[])(obj));
@@ -326,7 +326,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] map_landd {
+        public static byte[] map_landd {
             get {
                 object obj = ResourceManager.GetObject("map_landd", resourceCulture);
                 return ((byte[])(obj));
@@ -336,7 +336,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] map_landx {
+        public static byte[] map_landx {
             get {
                 object obj = ResourceManager.GetObject("map_landx", resourceCulture);
                 return ((byte[])(obj));
@@ -346,7 +346,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] map_line {
+        public static byte[] map_line {
             get {
                 object obj = ResourceManager.GetObject("map_line", resourceCulture);
                 return ((byte[])(obj));
@@ -355,9 +355,9 @@ namespace MisakiEQ.Properties {
         
         /// <summary>
         ///   MisakiEQは水咲(みさき)によって作られました。
-        ///Copyright 2020-2021 Misaki (Otsuka Shion) All right reserved. に類似しているローカライズされた文字列を検索します。
+        ///Copyright 2020-2022 Misaki (Otsuka Shion) All right reserved. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Misaki_License {
+        public static string Misaki_License {
             get {
                 return ResourceManager.GetString("Misaki_License", resourceCulture);
             }
@@ -366,7 +366,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   https://twitter.com/MisakiEQ に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string MisakiEQTwitterLink {
+        public static string MisakiEQTwitterLink {
             get {
                 return ResourceManager.GetString("MisakiEQTwitterLink", resourceCulture);
             }
@@ -375,7 +375,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   https://ko-fi.com/misaki0331 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string PatreonLink {
+        public static string PatreonLink {
             get {
                 return ResourceManager.GetString("PatreonLink", resourceCulture);
             }
@@ -384,7 +384,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   701370169650642944 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string ReportUserID {
+        public static string ReportUserID {
             get {
                 return ResourceManager.GetString("ReportUserID", resourceCulture);
             }
@@ -393,7 +393,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_Earthquake_Break {
+        public static System.IO.UnmanagedMemoryStream SND_Earthquake_Break {
             get {
                 return ResourceManager.GetStream("SND_Earthquake_Break", resourceCulture);
             }
@@ -402,7 +402,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_Earthquake_Mid {
+        public static System.IO.UnmanagedMemoryStream SND_Earthquake_Mid {
             get {
                 return ResourceManager.GetStream("SND_Earthquake_Mid", resourceCulture);
             }
@@ -411,7 +411,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_Earthquake_Small {
+        public static System.IO.UnmanagedMemoryStream SND_Earthquake_Small {
             get {
                 return ResourceManager.GetStream("SND_Earthquake_Small", resourceCulture);
             }
@@ -420,7 +420,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_EEW_Info {
+        public static System.IO.UnmanagedMemoryStream SND_EEW_Info {
             get {
                 return ResourceManager.GetStream("SND_EEW_Info", resourceCulture);
             }
@@ -429,7 +429,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_EEW_Warn {
+        public static System.IO.UnmanagedMemoryStream SND_EEW_Warn {
             get {
                 return ResourceManager.GetStream("SND_EEW_Warn", resourceCulture);
             }
@@ -438,7 +438,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_Tsunami_Alert {
+        public static System.IO.UnmanagedMemoryStream SND_Tsunami_Alert {
             get {
                 return ResourceManager.GetStream("SND_Tsunami_Alert", resourceCulture);
             }
@@ -447,7 +447,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SND_Tsunami_Update {
+        public static System.IO.UnmanagedMemoryStream SND_Tsunami_Update {
             get {
                 return ResourceManager.GetStream("SND_Tsunami_Update", resourceCulture);
             }
@@ -456,7 +456,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   {&quot;ParseStatus&quot;:&quot;Success&quot;,&quot;Title&quot;:{&quot;Code&quot;:37,&quot;String&quot;:&quot;緊急地震速報（警報）&quot;,&quot;Detail&quot;:&quot;マグニチュード、最大予測震度及び主要動到達予測時刻の緊急地震速報（発表パターン3： グリッドサーチ法、EPOS自動処理手法）&quot;},&quot;Source&quot;:{&quot;Code&quot;:3,&quot;String&quot;:&quot;気象庁本庁&quot;},&quot;Status&quot;:{&quot;Code&quot;:&quot;00&quot;,&quot;String&quot;:&quot;通常&quot;,&quot;Detail&quot;:&quot;通常&quot;},&quot;AnnouncedTime&quot;:{&quot;String&quot;:&quot;2021/10/06 02:47:27&quot;,&quot;UnixTime&quot;:1633456047,&quot;RFC1123&quot;:&quot;Tue, 05 Oct 2021 17:47:27 UTC&quot;},&quot;OriginTime&quot;:{&quot;String&quot;:&quot;2021/10/06 02:46:02&quot;,&quot;UnixTime&quot;:1633455962,&quot;RFC1123&quot;:&quot;Tue, 05 Oct 2021 17:46:02 UTC&quot;},&quot;EventID&quot;:&quot;20211006024611&quot;,&quot;Type&quot;:{&quot;Code&quot;:9,&quot;String&quot;:&quot;発表&quot;,&quot;D [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string test {
+        public static string test {
             get {
                 return ResourceManager.GetString("test", resourceCulture);
             }
@@ -465,7 +465,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   LsJ5tDiMeLhg0pczmv9SNzUcE に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Twitter_ConsumerKey {
+        public static string Twitter_ConsumerKey {
             get {
                 return ResourceManager.GetString("Twitter_ConsumerKey", resourceCulture);
             }
@@ -474,7 +474,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   8S6cTD3ZH6a2kCvmKMIVBdbqhihhl0oFJoF8DKcWFGQYTuxYQx に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Twitter_ConsumerSecretKey {
+        public static string Twitter_ConsumerSecretKey {
             get {
                 return ResourceManager.GetString("Twitter_ConsumerSecretKey", resourceCulture);
             }
@@ -483,7 +483,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   https://twitter.com/0x7FF に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string TwitterLink {
+        public static string TwitterLink {
             get {
                 return ResourceManager.GetString("TwitterLink", resourceCulture);
             }
@@ -516,16 +516,16 @@ namespace MisakiEQ.Properties {
         ///2021/07/29 - 0.6.2 Updated
         ///強震モニタの [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Update_History {
+        public static string Update_History {
             get {
                 return ResourceManager.GetString("Update_History", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   MisakiEQ For Windows Version 0.7.2 に類似しているローカライズされた文字列を検索します。
+        ///   MisakiEQ For Windows Version 0.7.3 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Version {
+        public static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
             }
@@ -534,7 +534,7 @@ namespace MisakiEQ.Properties {
         /// <summary>
         ///   System.IO.MemoryStream に類似した型 System.IO.UnmanagedMemoryStream のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Warn {
+        public static System.IO.UnmanagedMemoryStream Warn {
             get {
                 return ResourceManager.GetStream("Warn", resourceCulture);
             }
