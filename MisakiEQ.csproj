@@ -305,12 +305,11 @@
     <Compile Include="Source\Forms\99-others\textboxWindow.Designer.cs">
       <DependentUpon>textboxWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\function\Logger.cs" />
     <Compile Include="Source\function\MapDrawing.cs" />
     <Compile Include="Source\function\RealTimeClock.cs" />
     <Compile Include="Source\function\Twitter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -437,7 +436,6 @@
     <None Include="Resources\logo\long_logo.png" />
     <None Include="Resources\logo\app_logo.png" />
     <Content Include="Resources\Private\API\Discord\ClientID.txt" />
-    <None Include="Resources\TextFile1.txt" />
     <Content Include="Resources\Text\BuildDate.txt" />
     <Content Include="Resources\Text\MisakiEQ_License_JP.txt" />
     <None Include="Resources\img\bassmap_shadow.PNG" />

@@ -47,7 +47,7 @@ namespace MisakiEQ.DiscordRPC
                     }
                 });
             }
-            catch(Exception ex)
+            catch
             {
 
             }

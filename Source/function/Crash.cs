@@ -10,7 +10,7 @@ namespace MisakiEQ.app
     {
         public void Application_was_crashed_by_user()
         {
-            throw new ApplicationException($"ユーザーによる強制終了の実行");
+            throw null;
         }
     }
 }
