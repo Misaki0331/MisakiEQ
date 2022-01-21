@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-using MisakiEQ.log;
 
 namespace MisakiEQ
 {
@@ -105,11 +104,7 @@ namespace MisakiEQ
                 MainForm.IsApplicationShutDown = true;
                 MainForm.Hide();
                 MainForm.notification.Visible = false;
-            }
-
-            Logger log = Logger.GetInstance();
-            log.Fatal($"予期されていない例外エラーが発生しました。\n");
-            log.Fatal(ex);
+            } 
             string ErrorString = "";
             ErrorString += extraMessage + " \n";
             ErrorString += "【例外エラー名】\n" + ex.GetType().ToString() + "\n\n";

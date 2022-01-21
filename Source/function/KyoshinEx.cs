@@ -7,7 +7,6 @@ using System.Drawing;
 using Newtonsoft.Json;
 using System.IO;
 using System.Globalization;
-using MisakiEQ.log;
 #pragma warning disable CS1998
 namespace MisakiEQ.Kyoshin
 {
@@ -43,12 +42,8 @@ namespace MisakiEQ.Kyoshin
                     return img;
                 }
             }
-            catch (Exception e)
+            catch
             {
-
-                Logger log = Logger.GetInstance();
-                log.Error($"バイト配列から画像に変換する際に例外エラーが発生しました。");
-                log.Error(e);
                 return null;
             }
         
@@ -211,9 +206,7 @@ namespace MisakiEQ.Kyoshin
             }
             catch (Exception e)
             {
-                Logger log = Logger.GetInstance();
-                log.Error($"強震モニタのデータをダウンロードする際に例外エラー発生しました。");
-                log.Error(e);
+                Console.WriteLine($"強震モニタのデータをダウンロードする際に例外エラー\n理由 : {e.Message}");
             }
             return null;
 }
@@ -226,9 +219,7 @@ namespace MisakiEQ.Kyoshin
             }
             catch (Exception e)
             {
-                Logger log = Logger.GetInstance();
-                log.Error($"強震モニタのデータをダウンロードする際に例外エラー発生しました。");
-                log.Error(e);
+                Console.WriteLine($"強震モニタのデータをダウンロードする際に例外エラー\n理由 : {e.Message}");
             }
             return null;
         }
@@ -316,14 +307,10 @@ namespace MisakiEQ.Kyoshin
                 IsLastError = false;
                 return BG;
             }
-            catch (Exception ex)
+            catch
             {
                 IsLastError = true;
                 LastErrorStatus = "デバッグ操作中にエラー";
-
-                Logger log = Logger.GetInstance();
-                log.Error($"強震モニタの画像取得に失敗しました");
-                log.Error(ex);
                 return null;
             }
         }
@@ -344,14 +331,10 @@ namespace MisakiEQ.Kyoshin
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 IsLastError = true ;
-
                 LastErrorStatus = "強震モニタの震度情報読み取りに失敗";
-                Logger log = Logger.GetInstance();
-                log.Error($"強震モニタの推定震度マップからの震度読み取りに失敗しました。");
-                log.Error(ex);
             }
             return 0;
 
@@ -374,19 +357,12 @@ namespace MisakiEQ.Kyoshin
                 IsLastError = true;
                 if (DateTime.TryParseExact(latest.latest_time, "yyyy/MM/dd HH:mm:ss", null, DateTimeStyles.AssumeLocal, out ret)) return ret;
                 IsLastError = false;
-
-                Logger log = Logger.GetInstance();
-                log.Error($"強震モニタの最終更新の時間フォーマットが不正です。\n【{latest.latest_time}】");
                 LastErrorStatus = "正常に取得できませんでした。(GetLatestUpdateTime関数内)";
                 return new DateTime(2000, 1, 1, 0, 0, 0);
             }
-            catch (Exception ex)
+            catch
             {
                 IsLastError = true;
-
-                Logger log = Logger.GetInstance();
-                log.Error($"強震モニタの最終更新時刻取得中に例外エラーが発生しました。");
-                log.Error(ex);
                 LastErrorStatus = "予期しないエラー(GetLatestUpdateTime関数内)";
                 return new DateTime(2000, 1, 1, 0, 0, 0);
             }

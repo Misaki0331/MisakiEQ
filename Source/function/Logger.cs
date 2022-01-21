@@ -9,16 +9,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MisakiEQ.log
+namespace MisakiEQ
 {
     class Logger
     {
-        bool IS_LOGFILE = true;
-        int LOG_LEVEL = 3;
-        string LOGDIR_PATH = "./logs/";
-        string LOGFILE_NAME = "console";
-        long LOGFILE_MAXSIZE = 10485760;
-        int LOGFILE_PERIOD = 30;
+        const bool IS_LOGFILE = true;
+        const int LOG_LEVEL = 3;
+        const string LOGDIR_PATH = "./logs/";
+        const string LOGFILE_NAME = "console";
+        const long LOGFILE_MAXSIZE = 10485760;
+        const int LOGFILE_PERIOD = 30;
 
         /// <summary>
         /// ログレベル
@@ -64,11 +64,11 @@ namespace MisakiEQ.log
         /// ERRORレベルのログを出力する
         /// </summary>
         /// <param name="msg">メッセージ</param>
-        public void Error(string msg, [CallerMemberName] string callerMethodName = "")
+        public void Error(string msg)
         {
             if ((int)LogLevel.ERROR <= LOG_LEVEL)
             {
-                Out(LogLevel.ERROR, msg, callerMethodName);
+                Out(LogLevel.ERROR, msg);
             }
         }
 
@@ -76,47 +76,11 @@ namespace MisakiEQ.log
         /// ERRORレベルのスタックトレースログを出力する
         /// </summary>
         /// <param name="ex">例外オブジェクト</param>
-        public void Error(Exception ex, [CallerMemberName] string callerMethodName = "",
-            [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = -1)
+        public void Error(Exception ex)
         {
             if ((int)LogLevel.ERROR <= LOG_LEVEL)
             {
-                Out(LogLevel.ERROR, ex.Message + Environment.NewLine 
-                    + $"{callerFilePath} - {callerLineNumber}行目" + Environment.NewLine 
-                    + ex.GetType().ToString() + Environment.NewLine 
-                    + ex.Message + Environment.NewLine 
-                    + ex.StackTrace, callerMethodName);
-            }
-        }
-
-        /// <summary>
-        /// FATALレベルのスタックトレースログを出力する
-        /// </summary>
-        /// <param name="ex">例外オブジェクト</param>
-        public void Fatal(Exception ex, [CallerMemberName] string callerMethodName = "", 
-            [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = -1)
-        {
-            if ((int)LogLevel.FATAL <= LOG_LEVEL)
-            {
-                Out(LogLevel.FATAL, ex.Message + Environment.NewLine 
-                    + $"{callerFilePath} - {callerLineNumber}行目" + Environment.NewLine 
-                    + ex.GetType().ToString() + Environment.NewLine 
-                    + ex.Message + Environment.NewLine 
-                    + ex.StackTrace, callerMethodName);
-            }
-        }
-
-        /// <summary>
-        /// FATALレベルのログを出力する
-        /// </summary>
-        /// <param name="msg">メッセージ</param>
-        public void Fatal(string msg, [CallerMemberName] string callerMethodName = "")
-        {
-            if ((int)LogLevel.FATAL <= LOG_LEVEL)
-            {
-                Out(LogLevel.FATAL, msg, callerMethodName);
+                Out(LogLevel.ERROR, ex.Message + Environment.NewLine + ex.StackTrace);
             }
         }
 
@@ -124,11 +88,11 @@ namespace MisakiEQ.log
         /// WARNレベルのログを出力する
         /// </summary>
         /// <param name="msg">メッセージ</param>
-        public void Warn(string msg, [CallerMemberName] string callerMethodName = "")
+        public void Warn(string msg)
         {
             if ((int)LogLevel.WARN <= LOG_LEVEL)
             {
-                Out(LogLevel.WARN, msg, callerMethodName);
+                Out(LogLevel.WARN, msg);
             }
         }
 
@@ -136,11 +100,11 @@ namespace MisakiEQ.log
         /// INFOレベルのログを出力する
         /// </summary>
         /// <param name="msg">メッセージ</param>
-        public void Info(string msg, [CallerMemberName] string callerMethodName = "")
+        public void Info(string msg)
         {
             if ((int)LogLevel.INFO <= LOG_LEVEL)
             {
-                Out(LogLevel.INFO, msg, callerMethodName);
+                Out(LogLevel.INFO, msg);
             }
         }
 
@@ -148,11 +112,11 @@ namespace MisakiEQ.log
         /// DEBUGレベルのログを出力する
         /// </summary>
         /// <param name="msg">メッセージ</param>
-        public void Debug(string msg, [CallerMemberName] string callerMethodName = "")
+        public void Debug(string msg)
         {
             if ((int)LogLevel.DEBUG <= LOG_LEVEL)
             {
-                Out(LogLevel.DEBUG, msg, callerMethodName);
+                Out(LogLevel.DEBUG, msg);
             }
         }
 
@@ -161,15 +125,13 @@ namespace MisakiEQ.log
         /// </summary>
         /// <param name="level">ログレベル</param>
         /// <param name="msg">メッセージ</param>
-        private void Out(LogLevel level, string msg,string calledMethodName)
+        private void Out(LogLevel level, string msg)
         {
-            int tid = System.Threading.Thread.CurrentThread.ManagedThreadId;
-            Console.WriteLine($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}][{tid.ToString().PadLeft(5, ' ')}][{level.ToString().PadRight(5, ' ')}] [{calledMethodName.PadRight(16, ' ').Substring(0, 16)}]: {msg}");
             if (IS_LOGFILE)
             {
-                msg = msg.Replace("\n", "\n\t");
-                string fullMsg = $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}][{tid.ToString().PadLeft(5,' ')}][{level.ToString().PadRight(5,' ')}] [{calledMethodName.PadRight(16, ' ').Substring(0,16)}]: {msg}";
-                
+                int tid = System.Threading.Thread.CurrentThread.ManagedThreadId;
+                string fullMsg = string.Format("[{0}][{1}][{2}] {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), tid, level.ToString(), msg);
+
                 lock (this.lockObj)
                 {
                     this.stream.WriteLine(fullMsg);
