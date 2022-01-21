@@ -164,6 +164,7 @@
             this.Tweet_textbox = new System.Windows.Forms.TextBox();
             this.ReAuth = new System.Windows.Forms.Button();
             this.SettingsAbout = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MisakiEQTwitterLink = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.MisakiEQIcon = new System.Windows.Forms.PictureBox();
@@ -191,7 +192,10 @@
             this.RTCReset = new System.Windows.Forms.Timer(this.components);
             this.TestTimer = new System.Windows.Forms.Timer(this.components);
             this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ThreadEEW = new System.ComponentModel.BackgroundWorker();
+            this.ThreadEQInfo = new System.ComponentModel.BackgroundWorker();
+            this.ThreadTsunami = new System.ComponentModel.BackgroundWorker();
+            this.ThreadTweet = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_EarthQuake)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.P2P_Interval_Tsunami)).BeginInit();
@@ -218,10 +222,10 @@
             this.SerialSettings.SuspendLayout();
             this.TwitterSettings.SuspendLayout();
             this.SettingsAbout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).BeginInit();
             this.SettingClose.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -1742,6 +1746,16 @@
             this.SettingsAbout.TabIndex = 2;
             this.SettingsAbout.Text = "バージョン";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MisakiEQ.Properties.Resources.header_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(266, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(516, 116);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
             // MisakiEQTwitterLink
             // 
             this.MisakiEQTwitterLink.Location = new System.Drawing.Point(671, 233);
@@ -1975,15 +1989,10 @@
             this.TestTimer.Enabled = true;
             this.TestTimer.Interval = 30000;
             // 
-            // pictureBox1
+            // ThreadTweet
             // 
-            this.pictureBox1.Image = global::MisakiEQ.Properties.Resources.header_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(266, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(516, 116);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
+            this.ThreadTweet.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ThreadTweet_DoWork);
+            this.ThreadTweet.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ThreadTweet_RunWorkerCompleted);
             // 
             // MainForm
             // 
@@ -2038,12 +2047,12 @@
             this.TwitterSettings.PerformLayout();
             this.SettingsAbout.ResumeLayout(false);
             this.SettingsAbout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MisakiEQIcon)).EndInit();
             this.SettingClose.ResumeLayout(false);
             this.SettingClose.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2216,6 +2225,10 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.ComponentModel.BackgroundWorker ThreadEEW;
+        private System.ComponentModel.BackgroundWorker ThreadEQInfo;
+        private System.ComponentModel.BackgroundWorker ThreadTsunami;
+        private System.ComponentModel.BackgroundWorker ThreadTweet;
     }
 }
 

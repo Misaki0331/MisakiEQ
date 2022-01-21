@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.IO;
 using System.Threading;
+using MisakiEQ.log;
 namespace MisakiEQ.Net
 {
     class GetJsonFile
@@ -15,13 +16,15 @@ namespace MisakiEQ.Net
         private string ThreadURL = "";
         private string ThreadData = "";
         private bool IsThreadRun = false;
+
         private void GetPrivateJson()
         {
             try
             {
                 if (ThreadURL == "")
                 {
-                    Error = "URLが指定されていません。";
+                    log.Logger log = Logger.GetInstance();
+                    log.Info($"URLが指定されていません。");
                     IsThreadRun = false;
                     return;
                 }
@@ -49,7 +52,8 @@ namespace MisakiEQ.Net
             {
                 if (URL == "")
                 {
-                    Error = "URLが指定されていません。";
+                    log.Logger log = Logger.GetInstance();
+                    log.Info($"URLが指定されていません。");
                     return null;
                 }
                 using (WebClient webClient = new WebClient())
@@ -90,7 +94,8 @@ namespace MisakiEQ.Net
             {
                 if (URL == "")
                 {
-                    Error = "URLが指定されていません。";
+                    log.Logger log = Logger.GetInstance();
+                    log.Info($"URLが指定されていません。");
                     return null;
                 }
                 using (WebClient webClient = new WebClient())
@@ -101,7 +106,8 @@ namespace MisakiEQ.Net
             }
             catch(WebException e)
             {
-                Console.WriteLine($"Web例外エラー:{e.Message}\nリクエストしたURL:{URL}");
+                log.Logger log = Logger.GetInstance();
+                log.Error($"Web例外エラー:{e.Message}\nリクエストしたURL:{URL}");
                 Error = e.Message;
                 return null;
             }

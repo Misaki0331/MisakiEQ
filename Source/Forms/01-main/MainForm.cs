@@ -149,12 +149,15 @@ namespace MisakiEQ
             sound.GetStream(Properties.Resources.SND_Tsunami_Alert, ref SEData.SE.Tsunami_Alert);
             sound.GetStream(Properties.Resources.SND_Tsunami_Update, ref SEData.SE.Tsunami_Update);
         }
+        log.Logger logger;
         public MainForm()
         {
+            logger = log.Logger.GetInstance();
             //throw null;
             InitWindow = new Init();
             InitWindow.Location = new Point(0, 0);
             InitWindow.Show();
+            logger.Debug("コンポーネント読込中...");
             InitWindow.SetInfo(0, "コンポーネントを読み込み中です...");
 
             InitializeComponent();
@@ -195,11 +198,17 @@ namespace MisakiEQ
 #endif
             this.Icon = Properties.Resources.mainico;
             notification.Icon = Properties.Resources.mainico;
+
+            logger.Debug("音声ファイル読込中");
             InitWindow.SetInfo(10, "音声ファイル読み込み中です...");
             sound.SetMasterVolume(0);
             SoundInit();
+
+            logger.Debug("Discord Rich Presence関連取得中...");
             InitWindow.SetInfo(20, "Discord Rich Presence関連を取得中です...");
             discord.Init();
+
+            logger.Debug("Discordの内容をセット");
             discord.SetStatus("現在起動中です...", "初期化完了するまでお待ちください。");
 #if ADMIN || DEBUG
             try
@@ -249,6 +258,8 @@ namespace MisakiEQ
             EEWInfomationWindow.SetVisible(false);
 
 #else
+
+            logger.Debug("制限の有効化中");
             InitWindow.SetInfo(30, "ビルド設定による機能の制限化を実行中...");
             //Point b = new Point(404, 492);
             //Size = (System.Drawing.Size)b;
@@ -266,6 +277,7 @@ namespace MisakiEQ
             P2P_Request_Changed();
 #endif
 
+            logger.Debug("インターネットから情報取得中...");
             InitWindow.SetInfo(60, "インターネットから現在の地震情報を取得中です...");
             GetEQHashs(true);
 
@@ -287,7 +299,7 @@ namespace MisakiEQ
                         new System.IO.StreamReader("TwiWatch.dat");
                 while ((line = file.ReadLine()) != null)
                 {
-                    System.Console.WriteLine(line);
+                    logger.Debug(line);
                     counter++;
                     switch (counter)
                     {
@@ -315,20 +327,25 @@ namespace MisakiEQ
                 }
                 file.Close();
             }
-            catch
+            catch　(Exception ex)
             {
 
+                logger.Error(ex);
             }
             OtherPCWatchingTimer.Start();
             Tweet_isHost.Text = TweetWatch_Type;
             Tweet_checkBox.Checked = TweetWatch_CheckBox;
             Tweet_textbox.Text = TweetWatch_Address;
 
+            logger.Debug("強震モニタウィンドウ作成します。");
             MiniKyoshinWindow = new Mini_Window.KyoshinEx();
             MiniKyoshinWindow.UpdateWindow(false);
+
+            logger.Debug("強震モニタのデータを取得します。");
             InitWindow.SetInfo(95, "強震モニタの情報を取得中です...");
             KyoshinLatest = KyoshinMonitor.GetLatestUpdateTime();
-            Console.WriteLine(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+
+            logger.Info(KyoshinLatest.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
             KyoshinUpdateTimer = new Stopwatch();
             if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
             {
@@ -339,11 +356,11 @@ namespace MisakiEQ
                 KyoshinUpdateTimer.Start();
                 Timer_AdjustKyoshinEx.Start();
                 KyoshinTempTimer = 0;
-                Console.WriteLine("強震モニタ起動成功！");
+                logger.Info("強震モニタ起動成功");
             }
             else
             {
-                Console.WriteLine("強震モニタ起動失敗...");
+                logger.Warn("強震モニタ起動失敗");
             }
 
             if (File.Exists("UserConfig.dat"))
@@ -375,10 +392,16 @@ namespace MisakiEQ
                     }
                     file.Close();
                 }
-                catch
+                catch (Exception ex)
                 {
 
+                    logger.Error(ex);
                 }
+            }
+            else
+            {
+
+                logger.Warn("UserConfig.datが見つかりません。");
             }
 #if DEBUG
             this.Text = "設定 - MisakiEQ (Debug)";
@@ -393,6 +416,7 @@ namespace MisakiEQ
 
             InitWindow.SetInfo(98, "time.windows.comより現在時刻を取得中です...");
 
+            logger.Debug("time.windows.comから時刻を取得中");
             Clock.RealTimeClock clock = new Clock.RealTimeClock();
             AddClock = new Stopwatch();
 
@@ -410,6 +434,8 @@ namespace MisakiEQ
             }
             //sound.Play(ref SEData.SE.Tsunami_Update);
             //discord.SetDefault();
+
+            logger.Info("起動処理完了");
             InitWindow.Done();
             UpdateTime.Start();
         }
@@ -445,6 +471,7 @@ namespace MisakiEQ
         }
         void ResetRTC()
         {
+            logger.Debug("時刻を再取得します。");
             Clock.RealTimeClock clock = new Clock.RealTimeClock();
             LatestClock = clock.GetTime();
             AddClock.Restart();
@@ -605,9 +632,10 @@ namespace MisakiEQ
             }
             catch (Exception exc)
             {
-                
-                Console.WriteLine(exc.StackTrace);
-                Console.WriteLine(exc.Message);
+
+                logger.Error(exc);
+                logger.Debug(exc.StackTrace);
+                logger.Debug(exc.Message);
                 isFailEQInit = true;
             }
             try
@@ -732,9 +760,9 @@ namespace MisakiEQ
             }
             catch (Exception exc)
             {
-
-                Console.WriteLine(exc.StackTrace);
-                Console.WriteLine(exc.Message);
+                logger.Error(exc);
+                logger.Debug(exc.StackTrace);
+                logger.Debug(exc.Message);
                 isFailEEWInit = true;
             }
             try
@@ -755,7 +783,7 @@ namespace MisakiEQ
                 if (tsunami != null)
                 {
                     DateTime created_at;
-                    Console.WriteLine(tsunami[0].created_at);
+                    logger.Debug(tsunami[0].created_at);
                     created_at = DataConverter.GetTime(tsunami[0].created_at);
                     if (!DataConverter.IsTimeFail(created_at))
                     {
@@ -772,8 +800,9 @@ namespace MisakiEQ
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc.StackTrace);
-                Console.WriteLine(exc.Message);
+                logger.Error(exc);
+                logger.Debug(exc.StackTrace);
+                logger.Debug(exc.Message);
                 IsFailTsunamiInit = true;
             }
 
@@ -1232,40 +1261,22 @@ namespace MisakiEQ
 #if DEBUG || ADMIN
             try
             {
-                /*int pc = 0;
-                for(int i=0; TweetData[i] != "" && i < 10; i++)
-                {
-                    pc++;
-                }*/
                 long TweetID = 0;
 
                 TwiCliant = new TwiClient.Twitter();
                 for (int i = 0; TweetData[i] != "" && i < 10; i++)
                 {
                     if (i == 0 && ReplySetTweetID == 0)
-                    {
-                        /*if (pc != 1)
-                        {
-                            TwiCliant.Tweet(TweetData[0] + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
-                        }
-                        else
-                        {*/
                         if (IsDisconnectedHost) TwiCliant.Tweet(TweetData[0]);
-                        //}
-
-                    }
                     else
                     {
                         if (ReplySetTweetID != 0)
                         {
-
-                            if (IsDisconnectedHost) TwiCliant.Reply(ReplySetTweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
+                            if (IsDisconnectedHost) TwiCliant.Reply(ReplySetTweetID, TweetData[i]);
                             ReplySetTweetID = 0;
                         }
                         else
-                        {
-                            if (IsDisconnectedHost) TwiCliant.Reply(TweetID, TweetData[i]);// + "(" + (i + 1).ToString() + "/" + pc.ToString() + ")");
-                        }
+                            if (IsDisconnectedHost) TwiCliant.Reply(TweetID, TweetData[i]);
                     }
                     TweetID = TwiCliant.GetLatestTweetID(UserNameID);
                     if (IsEQProtoGetTweetID)
@@ -1276,16 +1287,15 @@ namespace MisakiEQ
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                logger.Error("ツイート中にエラーが発生しました。");
+                logger.Error(ex);
             }
             finally
             {
-
                 for (int i = 0; i < 10; i++)
-                {
                     TweetData[i] = null;
-                }
                 isTweeting = false;
                 isTweet = false;
             }
@@ -1300,16 +1310,7 @@ namespace MisakiEQ
                 NetFile = new Net.GetJsonFile();
                 EQJsonFile = NetFile.GetJson("https://api.p2pquake.net/v2/jma/quake?limit=10&order=-1");
                 Count_Request++;
-
-
-
-                //EQJsonFile = ConvertUTF8(EQJsonFile);
                 List<EQRoot> JsonData = JsonConvert.DeserializeObject<List<EQRoot>>(EQJsonFile);
-
-
-
-                //LoadEQData(JsonData[0]);
-                //TestString ="Time : "+JsonData[0].created_at;
                 DateTime created_at;
 
                 for (int i = JsonData.Count - 1; i >= 0; i--)
@@ -1764,22 +1765,7 @@ namespace MisakiEQ
                 KyoshinImage.Image = null;
                 KyoshinImage.Image = KyoshinEx_Image;
                 MiniKyoshinWindow.UpdateKyoshin(ref KyoshinEx_Image);
-                //if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(customThumbnail))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(customThumbnail);
-                //customThumbnail.SetImage((Bitmap)KyoshinEx_Image);
-                //TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(customThumbnail);
-
-
-                /*TabbedThumbnail preview = new TabbedThumbnail(Handle, Handle);
-                if(TaskbarManager.Instance.TabbedThumbnail.IsThumbnailPreviewAdded(preview))TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(preview);
-                TaskbarManager.Instance.TabbedThumbnail.AddThumbnailPreview(preview);
-
-                preview.ClippingRectangle = new Rectangle(new Point(0, 0), new Size(200, 108));
-                preview.SetImage((Bitmap)KyoshinEx_Image);
-                */
-                //if(KyoshinEx_Image!=null)KyoshinEx_Image.Dispose();
                 KyoshinEx_Image = null;// new Bitmap(1,1);
-
-
             }
 
             //Test_Label.Text = TestString;
@@ -2012,8 +1998,7 @@ namespace MisakiEQ
             {
                 isTweet = false;
                 isTweeting = true;
-                Thread t = new Thread(new ThreadStart(TweetThread));
-                t.Start();
+                if(!ThreadTweet.IsBusy)ThreadTweet.RunWorkerAsync();
             }
             if (AuthWindow != null)
             {
@@ -2180,8 +2165,8 @@ namespace MisakiEQ
                 using (StreamWriter writer = new StreamWriter("UserConfig.dat", false, sjisEnc))
                 {
                     // （2）ファイルにテキストを書き込む
-                    writer.WriteLine("UserLocation.X=" + UserLocation.X.ToString());
-                    writer.WriteLine("UserLocation.Y=" + UserLocation.Y.ToString());
+                    logger.Debug("UserLocation.X=" + UserLocation.X.ToString());
+                    logger.Debug("UserLocation.Y=" + UserLocation.Y.ToString());
 
                 } // （3）usingブロックを抜けるときにファイルが閉じられる
 
@@ -2413,10 +2398,10 @@ namespace MisakiEQ
         {
             DateTime temp = KyoshinMonitor.GetLatestUpdateTime();
 
-            Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            logger.Debug(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
             if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
             {
-                Console.WriteLine("強震モニタ更新成功！");
+                logger.Debug("強震モニタ更新成功！");
                 StatusMassage.Text = "強震モニタ時刻調整成功！";
                 KyoshinUpdateTimer.Reset();
                 if (!KyoshinUpdateTimer.IsRunning) KyoshinUpdateTimer.Start();
@@ -2430,7 +2415,7 @@ namespace MisakiEQ
             }
             else
             {
-                Console.WriteLine("強震モニタ更新失敗...");
+                logger.Debug("強震モニタ更新失敗...");
                 StatusMassage.Text = "強震モニタ時刻調整失敗...";
             }
         }
@@ -2446,7 +2431,7 @@ namespace MisakiEQ
 
                 EEWDisplayData.AreaScale = DataConverter.KyoshinShindoToString(detail);
             }
-            if (KyoshinEx_Image == null) Console.WriteLine("Error!画像を入手できませんでした 理由:" + KyoshinMonitor.GetLastError());
+            if (KyoshinEx_Image == null) logger.Debug("Error!画像を入手できませんでした 理由:" + KyoshinMonitor.GetLastError());
             IsKyoshinWorking = false;
         }
         private void Timer_KyoshinEx_Tick(object sender, EventArgs e)
@@ -2522,21 +2507,20 @@ namespace MisakiEQ
         {
             DateTime temp = KyoshinMonitor.GetLatestUpdateTime();
             temp = temp.AddSeconds((int)-SettingKyoshinExUpdateDelayValue.Value);
-            Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
+            logger.Debug(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
             if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
             {
-                Console.WriteLine("強震モニタ更新成功！");
+                logger.Debug("強震モニタ更新成功！");
                 StatusMassage.Text = "強震モニタ時刻調整成功！";
                 KyoshinUpdateTimer.Reset();
                 if (!KyoshinUpdateTimer.IsRunning) KyoshinUpdateTimer.Start();
-
                 Timer_KyoshinEx.Start();
                 KyoshinTempTimer = 0;
                 KyoshinLatest = temp;
             }
             else
             {
-                Console.WriteLine("強震モニタ更新失敗...");
+                logger.Debug("強震モニタ更新失敗...");
                 StatusMassage.Text = "強震モニタ時刻調整失敗...";
             }
         }
@@ -2637,7 +2621,7 @@ namespace MisakiEQ
                         new System.IO.StreamReader(TweetWatch_Address);
 
                     string line = file.ReadLine();
-                    System.Console.WriteLine(line);
+                    logger.Debug(line);
                     if (line == "OK")
                     {
                         IsDisconnectedHost = false;
@@ -2719,11 +2703,11 @@ namespace MisakiEQ
         {
 
             System.Windows.Point UserPos = DataConverter.KyoshinMapToLAL(UserLocation);
-            Console.WriteLine($"UserPos.X={UserPos.X} UserPos.Y={UserPos.Y}");
+            logger.Debug($"UserPos.X={UserPos.X} UserPos.Y={UserPos.Y}");
             var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.Y, UserPos.X));
-            Console.WriteLine($"{distance}m");
+            logger.Debug($"{distance}m");
             ReachTime = Time.AddMilliseconds(distance / 4.5);
-            Console.WriteLine($"{ReachTime}");
+            logger.Debug($"{ReachTime}");
 
         }
 
@@ -2886,5 +2870,17 @@ namespace MisakiEQ
         {
             SendText = "/C";
         }
+
+        private void ThreadTweet_DoWork(object sender, DoWorkEventArgs e)
+        {
+            logger.Debug("ツイートスレッド開始");
+            TweetThread();
+        }
+
+        private void ThreadTweet_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            logger.Debug("ツイート動作完了");
+        }
+
     }
 }
