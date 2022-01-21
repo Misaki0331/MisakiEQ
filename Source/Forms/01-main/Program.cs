@@ -53,7 +53,7 @@ namespace MisakiEQ
             if (hasHandle == false)
             {
                 //得られなかった場合は、すでに起動していると判断して終了
-                MessageBox.Show("MisakiEQは多重起動できません。\nもし表示されない場合はタスクトレイをチェックしてください。","MisakiEQ",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("MisakiEQは多重起動できません。\nもし表示されない場合はタスクトレイを確認してください。","MisakiEQ",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
 
