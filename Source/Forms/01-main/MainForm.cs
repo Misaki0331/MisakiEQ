@@ -36,7 +36,7 @@ namespace MisakiEQ
         private static int DisplayingNotificationTime = 10000;
         private long Count_Request = 0;
         private static bool IsEQRun = false;
-        private string[] TweetData = new string[30];
+        private string[] TweetData = new string[10];
         private bool isTweet = false;
         private bool isTweeting = false;
         private string EEWJsonFile = "";
@@ -1264,7 +1264,7 @@ namespace MisakiEQ
                 long TweetID = 0;
 
                 TwiCliant = new TwiClient.Twitter();
-                for (int i = 0; TweetData[i] != "" && i < TweetData.Length; i++)
+                for (int i = 0; TweetData[i] != "" && i < 10; i++)
                 {
                     if (i == 0 && ReplySetTweetID == 0)
                         if (IsDisconnectedHost) TwiCliant.Tweet(TweetData[0]);
@@ -1997,9 +1997,8 @@ namespace MisakiEQ
             if (isTweet)
             {
                 isTweet = false;
-                isTweeting = true; 
-                Thread t = new Thread(new ThreadStart(TweetThread));
-                t.Start();
+                isTweeting = true;
+                if(!ThreadTweet.IsBusy)ThreadTweet.RunWorkerAsync();
             }
             if (AuthWindow != null)
             {
