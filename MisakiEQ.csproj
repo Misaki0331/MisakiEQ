@@ -305,6 +305,7 @@
     <Compile Include="Source\Forms\99-others\textboxWindow.Designer.cs">
       <DependentUpon>textboxWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\function\Logger.cs" />
     <Compile Include="Source\function\MapDrawing.cs" />
     <Compile Include="Source\function\RealTimeClock.cs" />
     <Compile Include="Source\function\Twitter.cs" />

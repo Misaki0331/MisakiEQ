@@ -165,7 +165,7 @@ namespace MisakiEQ
             {
                 Application.DoEvents();
                 Thread.Sleep(10);
-            }
+            }  
 
             throw null;
             */
