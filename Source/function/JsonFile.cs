@@ -288,4 +288,40 @@ namespace MisakiEQ
         public int B { get; set; }
     }
 
+    public class KyoshinEEWResult
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public bool is_auth { get; set; }
+    }
+
+    public class KyoshinEEWSecurity
+    {
+        public string realm { get; set; }
+        public string hash { get; set; }
+    }
+
+    public class KyoshinEEW
+    {
+        public KyoshinEEWResult result { get; set; }
+        public string report_time { get; set; }
+        public string region_code { get; set; }
+        public string request_time { get; set; }
+        public string region_name { get; set; }
+        public string longitude { get; set; }
+        public object is_cancel { get; set; }
+        public string depth { get; set; }
+        public string calcintensity { get; set; }
+        public object is_final { get; set; }
+        public object is_training { get; set; }
+        public string latitude { get; set; }
+        public string origin_time { get; set; }
+        public KyoshinEEWSecurity security { get; set; }
+        public string magunitude { get; set; }
+        public string report_num { get; set; }
+        public string request_hypo_type { get; set; }
+        public string report_id { get; set; }
+        public string alertflg { get; set; }
+    }
+
 }

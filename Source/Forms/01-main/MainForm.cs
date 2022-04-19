@@ -170,24 +170,7 @@ namespace MisakiEQ
             throw null;
             */
             eewdetail = new EEWDetail();
-            //eewdetail.Show();
-            //EEWDetails details = new EEWDetails();
             eewdetail.reset();
-            /*DataConverter d = new DataConverter();
-            int cnt2 = 0;
-            while (eewdetail.Visible)
-            {
-                details.MaxIntensity = d.ValueScaleString(cnt2%11);
-                details.AreaIntensity = d.ValueScaleString(10-cnt2%11);
-                details.SignalType = "";
-                if(cnt2%4==0)details.SignalType = "警報";
-                if (cnt2 % 4 == 1) details.SignalType = "予報";
-                if (cnt2 % 4 == 2) details.SignalType = "キャンセル";
-                eewdetail.SetStatus(details);
-                cnt2++;
-                Application.DoEvents();
-                Thread.Sleep(500);
-            }*/
 #if !DEBUG
             TestButton.Visible = false;
             TestLabel.Visible = false;
@@ -641,7 +624,7 @@ namespace MisakiEQ
                         EEWDisplayData.Depth = DataConverter.DeepString(eew.Hypocenter.Location.Depth.Int);
                     }
 
-
+                    HashedEEW = eew.OriginalText;
                     EEWDisplayData.Serial = eew.Serial;
                     EEWDisplayData.IsFinal = eew.Type.Code == 9;
                     EEWDisplayData.AnnounceTime = DataConverter.GetTime(eew.AnnouncedTime.String).ToString("yyyy/MM/dd HH:mm:ss");
@@ -1341,6 +1324,201 @@ namespace MisakiEQ
         }
         int EEWFastCount = 0;
         bool IsEEWFast = false;
+        string EEWKyoshinJsonFile = "";
+        private void GetKyoshinEEWJson()
+        {
+            try
+            {
+                Net.GetJsonFile NetFile;
+                NetFile = new Net.GetJsonFile();
+                EEWKyoshinJsonFile = NetFile.GetJson($"http://www.kmoni.bosai.go.jp/webservice/hypo/eew/{KyoshinLatest:yyyyMMddHHmmss}.json");
+                KyoshinEEW eew = JsonConvert.DeserializeObject<KyoshinEEW>(EEWKyoshinJsonFile);
+                Count_Request++;
+                DateTime reportedTime;
+                bool IsOK = DateTime.TryParse(eew.report_time, out reportedTime);
+                if (IsOK)
+                {
+                    long t = reportedTime.Ticks / 10000000;
+                    reportedTime = reportedTime.AddHours(-9);
+                    if(t> EEWLatestUNIXTime&&t> EEWAPILatestUnixTime+600)
+                    {
+                            EEW_TweetMode = false;
+                        bool cancel = false;
+                        EEWDisplayData.Index = "";
+                        EEWLatestUNIXTime = t;
+                        string discordDetail = "";
+                        string discordState = "";
+
+                        if (eew.alertflg=="警報")
+                        {
+                            discordDetail = $"緊急地震速報(警報) 第 {eew.report_num} 報";
+                            EEW_IndexText = "🔴🔴⚠緊急地震速報(警報)⚠🔴🔴";
+                            sound.Stop(ref SEData.SE.EEW_Info);
+                            sound.Stop(ref SEData.SE.EEW_Warn);
+                            sound.Play(ref SEData.SE.EEW_Warn);
+                            
+                            EEWDisplayData.Index = "強震モニタからの受信の為、データが存在しません。";
+                            EEWDisplayData.Type = "警報";
+                        }
+                        else if(eew.alertflg=="予報")
+                        {
+                            sound.Stop(ref SEData.SE.EEW_Info);
+                            sound.Play(ref SEData.SE.EEW_Info);
+                            EEW_IndexText = "緊急地震速報(予報) ";
+                            EEWDisplayData.Type = "予報";
+                            discordDetail = $"緊急地震速報(予報) 第 {eew.report_num} 報";
+                        }
+                        if ((bool)eew.is_cancel)
+                        {
+                            if ((bool)eew.is_training)
+                            {
+                                EEW_IndexText += "訓練キャンセル\n";
+                            }
+                            else
+                            {
+                                EEW_IndexText += "キャンセル報\nこの緊急地震速報は取り消されました。\n";
+                                EEWDisplayData.Type = "キャンセル";
+                                cancel = true;
+                            }
+                        }
+                        else
+                        {
+                            EEW_IndexText += "第 " + eew.report_num + " 報";
+                            if ((bool)eew.is_final) EEW_IndexText += "(最終報)";
+                            EEW_IndexText += "\n";
+                        }
+                        if (!cancel)
+                        {
+                            try
+                            {
+                                int d = 0;
+                                int.TryParse(eew.depth.Replace("km", ""), out d);
+                                    EEW_LeftTimeCalculation(float.Parse(eew.latitude), float.Parse(eew.longitude), 
+                                        DataConverter.GetTime(eew.origin_time.Insert(12,":").Insert(10, ":").Insert(8, " ").Insert(6," / ").Insert(4," / ")),d);
+                                
+                            }
+                            catch
+                            {
+
+                            }
+                            EEW_IndexText += $"{eew.region_name} 深さ:{eew.depth} M{eew.magunitude}\n" +
+                                "最大震度:" + eew.calcintensity + "\n"
+                                + "発生時刻:" + DataConverter.GetTime(eew.origin_time.Insert(12,":").Insert(10, ":").Insert(8, " ").Insert(6,"/").Insert(4,"/")).ToString("M/dd H:mm:ss") + "\n";
+                            string imaget = "n";
+                            if (eew.alertflg == "警報") imaget = "w";
+                            string discordImage = $"eew_{imaget}_{eew.calcintensity}".Replace('+', '_').Replace("不明", "-");
+                            discordState = $"震源地 : {eew.region_name}";
+                            string discordImageText = $"M{eew.magunitude} 深さ:{eew.depth}";
+                            try
+                            {
+                                discord.SetAll(discordDetail, discordState, discordImage, discordImageText, "", "");
+                            }
+                            catch
+                            {
+
+                            }
+                            
+                            EEW_IndexText += "\n";
+                            EEW_IndexText += DataConverter.GetTime(eew.report_time).ToString("M/dd H:mm:ss発表") + "\n";
+                            if (SettingKyoshinExDisplayEEW.Checked)
+                            {
+                                EEWKyoshinPopUp = true;
+
+                            }
+
+                            EEWDisplayData.Serial = int.Parse(eew.report_num);
+                            EEWDisplayData.IsFinal = (bool)eew.is_final;
+                            EEWDisplayData.HypoCenter = eew.region_name;
+                            EEWDisplayData.AnnounceTime = DataConverter.GetTime(eew.report_time).ToString("yyyy/MM/dd HH:mm:ss");
+                            EEWDisplayData.OriginTime = DataConverter.GetTime(eew.origin_time.Insert(12, ":").Insert(10, ":").Insert(8, " ").Insert(6, "/").Insert(4, "/")).ToString("yyyy/MM/dd HH:mm:ss");
+                            EEWDisplayData.MaxScale = eew.calcintensity;
+                            EEWDisplayData.Magnitude = eew.magunitude;
+                            EEWDisplayData.Depth = eew.depth;
+                            EEWDisplayData.Updated = true;
+
+
+
+                            
+                        }
+                        if (cancel)
+                        {
+                            discord.SetDefault();
+                            //if (SettingKyoshinExDisplayEEW.Checked)MiniKyoshinWindow.UpdateWindow(false);
+                        }
+#if DEBUG || ADMIN
+
+
+                        //if(eew.Hypocenter.Magnitude.Float >= 4 ||DataConverter.ScaleValue(eew.MaxIntensity.To)>=3|| EEW_TweetMode)
+
+                        IsTweetedEEW = true;
+                        string tweetText = EEW_IndexText + "\nkmoni #MisakiEQ #地震 #緊急地震速報";
+                        TwiClient.Twitter TwiCliant = new TwiClient.Twitter();
+                        if (IsDisconnectedHost)
+                        {
+                            if (!EEW_TweetMode)
+                            {
+                                TwiCliant.Tweet(tweetText);
+                            }
+                            else
+                            {
+                                TwiCliant.Reply(EEW_LastTweetID, tweetText);
+                            }
+                            EEW_LastTweetID = TwiCliant.GetLatestTweetID(UserNameID);
+
+                            EEW_TweetMode = true;
+                        }
+                        if (cancel && EEW_TweetMode)
+                        {
+
+                            EEW_TweetMode = false;
+
+                        }
+
+#endif
+                        if (eew.alertflg == "警報")
+                        {
+                            NotificationName = "⚠緊急地震速報(警報)";
+                        }
+                        else
+                        {
+                            NotificationName = "緊急地震速報(予報)";
+                        }
+                        NotificationName += " 第 " + eew.report_num + " 報";
+                        if ((bool)eew.is_final) NotificationName += "(最終報)";
+                        if (!cancel)
+                        {
+                            NotificationIndex = eew.region_name + " 深さ:" + eew.depth +
+                                    " M" + eew.magunitude + "\n" +
+                                    "最大震度:" + eew.calcintensity;
+                            DisplayingNotificationTime = 2147483647;
+                            NotificationIndex += "※強震モニタAPI";
+
+                        }
+                        else
+                        {
+                            NotificationIndex = "キャンセル報\n緊急地震速報は取り消されました。";
+                            IsTweetedEEW = false;
+                        }
+                        NotificationIcon = 2;
+                        IsDisplayNotification = true;
+                    
+
+
+                }
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"強震API例外エラー {ex.GetType()}:{ex.Message}\n{ex.StackTrace}");
+            }
+            finally
+            {
+                IsKyoshinAPIWorking = false;
+            }
+        }
+        long EEWAPILatestUnixTime=0;
+        string HashedEEW;
         private void GetEEWJson()
         {
             try
@@ -1353,7 +1531,15 @@ namespace MisakiEQ
                 Count_Request++;
                 long UnixNowTime = eew.AnnouncedTime.UnixTime;
                 if (eew.ParseStatus != "Success") return;
-                
+                if (HashedEEW != eew.OriginalText)
+                {
+                    HashedEEW = eew.OriginalText;
+                }
+                else
+                {
+                    IsEEWStatusOK = true;
+                    return;
+                }
                 if (IsEEWFast && EEWFastCount > 30)
                 {
                     IsEEWFast = false;
@@ -1361,7 +1547,7 @@ namespace MisakiEQ
 
                 }
                 EEWFastCount++;
-                if (UnixNowTime > EEWLatestUNIXTime || EEW_SerialCountTemp != eew.Serial)
+                if (UnixNowTime >= EEWLatestUNIXTime && EEW_SerialCountTemp != eew.Serial)
 
                 {
                     EEWFastCount = 0;
@@ -1383,6 +1569,7 @@ namespace MisakiEQ
                     }
                     bool cancel = false;
                     EEWLatestUNIXTime = UnixNowTime;
+                    EEWAPILatestUnixTime = UnixNowTime;
                     EEWDisplayData.Index = "";
 
                     string discordDetail = "";
@@ -1522,7 +1709,7 @@ namespace MisakiEQ
                     {
                         try
                         {
-                            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, DataConverter.GetTime(eew.OriginTime.String));
+                            EEW_LeftTimeCalculation(eew.Hypocenter.Location.Lat, eew.Hypocenter.Location.Long, DataConverter.GetTime(eew.OriginTime.String), eew.Hypocenter.Location.Depth.Int) ;
                         }
                         catch
                         {
@@ -1632,7 +1819,7 @@ namespace MisakiEQ
 
 
                     IsTweetedEEW = true;
-                    string tweetText = EEW_IndexText + "\n#MisakiEQ #地震 #緊急地震速報";
+                    string tweetText = EEW_IndexText + "\napi #MisakiEQ #地震 #緊急地震速報";
                     TwiClient.Twitter TwiCliant = new TwiClient.Twitter();
                     if (IsDisconnectedHost)
                     {
@@ -1686,8 +1873,9 @@ namespace MisakiEQ
                 IsEEWStatusOK = true;
 
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"{ex.GetType()}:{ex.Message}\n{ex.StackTrace}");
                 IsEEWStatusOK = false;
             }
             finally
@@ -2449,6 +2637,7 @@ namespace MisakiEQ
             if (KyoshinEx_Image == null) Console.WriteLine("Error!画像を入手できませんでした 理由:" + KyoshinMonitor.GetLastError());
             IsKyoshinWorking = false;
         }
+        bool IsKyoshinAPIWorking;
         private void Timer_KyoshinEx_Tick(object sender, EventArgs e)
         {
 
@@ -2464,6 +2653,14 @@ namespace MisakiEQ
                     IsKyoshinWorking = true;
                     //KyoshinEx_Image = new Bitmap(352,400);
                     Thread t = new Thread(new ThreadStart(KyoshinUpdate));
+                    t.Start();
+                }
+
+                if (!IsKyoshinAPIWorking)
+                {
+                    IsKyoshinAPIWorking = true;
+                    //KyoshinEx_Image = new Bitmap(352,400);
+                    Thread t = new Thread(new ThreadStart(GetKyoshinEEWJson));
                     t.Start();
                 }
             }
@@ -2715,14 +2912,19 @@ namespace MisakiEQ
             ResetRTC();
         }
 
-        private void EEW_LeftTimeCalculation(double lat, double lon, DateTime Time)
+        private void EEW_LeftTimeCalculation(double lat, double lon, DateTime Time,int Depth=0)
         {
 
             System.Windows.Point UserPos = DataConverter.KyoshinMapToLAL(UserLocation);
             Console.WriteLine($"UserPos.X={UserPos.X} UserPos.Y={UserPos.Y}");
             var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.Y, UserPos.X));
             Console.WriteLine($"{distance}m");
-            ReachTime = Time.AddMilliseconds(distance / 4.5);
+            distance /= 1000;
+            const double EarthR = 6378.0;
+            double Acc = Math.Sqrt(
+                Math.Pow(Math.Abs(EarthR - Depth - EarthR* Math.Cos(distance / (EarthR *  Math.PI))), 2) + 
+                Math.Pow(Math.Sin(distance / (EarthR * Math.PI) * EarthR), 2));
+            ReachTime = Time.AddMilliseconds(Acc / 4.5);
             Console.WriteLine($"{ReachTime}");
 
         }
@@ -2885,6 +3087,26 @@ namespace MisakiEQ
         private void button7_Click(object sender, EventArgs e)
         {
             SendText = "/C";
+        }
+        int EEW_Interval;
+        private void Task_EEW_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (!isFailEEWInit)
+            {
+                if (EEWDelayed > SetEEWDelay)
+                {
+                    EEWDelayed -= SetEEWDelay;
+                    if (!isEEWRun)
+                    {
+                        isEEWRun = true;
+                        Thread t = new Thread(new ThreadStart(GetEEWJson));
+                        t.Start();
+                    }
+                }
+                EEWDelayed += Timer_EEW.Interval;
+
+            }
+            Thread.Sleep(EEW_Interval);
         }
     }
 }
