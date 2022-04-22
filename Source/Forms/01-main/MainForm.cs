@@ -1325,6 +1325,7 @@ namespace MisakiEQ
         int EEWFastCount = 0;
         bool IsEEWFast = false;
         string EEWKyoshinJsonFile = "";
+        string KyoshinEventID="";
         private void GetKyoshinEEWJson()
         {
             try
@@ -1342,8 +1343,12 @@ namespace MisakiEQ
                     reportedTime = reportedTime.AddHours(-9);
                     if(t> EEWLatestUNIXTime&&t> EEWAPILatestUnixTime+600)
                     {
+                        if (eew.report_id!=KyoshinEventID)
+                        {
+                            KyoshinEventID = eew.report_id;
                             EEW_TweetMode = false;
-                        bool cancel = false;
+                        }
+                            bool cancel = false;
                         EEWDisplayData.Index = "";
                         EEWLatestUNIXTime = t;
                         string discordDetail = "";
@@ -2919,12 +2924,18 @@ namespace MisakiEQ
             Console.WriteLine($"UserPos.X={UserPos.X} UserPos.Y={UserPos.Y}");
             var distance = new GeoCoordinate(lat, lon).GetDistanceTo(new GeoCoordinate(UserPos.Y, UserPos.X));
             Console.WriteLine($"{distance}m");
-            distance /= 1000;
-            const double EarthR = 6378.0;
+            distance /= 1000;//m→km
+            const double EarthR = 6378.0;//地球の半径
+            //距離で震源と自分の地域の地球の地平線の高差と横軸の差距離を求める→三角関数から震源からの距離を求める
+            //震源データは深さと緯度経度が使用され、自宅は緯度経度のみで常に海抜0mである
+            //この式の時には震央と地域の距離が分かっている
+
+            //distance=\sqrt{(r-a-cos(\frac{b}{\pi r}))^{2}+(sin(\frac{a}{\pi r})r)^{2}}  
+            //http://www.hostmath.com/
             double Acc = Math.Sqrt(
                 Math.Pow(Math.Abs(EarthR - Depth - EarthR* Math.Cos(distance / (EarthR *  Math.PI))), 2) + 
                 Math.Pow(Math.Sin(distance / (EarthR * Math.PI) * EarthR), 2));
-            ReachTime = Time.AddMilliseconds(Acc / 4.5);
+            ReachTime = Time.AddSeconds(Acc / 4.5);
             Console.WriteLine($"{ReachTime}");
 
         }
