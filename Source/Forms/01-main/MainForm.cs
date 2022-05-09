@@ -16,6 +16,7 @@ using System.Diagnostics;
 using MisakiEQ.Mini_Window;
 using MisakiEQ.Audio;
 using System.Device.Location;
+using TweetSharp;
 namespace MisakiEQ
 {
 
@@ -200,13 +201,14 @@ namespace MisakiEQ
                 {
                     try
                     {
-                        List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+                        //List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
                         this.UserName.Text = TwiCliant.GetScreenName();
                         Twitter_Author.Text = "投稿 : " + TwiCliant.GetStringName();
-                        if (TwiList != null)
+                        var t=TwiCliant.GetTweetUser(TwiCliant.GetUserID());
+                        if (t != null)
                         {
-                            if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
-                            if (TwiList.Count > 0) Tweet_LastID = TwiCliant.GetLatestTweetID();
+                            if (t.Length > 0) this.Tweet_Index.Text = t[0].Text;
+                            if (t.Length > 0) Tweet_LastID = t[0].Id;
                         }
                         UserNameID = TwiCliant.GetScreenName();
                         TwiCliant.Test();
@@ -493,10 +495,10 @@ namespace MisakiEQ
             {
                 TwiCliant.Tweet(TweetText);
             }
-            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
+            var TwiList = TwiCliant.GetTweetUser(TwiCliant.GetUserID());
             Twitter_Author.Text = $"投稿 : {TwiCliant.GetStringName()}";
             this.UserName.Text = TwiCliant.GetScreenName();
-            if (TwiList.Count > 0) this.Tweet_Index.Text = TwiList[0].Text;
+            if (TwiList.Length > 0) this.Tweet_Index.Text = TwiList[0].Text;
             Tweet_LastID = TwiCliant.GetLatestTweetID();
             //Tweet_LastID = 
 #endif
@@ -512,8 +514,9 @@ namespace MisakiEQ
         {
 #if DEBUG || ADMIN
             TwiClient.Twitter TwiCliant = new TwiClient.Twitter();
-            List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
-            if (TwiList.Count > 0)
+            var TwiList = TwiCliant.GetTweetUser(TwiCliant.GetUserID());
+            if (TwiList == null) return;
+            if (TwiList.Length > 0)
             {
                 this.UserName.Text = TwiCliant.GetScreenName();
                 this.Tweet_Index.Text = TwiList[0].Text;
@@ -2220,8 +2223,8 @@ namespace MisakiEQ
                 {
                     AuthWindow.isTwitterUpdate = false;
                     TwiClient.Twitter TwiCliant = new TwiClient.Twitter();
-                    List<CoreTweet.Status> TwiList = TwiCliant.GetTweetUser(TwiCliant.GetScreenName(), 1);
-                    if (TwiList.Count > 0)
+                    var TwiList = TwiCliant.GetTweetUser(TwiCliant.GetUserID());
+                    if (TwiList.Length > 0)
                     {
                         this.UserName.Text = TwiCliant.GetScreenName();
                         this.Tweet_Index.Text = TwiList[0].Text;
