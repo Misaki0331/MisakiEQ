@@ -1310,6 +1310,11 @@
             this.SettingKyoshinExUpdateDelayValue.Size = new System.Drawing.Size(49, 19);
             this.SettingKyoshinExUpdateDelayValue.TabIndex = 13;
             this.SettingKyoshinExUpdateDelayValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.SettingKyoshinExUpdateDelayValue.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
             // label12
             // 
@@ -1959,7 +1964,7 @@
             // StatusMassage
             // 
             this.StatusMassage.Name = "StatusMassage";
-            this.StatusMassage.Size = new System.Drawing.Size(261, 20);
+            this.StatusMassage.Size = new System.Drawing.Size(169, 20);
             this.StatusMassage.Text = "現在実行中のタスクはありません。";
             // 
             // Timer_KyoshinEx

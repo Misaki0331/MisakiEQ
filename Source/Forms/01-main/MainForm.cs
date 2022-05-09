@@ -315,7 +315,7 @@ namespace MisakiEQ
             KyoshinUpdateTimer = new Stopwatch();
             if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
             {
-
+                KyoshinLatest.AddSeconds((int)SettingKyoshinExUpdateDelayValue.Value * -1);
                 IsKyoshinInited = true;
                 Timer_KyoshinEx.Start();
                 KyoshinUpdateTimer.Reset();
@@ -1534,7 +1534,8 @@ namespace MisakiEQ
                 EEWJsonFile = NetFile.GetJson("https://api.iedred7584.com/eew/json/");
                 EEWRoot eew = JsonConvert.DeserializeObject<EEWRoot>(EEWJsonFile);
                 Count_Request++;
-                long UnixNowTime = eew.AnnouncedTime.UnixTime;
+                DateTimeOffset dto = new DateTimeOffset(KyoshinLatest.AddHours(-9));
+                long UnixNowTime = dto.ToUnixTimeSeconds()+kyoshindelay;
                 if (eew.ParseStatus != "Success") return;
                 if (HashedEEW != eew.OriginalText)
                 {
@@ -2601,14 +2602,16 @@ namespace MisakiEQ
                 AuthWindow = new TwitterAuthWindow();
             }
         }
-
+        int kyoshindelay = 0;
         private void button2_Click_2(object sender, EventArgs e)
         {
             DateTime temp = KyoshinMonitor.GetLatestUpdateTime();
 
             Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
-            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+            if (temp != new DateTime(2000, 1, 1, 0, 0, 0))
             {
+                kyoshindelay = (int)SettingKyoshinExUpdateDelayValue.Value;
+                temp=temp.AddSeconds((int)SettingKyoshinExUpdateDelayValue.Value * -1);
                 Console.WriteLine("強震モニタ更新成功！");
                 StatusMassage.Text = "強震モニタ時刻調整成功！";
                 KyoshinUpdateTimer.Reset();
@@ -2723,9 +2726,11 @@ namespace MisakiEQ
         private void Timer_AdjustKyoshinEx_Tick(object sender, EventArgs e)
         {
             DateTime temp = KyoshinMonitor.GetLatestUpdateTime();
+
+            kyoshindelay = (int)SettingKyoshinExUpdateDelayValue.Value;
             temp = temp.AddSeconds((int)-SettingKyoshinExUpdateDelayValue.Value);
             Console.WriteLine(temp.ToString("強震モニタ:yyyy/MM/dd HH:mm:ss最終更新"));
-            if (KyoshinLatest != new DateTime(2000, 1, 1, 0, 0, 0))
+            if (temp != new DateTime(2000, 1, 1, 0, 0, 0))
             {
                 Console.WriteLine("強震モニタ更新成功！");
                 StatusMassage.Text = "強震モニタ時刻調整成功！";
